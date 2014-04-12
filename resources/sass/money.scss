@@ -1,0 +1,83 @@
+$ios7-blue: #fff;
+$fontName: 'ROBOTO-LIGHT';
+
+@import 'sencha-touch/cupertino-crestor';
+@import 'sencha-touch/cupertino-crestor/all';
+
+//embed fonts
+//@include font-face('ROBOTO-THIN', inline-font-files('roboto/Roboto-Thin.ttf', opentype));
+//@include font-face('ROBOTO-BOLD', inline-font-files('roboto/Roboto-Bold.ttf', opentype));
+//@include font-face('ROBOTO-BLACK', inline-font-files('roboto/Roboto-Black.ttf', opentype));
+//@include font-face('ROBOTO-MEDIUM', inline-font-files('roboto/Roboto-Medium.ttf', opentype));
+@include font-face('ROBOTO-LIGHT', inline-font-files('roboto/Roboto-Light.ttf', opentype));
+//@include font-face('ROBOTO-MD', inline-font-files('other/ITCAVANTGARDESTD-MD.OTF', opentype));
+//@include font-face('ROBOTO-BK', inline-font-files('other/ITCAVANTGARDESTD-BK.OTF', opentype));
+
+//OVERRIDE tab/_Panel.scss
+//change bg img + font of toolbar
+.x-toolbar{
+  //background-color:#33B5E5;
+  background-image: url('../images/top_nav_bg.png');
+  .x-title {
+    color: #fff;
+    font-weight: 500;
+    font-size: 1em;
+    padding-top: .3em;
+  }
+}
+
+//change bg img of bottom tabbar
+.x-tabbar.x-docked-bottom  {
+   background-color:#0099CC;//33B5E5;
+}
+
+//change bg img of active item in bottom tabbar
+.x-tabbar.x-docked-bottom .x-tab-active { 
+  //background-image: url('../images/Bottom_navi_active.png');
+  background-color:#33B5E5;//0099CC;
+}
+
+//change button width + remove margin between each buttons on tabbar
+
+.x-tab {
+  height: 3em;
+  width: 5em;//width each button 
+  margin: 0 0;//no margin
+  border: 0;
+  background: transparent;
+  @include st-box-orient(vertical);
+}
+
+//change button icon on tabbar
+.x-tab {  
+  .x-button-icon {
+    display: block;
+   width: 1.8em;
+  height: 1.8em;
+  margin: 2px auto;
+  margin-bottom: -7px;
+  -webkit-text-stroke-width: .35px;
+  -webkit-text-stroke-color: #fff;
+
+    .x-button-icon.x-hidden {
+      display: none;
+    }
+
+    &:before {
+      color: transparent;
+      font-size: 1.8em;
+      line-height: 1.35em;
+    }
+  }
+  
+  .x-button-label, .x-tab .x-badge {
+    color: #fff;
+    font-family: $fontName;
+  }
+}
+//remove round border on top of toolbar
+.x-toolbar.x-docked-top {
+    @include border-top-radius(0px);//
+}
+
+//END TABBAR

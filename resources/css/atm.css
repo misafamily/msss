@@ -1,0 +1,46 @@
+.atm-title-container {
+	height: 50px;
+	background-color: #666057;
+	color: #fff;
+	margin-bottom: 1px;
+}
+.atm-popup-container {
+	margin-left: 5px;
+	margin-right: 5px;
+}
+.atm-title-item {
+	margin-left: 10px;
+	font-size: 20px;
+}
+
+.atm-title-item-icon {
+	width: 40px;
+	height: 40px;
+	margin-left: 10px;	
+}
+
+.atm-tienmat-amount {
+	margin-right: 10px;
+}
+
+.atm-atmlist .info {
+	float: left;
+	margin-bottom: 8px;
+}
+
+.atm-atmlist .amount {
+	float: right;
+	margin-right: 32px;
+	margin-top: 8px;
+}
+
+.atm-savinglist .info {
+	float: left;
+	margin-bottom: 8px;
+}
+
+.atm-savinglist .amount {
+	float: right;
+	margin-right: 30px;
+}
+
