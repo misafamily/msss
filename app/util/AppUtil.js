@@ -11,6 +11,7 @@ Ext.define('MyApp.util.AppUtil',{
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
+	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không chứa dấu và khoảng trắng',
 	
 	setLang:function(lang){
 		this._lang = lang;

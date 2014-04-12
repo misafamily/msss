@@ -7,8 +7,14 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
        	itemTpl: new Ext.XTemplate(
        				//'<div class="thumb">{dd}<br/>{monthname}</div>',
 					['<div class="info">',
-						'<div class="username">{username:this.upper}</div>', //Tên: 
-						'<div class="bank">{bank:this.upper}</div>', //Ngân hàng: 
+						'<div class="usernameinfo">',
+							'<div class="usernameicon"></div>',
+							'<div class="username">{username:this.upper}</div>', //Tên: 
+						'</div>',	
+						'<div class="bankinfo">',
+							'<div class="bankicon"></div>',
+							'<div class="bank">{bank:this.upper}</div>',  //Ngân hàng: 
+						'</div>',	
 					'</div>',
 					'<div class="amount">{amount:this.format} (đ)</div>',
 					].join(''),
@@ -40,7 +46,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 		}
 		var list = this;
 		this._atmStore.load(function(records) {
-			list.setHeight(60*records.length);
+			list.setHeight(80*records.length);
 		});
 	}
 });

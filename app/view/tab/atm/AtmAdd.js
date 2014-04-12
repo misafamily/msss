@@ -9,10 +9,10 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
         layout:{
 			type:'vbox'
 		},
-		cls:'atm-popup-container',
+		cls:'atm-form-container',
 		items:[
 			{
-                xtype: 'fieldset',
+                xtype: 'container',
                 title: 'Thông tin tài khoản:',
                 instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
                 defaults: {
@@ -22,28 +22,34 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                     {
                         xtype: 'textfield',
                         name: 'name',
-                        label: 'Tên tài khoản ',
-                        placeHolder:'Tên chủ thẻ',
+                        //label: 'Tên tài khoản ',
+                        cls:'atmadd-accountname',
+                        placeHolder:'Tên chủ thẻ (NGUYEN VAN A)',
                         autoCapitalize: false
                     },
                      {
                         xtype: 'textfield',
                         name: 'bank',
-                        label: 'Ngân hàng ',
-                        placeHolder:'VCB, HSBC, ACB ...',
+                        //label: 'Ngân hàng ',
+                        cls:'atmadd-bank',
+                        placeHolder:'Ngân hàng (VCB, HSBC, ACB ...)',
                         autoCapitalize: false
                     },
                      {
                         xtype: 'numberfield',
                         name: 'amount',
-                        placeHolder:'0 (đ)',
-                        label: 'Số tiền hiện có  '
+                        placeHolder:'Số tiền  đ (1000000)',
+                        cls:'atmadd-amount',
+                        //label: 'Số tiền hiện có  '
                     },
                 ]    
            },
            {
 				xtype:'container',
 				layout:'hbox',
+				style: {
+					'margin-top': '10px'
+				},
 				items:[
 					{
 						xtype: 'button',
@@ -73,18 +79,20 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 		var name = this._nameTF.getValue();
 		var bank = this._bankTF.getValue();
 		var amount = this._amountTF.getValue();
-		
-		if (amount == '' || amount == null) amount = '0';		
+		console.log(amount);
+		//if (amount == '' || amount == null) amount = 0;		
 		
 		if (!name || !bank) {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_NOT_FILLED_INPUT);
 			return false;
 		}
+		if (amount == null) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
+			return false;
+		}
 		name = name.trim();
 		bank = bank.trim();
-		//amount = amount.trim();
-		
-		console.log(name, bank, amount);
+		amount = amount.toString().trim().split('.').join('');
 		
 		var atmModel = Ext.create('MyApp.model.Atm', {
 			username: name,
@@ -114,7 +122,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 			this._bankTF = this.down('textfield[name = "bank"]');
 		}
 		if (!this._amountTF) {
-			this._amountTF = this.down('textfield[name = "amount"]');
+			this._amountTF = this.down('numberfield[name = "amount"]');
 		}
 	}
  });   

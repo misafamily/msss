@@ -4,10 +4,7 @@
 	color: #fff;
 	margin-bottom: 1px;
 }
-.atm-popup-container {
-	margin-left: 5px;
-	margin-right: 5px;
-}
+
 .atm-title-item {
 	margin-left: 10px;
 	font-size: 20px;
@@ -22,16 +19,48 @@
 .atm-tienmat-amount {
 	margin-right: 10px;
 }
+/*list*/
+
+.atm-atmlist .x-list-item-tpl .x-list-disclosure {
+	top: 14px;
+}
 
 .atm-atmlist .info {
 	float: left;
 	margin-bottom: 8px;
 }
 
+.atm-atmlist .info .usernameinfo .usernameicon, 
+.atm-atmlist .info .usernameinfo .username {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmlist .info .usernameinfo .usernameicon {
+	background: url('../images/coloricons/user-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+.atm-atmlist .info .bankinfo .bankicon, 
+.atm-atmlist .info .bankinfo .bank {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmlist .info .bankinfo .bankicon {
+	background: url('../images/coloricons/bank-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
+
 .atm-atmlist .amount {
 	float: right;
 	margin-right: 32px;
-	margin-top: 8px;
+	margin-top: 16px;
 }
 
 .atm-savinglist .info {
@@ -44,3 +73,7 @@
 	margin-right: 30px;
 }
 
+/*atmadd*/
+.atm-form-container {
+	margin: 10px 10px;
+}

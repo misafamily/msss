@@ -81,3 +81,54 @@ $fontName: 'ROBOTO-LIGHT';
 }
 
 //END TABBAR
+
+//FORM
+.atmadd-accountname, .atmadd-bank, .atmadd-amount
+  {
+    .x-input-text{
+      font-family: $fontName;
+       color: #544b40;
+        font-size: 16px;
+        padding-left: 45px;
+        background-color: #ededed;        
+        padding-bottom: 10px;
+        resize: none !important;
+    }
+    .x-field-input {
+      border-radius: 0px;
+    }
+    .x-input-el {
+      font-family: $fontName;
+      color: #766f67;
+      text-align:left;
+      background-color: #ebebeb;
+      padding-top: 7px;
+      min-height: 29px;//$form-field-height;
+      border-width: 0;
+      -webkit-appearance: none;
+    }
+}
+
+
+.atmadd-accountname {
+  .x-input-text {
+    background: #ededed url('../images/coloricons/user-icon.png') no-repeat 5px 5px;
+    background-size: 27px;
+  }
+}
+.atmadd-bank {
+  .x-input-text {
+    background: #ededed url('../images/coloricons/bank-icon.png') no-repeat 5px 5px;
+    background-size: 27px;
+  }
+}
+
+.atmadd-amount {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/dollar-icon.png') no-repeat 5px 5px;
+    background-size: 27px;
+    padding-left: 45px;
+    padding-bottom: 10px;
+  }
+}
+
