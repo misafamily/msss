@@ -56,11 +56,23 @@
     margin-right: 10px;
 }
 
-
-.atm-atmlist .amount {
+.atm-atmlist .amountinfo {
 	float: right;
-	margin-right: 32px;
-	margin-top: 16px;
+	margin-right: 20px;
+	margin-top: 11px;
+}
+
+.atm-atmlist .amountinfo .amounticon, 
+.atm-atmlist .amountinfo .amount {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmlist .amountinfo .amounticon {
+	background: url('../images/coloricons/dollar-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 0px;
 }
 
 .atm-savinglist .info {

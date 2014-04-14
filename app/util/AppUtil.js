@@ -9,9 +9,17 @@ Ext.define('MyApp.util.AppUtil',{
 	STATUS_IN_USE: 'in_use',
 	//TITLE
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
+	TITLE_EDIT: 'Cập nhật sửa',
+	TITLE_PUSHIN: 'Nạp tiền',
+	TITLE_PUSHOUT: 'Rút tiền',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
-	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không chứa dấu và khoảng trắng',
+	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không hợp lệ',
+	MESSAGE_SUCCESS_EDIT: 'Sửa thành công',
+	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
+	MESSAGE_SUCCESS_PUSHIN: 'Nạp thành công',
+	MESSAGE_SUCCESS_PUSHOUT: 'Rút thành công',
+	MESSAGE_FAILED_PUSHIN: 'Số tiền rút lớn hơn tiền hiện có trong tài khoản',
 	
 	setLang:function(lang){
 		this._lang = lang;

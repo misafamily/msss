@@ -1,7 +1,8 @@
 Ext.define('MyApp.controller.TabAtm', {
     extend: 'Ext.app.Controller',
 	requires:[		
-		'MyApp.view.tab.atm.AtmAdd'
+		'MyApp.view.tab.atm.AtmAdd',
+		'MyApp.view.tab.atm.AtmDetail'
 	],
     config: {
         refs: {		
@@ -28,6 +29,19 @@ Ext.define('MyApp.controller.TabAtm', {
 					this.getThisTab().push(atmAddView);
 				}
 			},
+			//AtnList
+			'tab_atm_atmlist': {
+				itemtap: function(view, index, item, e) {
+					var me = this;
+					var rec = view.getStore().getAt(index);
+					var atmDetail = this.getAtmDetailView();
+					atmDetail.setAtmModel(rec);
+					atmDetail.setCallbackFunc(function() {
+							me.getThisAtmList().updateStore();
+						});
+					me.getThisTab().push(atmDetail);
+				}				
+			},
 			//AtmAdd
 			'tab_atm_atmadd button[title = "atmaddcancelbutton"]': {
 				tap: function() {
@@ -47,6 +61,40 @@ Ext.define('MyApp.controller.TabAtm', {
 				}				
 			},
 			//end AtmAdd
+			
+			//AtmDetail
+			'tab_atm_atmdetail button[title = "atmdetailcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();	
+				}				
+			},
+			'tab_atm_atmdetail button[title = "atmdetaileditbutton"]': {
+				tap: function() {
+					var atmDetail = this.getAtmDetailView();
+					atmDetail.editAtm();	
+				}				
+			},
+			'tab_atm_atmdetail button[title = "atmdetailpushinbutton"]': {
+				tap: function() {
+					var atmDetail = this.getAtmDetailView();
+					//atmDetail.editAtm();
+					this.getApplication().fireEvent('show_moneyinputpopup', 'Nạp tiền vào tài khoản', function(money){
+						console.log('NAP: ', money);
+						atmDetail.pushInMoney(money);
+					});	
+				}				
+			},
+			'tab_atm_atmdetail button[title = "atmdetailpushoutbutton"]': {
+				tap: function() {
+					var atmDetail = this.getAtmDetailView();
+					//atmDetail.editAtm();
+					this.getApplication().fireEvent('show_moneyinputpopup', 'Rút tiền từ tài khoản', function(money){
+						console.log('RUT: ', money);
+						atmDetail.pushOutMoney(money);
+					});	
+				}				
+			},
+			//end AtmDetail
 		}
     },
 	
@@ -59,5 +107,11 @@ Ext.define('MyApp.controller.TabAtm', {
 			this._atmAddView = Ext.create('MyApp.view.tab.atm.AtmAdd');
 		}
 		return this._atmAddView;
+	},
+	getAtmDetailView: function() {
+		if (!this._atmDetailView) {
+			this._atmDetailView = Ext.create('MyApp.view.tab.atm.AtmDetail');
+		}
+		return this._atmDetailView;
 	}
 });

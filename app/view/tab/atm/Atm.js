@@ -25,7 +25,7 @@ Ext.define('MyApp.view.tab.atm.Atm', {
 					},
 					{
 						xtype: 'label',
-						html:'Thẻ ATM',
+						html:'Tài khoản ATM',
 						cls:'atm-title-item'
 					},
 					{

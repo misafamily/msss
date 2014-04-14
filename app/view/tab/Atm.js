@@ -6,62 +6,70 @@ Ext.define('MyApp.view.tab.Atm', {
 		'MyApp.view.tab.atm.Saving'
 	],
     config: {      
-    	title:'ATM',
-		scrollable:true,
+    	title:'ATM',		
 		iconCls:'tabbar-icon-home',	
 		items:[
 			{
-				xtype:'container',
-				title: 'ATM',				
+				title:'ATM',
+				xtype: 'container',
+				scrollable:true,
+				flex: 1,
 				items:[
 					{
 						xtype:'container',
-						layout: {
-							type: 'hbox',
-							align: 'center',
-							pack: 'center'
-						},
-						cls:'atm-title-container',
-						
+						title: 'ATM',				
 						items:[
 							{
-								xtype: 'image',			
-								src: 'resources/images/coloricons/money-wallet-icon.png',					
-								cls:'atm-title-item-icon'
+								xtype:'container',
+								layout: {
+									type: 'hbox',
+									align: 'center',
+									pack: 'center'
+								},
+								cls:'atm-title-container',
+								
+								items:[
+									{
+										xtype: 'image',			
+										src: 'resources/images/coloricons/money-wallet-icon.png',					
+										cls:'atm-title-item-icon'
+									},
+									{
+										xtype: 'label',
+										html:'Tiền mặt',
+										cls:'atm-title-item'
+									},
+									{
+										xtype: 'spacer'
+									},
+									{
+										xtype: 'label',
+										html:'100.000 (đ)',
+										cls:'atm-tienmat-amount'
+									},							
+									{
+										xtype: 'button',								
+										title: 'moneyadd',
+										cls: 'button-icon',
+										iconCls: 'button-icon-addnew'
+									}
+								]
 							},
 							{
-								xtype: 'label',
-								html:'Tiền mặt',
-								cls:'atm-title-item'
+								xtype:'tab_atm_atm',
+								
+								//height: 70*2 + 20,
 							},
 							{
-								xtype: 'spacer'
+								xtype:'tab_atm_saving',
+								
+								//height: 80*2 + 20,
 							},
-							{
-								xtype: 'label',
-								html:'100.000 (đ)',
-								cls:'atm-tienmat-amount'
-							},							
-							{
-								xtype: 'button',								
-								title: 'moneyadd',
-								cls: 'button-icon',
-								iconCls: 'button-icon-addnew'
-							}
 						]
-					},
-					{
-						xtype:'tab_atm_atm',
-						
-						//height: 70*2 + 20,
-					},
-					{
-						xtype:'tab_atm_saving',
-						
-						//height: 80*2 + 20,
-					},
+					}
 				]
 			}
+			
 		]			
    },
    

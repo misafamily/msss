@@ -16,7 +16,10 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 							'<div class="bank">{bank:this.upper}</div>',  //Ngân hàng: 
 						'</div>',	
 					'</div>',
-					'<div class="amount">{amount:this.format} (đ)</div>',
+					'<div class="amountinfo">',
+						'<div class="amounticon"></div>',
+						'<div class="amount">{amount:this.format} (đ)</div>',
+					'</div>',
 					].join(''),
 					{
 						upper:function(s) {

@@ -24,7 +24,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                         name: 'name',
                         //label: 'Tên tài khoản ',
                         cls:'atmadd-accountname',
-                        placeHolder:'Tên chủ thẻ (NGUYEN VAN A)',
+                        placeHolder:'Tên chủ thẻ (vd: NGUYEN VAN A)',
                         autoCapitalize: false
                     },
                      {
@@ -32,13 +32,13 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                         name: 'bank',
                         //label: 'Ngân hàng ',
                         cls:'atmadd-bank',
-                        placeHolder:'Ngân hàng (VCB, HSBC, ACB ...)',
+                        placeHolder:'Ngân hàng (vd: VCB, HSBC, ACB ...)',
                         autoCapitalize: false
                     },
                      {
                         xtype: 'numberfield',
                         name: 'amount',
-                        placeHolder:'Số tiền  đ (1000000)',
+                        placeHolder:'Số tiền  đ (vd: 1000000)',
                         cls:'atmadd-amount',
                         //label: 'Số tiền hiện có  '
                     },
@@ -53,18 +53,19 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 				items:[
 					{
 						xtype: 'button',
-						text: 'HỦY',
-						cls:'button-cancel',
-						flex: 1,
-						title: 'atmaddcancelbutton'
-					},
-					{
-						xtype: 'button',
 						text: 'THÊM',
 						cls:'button-submit',
 						flex: 1,
 						title: 'atmaddsubmitbutton'
+					},
+					{
+						xtype: 'button',
+						text: 'TRỞ VỀ',
+						cls:'button-cancel',
+						flex: 1,
+						title: 'atmaddcancelbutton'
 					}
+					
 				]	
 			}
 		]
