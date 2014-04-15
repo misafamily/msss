@@ -78,7 +78,7 @@ Ext.define('MyApp.controller.TabAtm', {
 				tap: function() {
 					var atmDetail = this.getAtmDetailView();
 					//atmDetail.editAtm();
-					this.getApplication().fireEvent('show_moneyinputpopup', 'Nạp tiền vào tài khoản', function(money){
+					this.getApplication().fireEvent('show_moneyinputpopup', 'Chuyển tiền mặt vào tài khoản', function(money){
 						console.log('NAP: ', money);
 						atmDetail.pushInMoney(money);
 					});	

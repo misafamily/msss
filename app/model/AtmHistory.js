@@ -1,36 +1,42 @@
-Ext.define('MyApp.model.Atm', {
+Ext.define('MyApp.model.AtmHistory', {
     extend: 'Ext.data.Model',
     config: {
         fields: [
         	{
-            	name:'username',
+            	name:'atm_id',
             	type:'string',
             	fieldOption:''
            },
            {
-            	name:'bank',
+            	name:'description',
             	type:'string',
             	fieldOption:''
-            },
+           },
             {
+            	name:'type',//chuyen_tien, rut_tien, chuyen_khoan, tao_moi, nhan_luong, sua_thong_tin
+            	type:'string',
+            	fieldOption:''
+           },
+           {
             	name:'amount',
-            	type:'string',
-            	fieldOption:''
-            },
-            {
-            	name:'status',
-            	type:'string',
-            	fieldOption:''
-            },
-             {
-            	name:'atm_id',
-            	type:'string',
-            	fieldOption:''
-            },
-            {
+            	type:'string'
+	       },
+           {
             	name:'time',//date.getTime()
             	type:'number'
-	       	},
+	       },
+           {
+            	name:'dd',
+            	type:'string'
+            },
+           {
+            	name:'mm',
+            	type:'string'
+            },
+			{
+            	name:'yy',
+            	type:'string'
+           },
             {
             	name:'id',
             	type:'int',
@@ -40,9 +46,9 @@ Ext.define('MyApp.model.Atm', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'atm',
+	    		tablename:'atm_history',
     			dbConn: MyApp.util.AppUtil.dbConnection,
-    			dbQuery:'SELECT * from atm WHERE status = "in_use" ORDER BY time DESC'
+    			dbQuery:'SELECT * from atm_history'
     		},
     		reader: {
                type: 'array'

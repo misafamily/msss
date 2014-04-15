@@ -19,14 +19,14 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 					'<div class="amountinfo">',
 						'<div class="amounticon"></div>',
 						'<div class="amount">{amount:this.format} (đ)</div>',
-					'</div>',
+					'</div>',					
 					].join(''),
 					{
 						upper:function(s) {
 							return s.toUpperCase()
 						},
 						format: function(amount) {
-							return parseInt(amount).format(0, 3, '.');
+							return AppUtil.formatMoney(amount);
 						}	
 					}
        		),
@@ -48,8 +48,9 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 			this._atmStore = Ext.getStore('Atms');
 		}
 		var list = this;
+		//list.getScrollable().getScroller().scrollToTop();
 		this._atmStore.load(function(records) {
-			list.setHeight(80*records.length);
+			list.setHeight(113*records.length);
 		});
 	}
 });

@@ -11,6 +11,9 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
         layout:{
 			type:'vbox'
 		},
+		scrollable: {
+			direction: 'vertical'
+		},
 		cls:'atm-form-container',
 		items:[
 			{
@@ -55,14 +58,14 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				items:[					
 					{
 						xtype: 'button',
-						text: 'SỬA THÔNG TIN',
+						text: 'Sửa thông tin',
 						cls:'button-submit',
 						flex: 1,
 						title: 'atmdetaileditbutton'
 					},
 					{
 						xtype: 'button',
-						text: 'LỊCH SỬ GD',
+						text: 'Lịch sử GD',
 						cls:'button-submit',
 						flex: 1,
 						title: 'atmdetailhistorybutton'
@@ -78,17 +81,40 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				items:[					
 					{
 						xtype: 'button',
-						text: 'NẠP TIỀN',
+						text: 'Chuyển tiền',
 						cls:'button-submit',
 						flex: 1,
 						title: 'atmdetailpushinbutton'
 					},
 					{
 						xtype: 'button',
-						text: 'RÚT TIỀN',
+						text: 'Rút tiền',
 						cls:'button-submit',
 						flex: 1,
 						title: 'atmdetailpushoutbutton'
+					}
+				]	
+			},
+			 {
+				xtype:'container',
+				layout:'hbox',
+				style: {
+					'margin-top': '10px'
+				},
+				items:[					
+					{
+						xtype: 'button',
+						text: 'Nhận c.khoản',
+						cls:'button-submit',
+						flex: 1,
+						title: 'atmdetailsalarybutton'
+					},
+					{
+						xtype: 'button',
+						text: 'Chuyển khoản',
+						cls:'button-submit',
+						flex: 1,
+						title: 'atmdetailtransferbutton'
 					}
 				]	
 			},
@@ -101,14 +127,14 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				items:[				
 					{
 						xtype: 'button',
-						text: 'XÓA T.KHOẢN',
+						text: 'Xóa t.khoản',
 						cls:'button-delete',
 						flex: 1,
 						title: 'atmdetaildeletebutton'
 					},
 					{
 						xtype: 'button',
-						text: 'TRỞ VỀ',
+						text: 'Trở về',
 						cls:'button-cancel',
 						flex: 1,
 						title: 'atmdetailcancelbutton'
@@ -149,11 +175,31 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		amount = amount.toString().trim().split('.').join('');
 		
 		var atmModel = this.getAtmModel();
+		var now = new Date();
 		
 		if (atmModel.data.username != name || atmModel.data.bank != bank || atmModel.data.amount != amount) {
+			
+			if (atmModel.data.amount != amount) {
+				var atmHis = Ext.create('MyApp.model.AtmHistory', {
+					atm_id: atmModel.data.atm_id,
+					description: 'Sửa tài khoản',
+					type: AppUtil.TYPE_ATM_SUA_THONG_TIN,
+					amount: amount,
+					time: now.getTime(),
+					dd: now.getDate(),
+					mm: now.getMonth(),
+					yy: now.getFullYear()
+				});
+				
+				atmHis.save();
+			}
+			
 			atmModel.data.username = name;
 			atmModel.data.bank = bank;
 			atmModel.data.amount = amount;
+			atmModel.data.time = now.getTime();
+			
+			
 			
 			atmModel.save(function(){
 				me.getCallbackFunc();
@@ -174,10 +220,27 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		var amount = this._amountTF.getValue();
 		
 		amount += m;
+		
+		var now = new Date();
 		var atmModel = this.getAtmModel();
 		atmModel.data.amount = amount;
+		atmModel.data.time = now.getTime();
 		
 		atmModel.save(function(){
+			
+			var atmHis = Ext.create('MyApp.model.AtmHistory', {
+				atm_id: atmModel.data.atm_id,
+				description: 'Chuyển tiền mặt vào tài khoản',
+				type: AppUtil.TYPE_ATM_CHUYEN_TIEN,
+				amount: m,
+				time: now.getTime(),
+				dd: now.getDate(),
+				mm: now.getMonth(),
+				yy: now.getFullYear()
+			});
+			
+			atmHis.save();
+				
 			me.getCallbackFunc();
 			me._amountTF.setValue(amount);
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_SUCCESS_PUSHIN);			
@@ -191,14 +254,30 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			return false;
 		}
 		var amount = this._amountTF.getValue();
+		var now = new Date();
 		
 		amount -= m;
 		
-		if (amount > 0) {
+		if (amount >= 0) {
 			var atmModel = this.getAtmModel();
 			atmModel.data.amount = amount;
+			atmModel.data.time = now.getTime();
 			
 			atmModel.save(function(){
+				
+				var atmHis = Ext.create('MyApp.model.AtmHistory', {
+					atm_id: atmModel.data.atm_id,
+					description: 'Rút thành tiền mặt',
+					type: AppUtil.TYPE_ATM_RUT_TIEN,
+					amount: m,
+					time: now.getTime(),
+					dd: now.getDate(),
+					mm: now.getMonth(),
+					yy: now.getFullYear()
+				});
+				atmHis.save();
+				
+			
 				me.getCallbackFunc();
 				me._amountTF.setValue(amount);
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_SUCCESS_PUSHOUT);			

@@ -70,7 +70,7 @@ Ext.define('MyApp.view.tab.popup.PopupMessage', {
 						xtype: 'button',
 						cls: 'popup-message-close-btn',
 						title: 'popupokbutton',
-						text: 'OK'
+						text: 'Đóng'
 					}
 				]
 			});

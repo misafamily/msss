@@ -127,6 +127,8 @@ body {
 .button-icon-addnew {
   background-image: url('../images/btn/addnew.png');
   background-size: cover;
+  width: 30px;
+  height: 30px;
 }
 
 .button-submit {

@@ -96,14 +96,14 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
 							{
 								xtype: 'button',
 								cls: 'button-submit',
-								text: 'XÁC NHẬN',
+								text: 'Xác nhận',
 								flex: 1,
 								title: 'popupmoneyinputokbutton'
 							},
 							{
 								xtype: 'button',
 								cls: 'button-cancel',
-								text: 'TRỞ VỀ',	
+								text: 'Hủy',	
 								flex: 1,							
 								title: 'popupmoneyinputcancelbutton'
 							}

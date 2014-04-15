@@ -60,13 +60,13 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
 							{
 								xtype: 'button',
 								cls: 'popup-confirm-close-btn',
-								text: 'OK',
+								text: 'Xác nhận',
 								title: 'confirmokbutton'
 							},
 							{
 								xtype: 'button',
 								cls: 'popup-confirm-close-btn',
-								text: 'CANCEL',								
+								text: 'Hủy',								
 								title: 'confirmcancelbutton'
 							},
 						]

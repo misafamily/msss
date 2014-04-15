@@ -17,17 +17,21 @@
 }
 
 .atm-tienmat-amount {
-	margin-right: 10px;
+	/*margin-right: 10px;*/
 }
 /*list*/
 
+/*AtmList*/
 .atm-atmlist .x-list-item-tpl .x-list-disclosure {
-	top: 14px;
+	top: 32px;
 }
 
-.atm-atmlist .info {
-	float: left;
-	margin-bottom: 8px;
+.atm-atmlist .info, .atm-atmlist .amountinfo {
+	white-space: nowrap;
+	margin-right: 20px;
+	overflow: hidden;
+	/*float: left;
+	margin-bottom: 8px;*/
 }
 
 .atm-atmlist .info .usernameinfo .usernameicon, 
@@ -57,9 +61,9 @@
 }
 
 .atm-atmlist .amountinfo {
-	float: right;
+	/*float: right;
 	margin-right: 20px;
-	margin-top: 11px;
+	margin-top: 11px;*/
 }
 
 .atm-atmlist .amountinfo .amounticon, 
@@ -72,9 +76,10 @@
     background-size: contain;
     width: 30px;
     height: 30px;
-    margin-right: 0px;
+    margin-right: 10px;
 }
 
+/**/
 .atm-savinglist .info {
 	float: left;
 	margin-bottom: 8px;

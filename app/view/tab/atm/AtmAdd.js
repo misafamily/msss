@@ -77,10 +77,11 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 	
 	//call from Controller
 	addAtm: function(callback) {
+		var me = this;
 		var name = this._nameTF.getValue();
 		var bank = this._bankTF.getValue();
 		var amount = this._amountTF.getValue();
-		console.log(amount);
+		//console.log(amount);
 		//if (amount == '' || amount == null) amount = 0;		
 		
 		if (!name || !bank) {
@@ -95,15 +96,34 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 		bank = bank.trim();
 		amount = amount.toString().trim().split('.').join('');
 		
+		var now = new Date();
+		var atm_id = 'atm_' + now.getTime();
 		var atmModel = Ext.create('MyApp.model.Atm', {
 			username: name,
 			bank: bank,
 			amount: amount,
-			status: AppUtil.STATUS_IN_USE
-		});
-		
-		atmModel.save(function(){
-			callback();
+			status: AppUtil.STATUS_IN_USE,
+			time: now.getTime(),
+			atm_id: atm_id
+		});		
+		atmModel.save({
+			success: function(savedrecord){
+				//savo to AtmHistory		
+				var atmHis = Ext.create('MyApp.model.AtmHistory', {
+					atm_id: atm_id,
+					description: 'Tạo mới tài khoản',
+					type: AppUtil.TYPE_ATM_TAO_MOI,
+					amount: amount,
+					time: now.getTime(),
+					dd: now.getDate(),
+					mm: now.getMonth(),
+					yy: now.getFullYear()
+				});
+				
+				atmHis.save();
+				//
+				callback();
+			}	
 		});
 		
 		return true;

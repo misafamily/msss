@@ -37,11 +37,13 @@ Ext.application({
     ],   
     models:[
     	'System',
-    	'Atm'
+    	'Atm',
+    	'AtmHistory'
     ],
     stores:[
     	'Systems',
     	'Atms',
+    	'AtmHistories',
     	
     	'TestATMs',
     	'TestSavings'

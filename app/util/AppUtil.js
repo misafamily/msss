@@ -5,21 +5,33 @@ Ext.define('MyApp.util.AppUtil',{
 	_lang: 'en',
 	moneyUnit: '(đ)',
 	
+	//TYPE
+	//chuyen_tien, rut_tien, chuyen_khoan, tao_moi, nhan_luong, sua_thong_tin
+	TYPE_ATM_CHUYEN_TIEN: 'chuyen_tien',
+	TYPE_ATM_RUT_TIEN: 'rut_tien',
+	TYPE_ATM_CHUYEN_KHOAN: 'chuyen_khoan',
+	TYPE_ATM_TAO_MOI: 'tao_moi',
+	TYPE_ATM_NHAN_LUONG: 'nhan_luong',
+	TYPE_ATM_SUA_THONG_TIN: 'sua_thong_tin',
 	//STATUS
 	STATUS_IN_USE: 'in_use',
 	//TITLE
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
-	TITLE_EDIT: 'Cập nhật sửa',
-	TITLE_PUSHIN: 'Nạp tiền',
-	TITLE_PUSHOUT: 'Rút tiền',
+	TITLE_EDIT: 'Sửa thông tin',
+	TITLE_PUSHIN: 'Chuyển tiền mặt vào tài khoản',
+	TITLE_PUSHOUT: 'Rút thành tiền mặt',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
 	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không hợp lệ',
-	MESSAGE_SUCCESS_EDIT: 'Sửa thành công',
+	MESSAGE_SUCCESS_EDIT: 'Đã cập nhật xong',
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
-	MESSAGE_SUCCESS_PUSHIN: 'Nạp thành công',
-	MESSAGE_SUCCESS_PUSHOUT: 'Rút thành công',
+	MESSAGE_SUCCESS_PUSHIN: 'Đã chuyển xong',
+	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút xong',
 	MESSAGE_FAILED_PUSHIN: 'Số tiền rút lớn hơn tiền hiện có trong tài khoản',
+	
+	formatMoney: function(amount) {
+		return parseInt(amount).format(0, 3, '.');
+	},
 	
 	setLang:function(lang){
 		this._lang = lang;
