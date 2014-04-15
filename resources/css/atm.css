@@ -7,7 +7,7 @@
 
 .atm-title-item {
 	margin-left: 10px;
-	font-size: 20px;
+	font-size: 18px;
 }
 
 .atm-title-item-icon {
@@ -18,6 +18,9 @@
 
 .atm-tienmat-amount {
 	/*margin-right: 10px;*/
+	font-weight: bold;
+	font-size: 17px;
+	margin-left: 5px;
 }
 /*list*/
 
@@ -94,3 +97,57 @@
 .atm-form-container {
 	margin: 10px 10px;
 }
+
+/*AtmHistoryList*/
+.atm-atmhistory {
+	
+}
+
+.atm-atmhistory .info .dateinfo .dateicon, 
+.atm-atmhistory .info .dateinfo .datetime {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmhistory .info .dateinfo .dateicon {
+	background: url('../images/coloricons/Apps-date-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.atm-atmhistory .amountinfo .amounticon, 
+.atm-atmhistory .amountinfo .amount {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmhistory .amountinfo .amounticon {
+	background: url('../images/coloricons/dollar-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.atm-atmhistory .actioninfo .actionicon, 
+.atm-atmhistory .actioninfo .description {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmhistory .actioninfo .actionicon {
+	background: url('../images/coloricons/text-plus-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.atm-atmhistory .actioninfo .actionicon.rut_tien {
+	background: url('../images/coloricons/Math-minus-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+/**/
+

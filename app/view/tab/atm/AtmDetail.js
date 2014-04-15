@@ -21,7 +21,9 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
                 //title: 'Thông tin tài khoản:',
                 //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
                 defaults: {
-                    required: true
+                    required: true,
+                    autoComplete: false,
+                    autoCorrect: false
                 },
                 items: [
                     {
@@ -227,7 +229,9 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		atmModel.data.time = now.getTime();
 		
 		atmModel.save(function(){
-			
+			//minus cash
+			AppUtil.cashMinus(m);
+			//
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
 				description: 'Chuyển tiền mặt vào tài khoản',
@@ -243,7 +247,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				
 			me.getCallbackFunc();
 			me._amountTF.setValue(amount);
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_SUCCESS_PUSHIN);			
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.getCashFormat()));			
 		});
 	},
 	
@@ -264,6 +268,8 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			atmModel.data.time = now.getTime();
 			
 			atmModel.save(function(){
+				//plus cash
+				AppUtil.cashPlus(m);
 				
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
@@ -280,7 +286,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			
 				me.getCallbackFunc();
 				me._amountTF.setValue(amount);
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_SUCCESS_PUSHOUT);			
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.getCashFormat()));			
 			});	
 		} else {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, AppUtil.MESSAGE_FAILED_PUSHIN);

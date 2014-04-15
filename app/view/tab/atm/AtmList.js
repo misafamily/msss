@@ -18,7 +18,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 					'</div>',
 					'<div class="amountinfo">',
 						'<div class="amounticon"></div>',
-						'<div class="amount">{amount:this.format} (đ)</div>',
+						'<div class="amount">{amount:this.format}</div>',
 					'</div>',					
 					].join(''),
 					{
@@ -26,7 +26,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 							return s.toUpperCase()
 						},
 						format: function(amount) {
-							return AppUtil.formatMoney(amount);
+							return AppUtil.formatMoneyWithUnit(amount);
 						}	
 					}
        		),

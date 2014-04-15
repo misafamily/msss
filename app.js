@@ -74,6 +74,22 @@ Ext.application({
     },
     onDeviceReady:function(){
     	//PatientDiary.util.CommonUtil.preferredLanguage();
+    	
+    	var storeSystem = Ext.getStore('Systems');
+		storeSystem.load(function(){				
+			if(storeSystem.getCount()){					
+				Ext.Array.each(storeSystem.getData().items, function(item, index) {	
+					if (item)	{
+						var sname = item.data.name;										
+						if (sname == 'cash') {	
+							AppUtil.CASH = parseInt(item.data.value);	
+							AppUtil.CASH_MODEL = item;
+						} 
+					}				
+						
+				});				
+	        }				
+								
 		
 		    Ext.Viewport.add({
 	        	xtype: 'app'
@@ -84,5 +100,7 @@ Ext.application({
 	            reveal: true
 	        });
 
+    	});
     }
+
 });

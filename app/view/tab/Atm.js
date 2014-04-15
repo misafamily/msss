@@ -42,11 +42,7 @@ Ext.define('MyApp.view.tab.Atm', {
 									{
 										xtype: 'spacer'
 									},
-									{
-										xtype: 'label',
-										html:'100.000 (đ)',
-										cls:'atm-tienmat-amount'
-									},							
+															
 									{
 										xtype: 'button',								
 										title: 'moneyadd',
@@ -54,6 +50,30 @@ Ext.define('MyApp.view.tab.Atm', {
 										iconCls: 'button-icon-addnew'
 									}
 								]
+							},
+							{
+								xtype:'container',
+								layout: {
+									type: 'hbox',
+									align: 'center'
+								},
+								style: {
+									'height': '40px',
+									'margin-left': '20px'
+								},							
+								items:[
+									{
+										xtype: 'label',
+										html:'Tổng cộng:',
+										//cls:'atm-tienmat-amount'
+									},	
+									{
+									xtype: 'label',
+									html:'100.000 (đ)',
+									cls:'atm-tienmat-amount'
+									}
+								]
+								
 							},
 							{
 								xtype:'tab_atm_atm',
@@ -75,6 +95,21 @@ Ext.define('MyApp.view.tab.Atm', {
    
    initialize: function() {
    		this.callParent(arguments);
+   		MyApp.app.on('cash_changed', this.onCashChanged, this);
+   		
+   		this.initView();
+   },
+   
+   initView: function() {
+   		this.onCashChanged();
+   },
+   
+   onCashChanged: function(cash, amount) {
+   		if (!this._amountLabel) {
+   			this._amountLabel = this.down('label[cls = "atm-tienmat-amount"]');
+   		}
+   		
+   		this._amountLabel.setHtml(AppUtil.getCashFormat());
    }
 });
 

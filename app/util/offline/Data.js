@@ -13,15 +13,19 @@ Ext.define('MyApp.util.offline.Data',{
   		//var store = Ext.getStore(name);
   		store.filter({property: field, value:value});
   },
-  updateStoreDbQuery:function(store, name,lang){
+  updateStoreQuery:function(store, name, extra){
   		//var store = Ext.getStore(name);
-  		store.getProxy().config.dbConfig.dbQuery = this.getDbQueryString(name,lang);
+  		store.getProxy().config.dbConfig.dbQuery = this.getQuery(name, extra);
 		//store.load();
   },
   
-  getDbQueryString:function(name, lang, extra){
+  getQuery:function(name, extra){
   	var queryStr = "";
   	switch(name){
+  			case 'AtmHistories':
+  				var atm_id = extra.atm_id;
+  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time DESC';
+  				break;
 			/*case 'Records_Lastest':
 				var limit = 'LIMIT ';
 				if (extra == 'blood') limit += '6';

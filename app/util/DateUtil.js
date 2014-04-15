@@ -145,12 +145,25 @@
 	    return Math.ceil((((this - onejan) / 86400000) + onejan.getDay()+1)/7);
 	};	
 	
-	Date.prototype.recordFormat = function() {
+	Date.prototype.yesterday = function() {
+		var today = new Date();
+        var millisecondsInADay = 86400000;
+        var yesterday = new Date(today - millisecondsInADay);
+        return yesterday;
+	};
+	
+	Date.prototype.dateFormat = function() {
 		var s = '';
-		if (this.getDate() == 1) s = '1<sup>st</sup>';
-		else if (this.getDate() == 2) s = '2<sup>nd</sup>';
-		else s = this.getDate() + '<sup>th</sup>';
-		s += ' ' + this.getShortMonthName() + ' ' + this.getFullYear();
+		var now = new Date();
+		var yesterday = this.yesterday();
+		if (this.getDate() == now.getDate() && this.getMonth() == now.getMonth() && this.getFullYear() == now.getFullYear()) {
+			s += 'Hôm nay, ';
+		} else if (this.getDate() == yesterday.getDate() && this.getMonth() == yesterday.getMonth() && this.getFullYear() == yesterday.getFullYear()) {
+			s += 'Hôm qua, ';
+		} else s += this.getDayName() + ', ';
+		
+		s += this.getDate() + ' ' + this.getShortMonthName() + ' ' + this.getFullYear(); 
+		s += ', ' + this.format(dateFormat.masks.shortTime);
 		return s;
 	};
 	

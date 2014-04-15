@@ -16,7 +16,9 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                 title: 'Thông tin tài khoản:',
                 instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
                 defaults: {
-                    required: true
+                    required: true,
+                    autoComplete: false,
+                    autoCorrect: false
                 },
                 items: [
                     {

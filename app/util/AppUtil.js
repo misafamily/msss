@@ -4,7 +4,8 @@ Ext.define('MyApp.util.AppUtil',{
 	dbConnection: null,
 	_lang: 'en',
 	moneyUnit: '(đ)',
-	
+	CASH: 0,
+	CASH_MODEL: null,
 	//TYPE
 	//chuyen_tien, rut_tien, chuyen_khoan, tao_moi, nhan_luong, sua_thong_tin
 	TYPE_ATM_CHUYEN_TIEN: 'chuyen_tien',
@@ -25,12 +26,52 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không hợp lệ',
 	MESSAGE_SUCCESS_EDIT: 'Đã cập nhật xong',
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
-	MESSAGE_SUCCESS_PUSHIN: 'Đã chuyển xong',
-	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút xong',
+	MESSAGE_SUCCESS_PUSHIN: 'Đã chuyển xong. Tiền mặt hiện có <br/><span>{0}</span>',
+	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút xong. Tiền mặt hiện có <br/><span>{0}</span>',
 	MESSAGE_FAILED_PUSHIN: 'Số tiền rút lớn hơn tiền hiện có trong tài khoản',
+	
+	saveCashModel: function() {
+		if (!this.CASH_MODEL) {
+			this.CASH_MODEL = Ext.create('MyApp.model.System', {
+				name: 'cash',
+				value: '0'
+			});
+		}
+		
+		this.CASH_MODEL.data.value = this.CASH.toString();
+		this.CASH_MODEL.save();
+	},
+	
+	getCashFormat: function() {
+		return this.formatMoneyWithUnit(this.CASH);
+	},
+	
+	canGetCash: function(amount) {
+		return this.CASH >= amount;
+	},
+	
+	cashPlus: function(amount) {
+		this.CASH += amount;
+		this.saveCashModel();
+		MyApp.app.fireEvent('cash_changed', this.CASH, amount);
+	},
+	
+	cashMinus: function(amount) {
+		this.CASH -= amount;
+		this.saveCashModel();
+		MyApp.app.fireEvent('cash_changed', this.CASH, -amount);
+	},
+	
+	formatDateTime: function(date) {
+		return date.dateFormat();
+	},
 	
 	formatMoney: function(amount) {
 		return parseInt(amount).format(0, 3, '.');
+	},
+	
+	formatMoneyWithUnit: function(amount) {
+		return this.formatMoney(amount) + ' ' + this.moneyUnit;
 	},
 	
 	setLang:function(lang){
