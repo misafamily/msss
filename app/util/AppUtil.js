@@ -16,19 +16,24 @@ Ext.define('MyApp.util.AppUtil',{
 	TYPE_ATM_SUA_THONG_TIN: 'sua_thong_tin',
 	//STATUS
 	STATUS_IN_USE: 'in_use',
+	STATUS_DELETED: 'deleted',
 	//TITLE
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
-	TITLE_EDIT: 'Sửa thông tin',
-	TITLE_PUSHIN: 'Chuyển tiền mặt vào tài khoản',
-	TITLE_PUSHOUT: 'Rút thành tiền mặt',
+	TITLE_EDIT: 'Thay đổi thông tin',
+	TITLE_PUSHIN: 'Nhiều tiền quá, gửi vào thẻ<br/>mất công xài hết',
+	TITLE_PUSHOUT: 'Hết tiền rồi, rút 1 chút xài thôi',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
 	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không hợp lệ',
-	MESSAGE_SUCCESS_EDIT: 'Đã cập nhật xong',
+	MESSAGE_SUCCESS_EDIT: 'Đã cập nhật',	
+	MESSAGE_SUCCESS_PUSHIN: 'Đã chuyển. Tiền mặt hiện có <br/><span>{0}</span>',
+	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút. Tiền mặt hiện có <br/><span>{0}</span>',
+	MESSAGE_SUCCESS_CHECKIN: 'Đã nhận chuyển khoản. Số tiền<br/><span>{0}</span>',
+	MESSAGE_SUCCESS_CHECKOUT: 'Đã chuyển khoản. Số tiền<br/><span>{0}</span>',
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
-	MESSAGE_SUCCESS_PUSHIN: 'Đã chuyển xong. Tiền mặt hiện có <br/><span>{0}</span>',
-	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút xong. Tiền mặt hiện có <br/><span>{0}</span>',
-	MESSAGE_FAILED_PUSHIN: 'Số tiền rút lớn hơn tiền hiện có trong tài khoản',
+	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để chuyển',
+	MESSAGE_FAILED_PUSHOUT: 'Số tiền rút lớn hơn tiền hiện có trong tài khoản',
+	MESSAGE_FAILED_CHECKOUT: 'Số tiền trong tài khoản không đủ',
 	
 	saveCashModel: function() {
 		if (!this.CASH_MODEL) {

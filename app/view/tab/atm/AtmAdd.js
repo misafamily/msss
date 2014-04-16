@@ -13,8 +13,8 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 		items:[
 			{
                 xtype: 'container',
-                title: 'Thông tin tài khoản:',
-                instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
+                //title: 'Thông tin tài khoản:',
+                //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
                 defaults: {
                     required: true,
                     autoComplete: false,
@@ -40,7 +40,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                      {
                         xtype: 'numberfield',
                         name: 'amount',
-                        placeHolder:'Số tiền  đ (vd: 1000000)',
+                        placeHolder:'Tiền hiện có (đ) (vd: 1000000)',
                         cls:'atmadd-amount',
                         //label: 'Số tiền hiện có  '
                     },
@@ -55,14 +55,14 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 				items:[
 					{
 						xtype: 'button',
-						text: 'THÊM',
+						text: 'Thêm',
 						cls:'button-submit',
 						flex: 1,
 						title: 'atmaddsubmitbutton'
 					},
 					{
 						xtype: 'button',
-						text: 'TRỞ VỀ',
+						text: 'Hủy',
 						cls:'button-cancel',
 						flex: 1,
 						title: 'atmaddcancelbutton'

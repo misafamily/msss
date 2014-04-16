@@ -89,6 +89,14 @@
 	
 }
 
+.popup-alert-title-box .content {
+	display: table-cell;
+	vertical-align: middle;
+	height: 42px;
+	width: 270px;
+	
+}
+
 
 .popup-message-text-box span {	
 	font-family: 'ROBOTO-LIGHT';
@@ -113,7 +121,7 @@
 
 .popup-alert-box {
 	width: 270px;
-	height: 180px;
+	height: 203px;
 	background-color: white;
 	border-radius: 5px;
 	/*margin-left: 25px;*/
@@ -123,10 +131,11 @@
 	color: white;
 	font-family: 'ROBOTO-LIGHT';
 	text-align: center;
-	height: 35px;
+	height: 55px;
 	background-color: #0099CC;
 	border-top-left-radius: 5px;
 	border-top-right-radius: 5px;
+	display: table-cell;
 	padding-top: 7px;
 }
 

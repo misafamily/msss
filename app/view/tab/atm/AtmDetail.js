@@ -45,7 +45,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
                      {
                         xtype: 'numberfield',
                         name: 'amount',
-                        //placeHolder:'Số tiền  đ (vd: 1000000)',
+                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
                         cls:'atmadd-amount',
                         //label: 'Số tiền hiện có  '
                     },
@@ -221,8 +221,12 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		}
 		var amount = this._amountTF.getValue();
 		
-		amount += m;
+		if (!AppUtil.canGetCash(m)) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_FAILED_PUSHIN);
+			return;
+		}
 		
+		amount += m;		
 		var now = new Date();
 		var atmModel = this.getAtmModel();
 		atmModel.data.amount = amount;
@@ -289,7 +293,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.getCashFormat()));			
 			});	
 		} else {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, AppUtil.MESSAGE_FAILED_PUSHIN);
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, AppUtil.MESSAGE_FAILED_PUSHOUT);
 		}
 		
 	},

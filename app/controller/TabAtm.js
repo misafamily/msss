@@ -79,7 +79,7 @@ Ext.define('MyApp.controller.TabAtm', {
 				tap: function() {
 					var atmDetail = this.getAtmDetailView();
 					//atmDetail.editAtm();
-					this.getApplication().fireEvent('show_moneyinputpopup', 'Chuyển tiền mặt vào tài khoản', function(money){
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_PUSHIN, function(money){
 						//console.log('NAP: ', money);
 						atmDetail.pushInMoney(money);
 					});	
@@ -89,7 +89,7 @@ Ext.define('MyApp.controller.TabAtm', {
 				tap: function() {
 					var atmDetail = this.getAtmDetailView();
 					//atmDetail.editAtm();
-					this.getApplication().fireEvent('show_moneyinputpopup', 'Rút tiền từ tài khoản', function(money){
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_PUSHOUT, function(money){
 						//console.log('RUT: ', money);
 						atmDetail.pushOutMoney(money);
 					});	

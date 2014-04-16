@@ -35,7 +35,7 @@ Ext.define('MyApp.view.tab.popup.PopupAlert', {
 		msgText.setHtml('<div class="content">' + this.getData()['msg'] + '</div>');
 				
 		var titleText = text.down('container[cls = "popup-alert-title-box"]');
-		titleText.setHtml(this.getData()['title']);
+		titleText.setHtml('<div class="content">' + this.getData()['title'] + '</div>');
 		
    },
    

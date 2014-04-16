@@ -37,7 +37,7 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
 		//msgText.setHtml('<div class="content">' + this.getData()['msg'] + '</div>');
 				
 		if (!this._tField) this._tField = text.down('container[cls = "popup-alert-title-box"]');
-		this._tField.setHtml(this.getData()['title']);
+		this._tField.setHtml('<div class="content">' + this.getData()['title'] + '</div>');
 		
    },
    
@@ -78,7 +78,7 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
 							{
 		                        xtype: 'numberfield',
 		                        name: 'amount',
-		                        placeHolder:'Số tiền  đ (vd: 1000000)',
+		                        placeHolder:'Số tiền (đ) (vd: 1000000)',
 		                        cls:'atmadd-amount'
 		                        //label: 'Số tiền hiện có  '
 		                    }
