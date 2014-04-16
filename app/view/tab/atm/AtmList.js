@@ -23,7 +23,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 					].join(''),
 					{
 						upper:function(s) {
-							return s.toUpperCase()
+							return s.toUpperCase();
 						},
 						format: function(amount) {
 							return AppUtil.formatMoneyWithUnit(amount);
@@ -50,6 +50,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 		var list = this;
 		//list.getScrollable().getScroller().scrollToTop();
 		this._atmStore.load(function(records) {
+			//console.log('records.length: ', records.length);
 			list.setHeight(113*records.length);
 		});
 	}

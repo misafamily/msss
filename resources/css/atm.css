@@ -116,13 +116,26 @@
     margin-right: 5px;
 }
 
+.atm-atmhistory .moneycardinfo .moneycardicon, 
+.atm-atmhistory .moneycardinfo .moneycard {
+	display: inline-block;
+	vertical-align:middle;
+}
+.atm-atmhistory .moneycardinfo .moneycardicon {
+	background: url('../images/coloricons/dollar-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
 .atm-atmhistory .amountinfo .amounticon, 
 .atm-atmhistory .amountinfo .amount {
 	display: inline-block;
 	vertical-align:middle;
 }
 .atm-atmhistory .amountinfo .amounticon {
-	background: url('../images/coloricons/dollar-icon.png') no-repeat 0px 0px;
+	background: url('../images/coloricons/money-icon (3).png') no-repeat 0px 0px;
     background-size: contain;
     width: 30px;
     height: 30px;
@@ -134,20 +147,23 @@
 	display: inline-block;
 	vertical-align:middle;
 }
-.atm-atmhistory .actioninfo .actionicon {
-	background: url('../images/coloricons/text-plus-icon.png') no-repeat 0px 0px;
+.atm-atmhistory .actioninfo .actionicon, .atm-atmhistory .actioninfo .actionicon.nhan_luong  {
+	background: url('../images/coloricons/money-add-icon.png') no-repeat 0px 0px;
     background-size: contain;
     width: 30px;
     height: 30px;
     margin-right: 5px;
 }
 
-.atm-atmhistory .actioninfo .actionicon.rut_tien {
-	background: url('../images/coloricons/Math-minus-icon.png') no-repeat 0px 0px;
-    background-size: contain;
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
+.atm-atmhistory .actioninfo .actionicon.rut_tien, .atm-atmhistory .actioninfo .actionicon.chuyen_khoan {
+	background: url('../images/coloricons/money-delete-icon.png') no-repeat 0px 0px;
+	 background-size: contain;
 }
+
+.atm-atmhistory .actioninfo .actionicon.sua_thong_tin {
+	background: url('../images/coloricons/Paper-Money-icon.png') no-repeat 0px 0px;
+	 background-size: contain;
+}
+
 /**/
 

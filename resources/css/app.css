@@ -159,3 +159,9 @@ color: #FFFFFF;
   font-family: 'ROBOTO-LIGHT';
 }
 
+.button-submit .x-button-label, .button-cancel .x-button-label, .button-delete .x-button-label {
+	font-size: 16px;
+	margin-top: 5px;
+}
+
+

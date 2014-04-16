@@ -43,7 +43,7 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
    getTextView: function() {
    		if (!this._text) {
 			this._text = Ext.create('Ext.Container', {
-				cls:'popup-message-box',
+				cls:'popup-message-box confirm',
 				items: [
 					{
 						xtype: 'container',
@@ -54,19 +54,22 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
 					{
 						xtype: 'container',
 						layout: {
-							type: 'hbox'
+							type: 'hbox',
+							pack:'center'
 						},
 						items:[
 							{
 								xtype: 'button',
-								cls: 'popup-confirm-close-btn',
-								text: 'Xác nhận',
+								cls: 'button-submit',
+								text: 'Đúng',
+								flex: 1,
 								title: 'confirmokbutton'
 							},
 							{
 								xtype: 'button',
-								cls: 'popup-confirm-close-btn',
-								text: 'Hủy',								
+								cls: 'button-cancel',
+								text: 'Không',	
+								flex: 1,							
 								title: 'confirmcancelbutton'
 							},
 						]

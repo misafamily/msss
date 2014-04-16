@@ -38,6 +38,7 @@ Ext.define('MyApp.controller.TabAtm', {
 					var atmDetail = this.getAtmDetailView();
 					atmDetail.setAtmModel(rec);
 					atmDetail.setCallbackFunc(function() {
+							console.log('callback delete');
 							me.getThisAtmList().updateStore();
 						});
 					me.getThisTab().push(atmDetail);
@@ -88,9 +89,7 @@ Ext.define('MyApp.controller.TabAtm', {
 			'tab_atm_atmdetail button[title = "atmdetailpushoutbutton"]': {
 				tap: function() {
 					var atmDetail = this.getAtmDetailView();
-					//atmDetail.editAtm();
 					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_PUSHOUT, function(money){
-						//console.log('RUT: ', money);
 						atmDetail.pushOutMoney(money);
 					});	
 				}				
@@ -103,6 +102,33 @@ Ext.define('MyApp.controller.TabAtm', {
 					this.getThisTab().push(atmHistory);
 				}				
 			},
+			'tab_atm_atmdetail button[title = "atmdetailsalarybutton"]': {
+				tap: function() {
+					var atmDetail = this.getAtmDetailView();
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_CHECKIN, function(money){
+						atmDetail.checkInMoney(money);
+					});	
+				}				
+			},
+			'tab_atm_atmdetail button[title = "atmdetailtransferbutton"]': {
+				tap: function() {
+					var atmDetail = this.getAtmDetailView();
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_CHECKOUT, function(money){
+						atmDetail.checkOutMoney(money);
+					});	
+				}				
+			},
+			'tab_atm_atmdetail button[title = "atmdetaildeletebutton"]': {
+				tap: function() {
+					var atmDetail = this.getAtmDetailView();
+					var me = this;
+					this.getApplication().fireEvent('show_confirm', AppUtil.CONFIRM_ATM_DELETE, function(){
+						atmDetail.deleteAtm();
+						me.getThisTab().onBackButtonTap();
+					});	
+				}				
+			},
+			
 			//end AtmDetail
 		}
     },

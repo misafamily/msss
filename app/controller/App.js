@@ -156,11 +156,11 @@ Ext.define('MyApp.controller.App', {
 	
 	
 	onPopupShown: function(title, msg) {
-		console.log('onPopupShown msg: ' + msg);
+		//console.log('onPopupShown msg: ' + msg);
 		this.showPopup(title, msg);
 	},
 	onAlertShown: function(title, msg) {
-		console.log('onAlertShown msg: ' + msg);
+		//console.log('onAlertShown msg: ' + msg);
 		this.showAlert(title, msg);
 	},
 	onConfirmShown: function(msg, callback) {

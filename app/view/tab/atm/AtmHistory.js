@@ -25,23 +25,20 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 									'<div class="datetime">{time:this.formatDateTime}</div>', //Tên: 
 								'</div>',	
 								'<div class="actioninfo">',
-									'<tpl if="this.isRutTien(type)">',
-										'<div class="actionicon rut_tien"></div>',
-									'<tpl else>',
-										'<div class="actionicon"></div>',
-									'</tpl>',	
+									'<div class="actionicon {type}"></div>',
 									'<div class="description">{description}</div>',  //Ngân hàng: 
 								'</div>',	
 							'</div>',
 							'<div class="amountinfo">',
 								'<div class="amounticon"></div>',
 								'<div class="amount">{amount:this.format}</div>',
-							'</div>',					
+							'</div>',		
+							'<div class="moneycardinfo">',
+								'<div class="moneycardicon"></div>',
+								'<div class="moneycard">{moneycard:this.format}</div>',
+							'</div>',			
 							].join(''),
 							{
-								isRutTien: function(type) {
-									return type == AppUtil.TYPE_ATM_RUT_TIEN;
-								},
 								formatDateTime:function(time) {
 									return AppUtil.formatDateTime(new Date(time));
 								},

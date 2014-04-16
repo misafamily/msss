@@ -97,6 +97,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 		name = name.trim();
 		bank = bank.trim();
 		amount = amount.toString().trim().split('.').join('');
+		amount = parseInt(amount).toString();
 		
 		var now = new Date();
 		var atm_id = 'atm_' + now.getTime();
@@ -116,6 +117,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 					description: 'Tạo mới tài khoản',
 					type: AppUtil.TYPE_ATM_TAO_MOI,
 					amount: amount,
+					moneycard:amount,
 					time: now.getTime(),
 					dd: now.getDate(),
 					mm: now.getMonth(),

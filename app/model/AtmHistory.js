@@ -21,6 +21,10 @@ Ext.define('MyApp.model.AtmHistory', {
             	name:'amount',
             	type:'string'
 	       },
+	        {
+            	name:'moneycard',
+            	type:'string'
+	       },
            {
             	name:'time',//date.getTime()
             	type:'number'

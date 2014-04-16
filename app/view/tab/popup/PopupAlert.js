@@ -61,11 +61,12 @@ Ext.define('MyApp.view.tab.popup.PopupAlert', {
 					{
 						xtype: 'container',
 						cls: 'popup-message-text-box alert',
-						html: 'YOUR MESSAGES HERE'						
+						html: 'YOUR MESSAGES HERE',
+						flex: 1						
 					},
 					{
 						xtype: 'button',
-						cls: 'popup-message-close-btn',
+						cls: 'button-submit',
 						title: 'popupokbutton',
 						text: 'Đóng'
 					}
