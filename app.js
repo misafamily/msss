@@ -28,6 +28,7 @@ Ext.application({
     	'Systems',
     	'Atms',
     	'AtmHistories',
+    	'AtmHistories_Recent',
     	
     	'TestATMs',
     	'TestSavings'

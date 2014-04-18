@@ -39,7 +39,7 @@ body {
 
 /*NAV BUTTONS*/
 .app-nav-back-icon {
-	background-image: url('../images/back_icon_top.png');
+	background-image: url('../images/coloricons/back-icon.png');
 	background-size: cover;
 }
 /*LOADING*/
@@ -140,6 +140,12 @@ body {
   margin-left: 10px;
   font-family: 'ROBOTO-LIGHT';
 }
+
+.button-submit.small {
+   height: 30px;
+   background-color: #0099CC;
+}
+
 .button-cancel {
  background-color:#666057;/*ebebeb*/
 color: #FFFFFF;
@@ -158,10 +164,10 @@ color: #FFFFFF;
   margin-right: 10px;
   font-family: 'ROBOTO-LIGHT';
 }
-
+/*
 .button-submit .x-button-label, .button-cancel .x-button-label, .button-delete .x-button-label {
 	font-size: 16px;
 	margin-top: 5px;
-}
+}*/
 
 

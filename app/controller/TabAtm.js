@@ -38,8 +38,9 @@ Ext.define('MyApp.controller.TabAtm', {
 					var atmDetail = this.getAtmDetailView();
 					atmDetail.setAtmModel(rec);
 					atmDetail.setCallbackFunc(function() {
-							console.log('callback delete');
+							//console.log('callback delete');
 							me.getThisAtmList().updateStore();
+							atmDetail.updateRecentStore();
 						});
 					me.getThisTab().push(atmDetail);
 				}				

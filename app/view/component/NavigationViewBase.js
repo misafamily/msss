@@ -14,8 +14,11 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 		},
 		navigationBar:{
 			 backButton: {
-	            iconCls: 'app-nav-back-icon',
-	            ui: 'plain'
+	            iconCls: 'back',
+	            //ui: 'plain',
+	            style: {
+	            	'margin-left': '10px'
+	            }
 	        },
         	defaults:{
 				xtype:'button',

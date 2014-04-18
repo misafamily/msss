@@ -18,9 +18,10 @@
 
 .atm-tienmat-amount {
 	/*margin-right: 10px;*/
-	font-weight: bold;
+	/*font-weight: bold;*/
 	font-size: 17px;
-	margin-left: 5px;
+	margin-left: 10px;
+	color: #FF8800;
 }
 /*list*/
 
@@ -95,12 +96,15 @@
 
 /*atmadd*/
 .atm-form-container {
-	margin: 10px 10px;
+	margin: 5px 5px;
 }
 
 /*AtmHistoryList*/
 .atm-atmhistory {
 	
+}
+.atm-atmhistory .info .dateinfo. .atm-atmhistory .amountinfo, .atm-atmhistory .actioninfo  {
+	white-space: nowrap;
 }
 
 .atm-atmhistory .info .dateinfo .dateicon, 

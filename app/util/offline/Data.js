@@ -26,6 +26,11 @@ Ext.define('MyApp.util.offline.Data',{
   				var atm_id = extra.atm_id;
   				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time DESC';
   				break;
+  			case 'AtmHistories_Recent':
+  				var atm_id = extra.atm_id;
+  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time DESC LIMIT 2';
+  				//console.log(queryStr);
+  				break;
 			/*case 'Records_Lastest':
 				var limit = 'LIMIT ';
 				if (extra == 'blood') limit += '6';

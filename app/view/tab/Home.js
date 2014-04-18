@@ -6,7 +6,7 @@ Ext.define('MyApp.view.tab.Home', {
 	],
     config: {      
 		scrollable:true,
-		iconCls:'tabbar-icon-home',
+		iconCls:'tabbar-icon-home',//tabbar-icon-home
 		title: 'Trang chủ',
 		items:[
 			{
