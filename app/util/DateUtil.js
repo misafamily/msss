@@ -167,6 +167,12 @@
 		return s;
 	};
 	
+	Date.prototype.shortDateFormat = function() {
+		var s = '';		
+		s += this.getDate() + ' ' + this.getShortMonthName() + ' ' + this.getFullYear();		
+		return s;
+	};
+	
 	/**
 	 * Number.prototype.format(n, x, s, c)
 	 * 

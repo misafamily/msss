@@ -22,12 +22,16 @@ Ext.application({
     models:[
     	'System',
     	'Atm',
-    	'AtmHistory'
+    	'AtmHistory',
+    	'Saving',
+    	'SavingHistory',
     ],
     stores:[
     	'Systems',
     	'Atms',
     	'AtmHistories',
+    	'Savings',
+    	'SavingHistories',
     	
     	'TestATMs',
     	'TestSavings'

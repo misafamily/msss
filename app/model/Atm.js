@@ -31,6 +31,18 @@ Ext.define('MyApp.model.Atm', {
             	name:'time',//date.getTime()
             	type:'number'
 	       	},
+	       	{
+            	name:'extra1',
+            	type:'string'
+           },
+           {
+            	name:'extra2',
+            	type:'string'
+           },
+           {
+            	name:'extra3',
+            	type:'string'
+           },
             {
             	name:'id',
             	type:'int',

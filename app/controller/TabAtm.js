@@ -3,14 +3,17 @@ Ext.define('MyApp.controller.TabAtm', {
 	requires:[		
 		'MyApp.view.tab.atm.AtmAdd',
 		'MyApp.view.tab.atm.AtmDetail',
-		'MyApp.view.tab.atm.AtmHistory'
+		'MyApp.view.tab.atm.AtmHistory',
+		'MyApp.view.tab.atm.SavingAdd'
 	],
     config: {
         refs: {		
 			thisTab: 'tab_atm',
 			thisMenuButton: 'tab_atm button[iconCls = "toolbar-icon-menu"]',
 			thisAtmAdd: 'tab_atm_atmadd',
-			thisAtmList: 'tab_atm_atmlist'
+			thisAtmList: 'tab_atm_atmlist',
+			thisSavingAdd: 'tab_atm_savingadd',
+			thisSavingList: 'tab_atm_savinglist'
         },//end refs
         control: {
 			thisTab: {
@@ -30,7 +33,15 @@ Ext.define('MyApp.controller.TabAtm', {
 					this.getThisTab().push(atmAddView);
 				}
 			},
-			//AtnList
+			'tab_atm_saving button[title = "savingadd"]': {
+				tap: function() {
+					//console.log('tap tap');
+					var atmAddView = this.getSavingAddView();
+					atmAddView.resetView();
+					this.getThisTab().push(atmAddView);
+				}
+			},
+			//AtmList
 			'tab_atm_atmlist': {
 				itemtap: function(view, index, item, e) {
 					var me = this;
@@ -56,6 +67,25 @@ Ext.define('MyApp.controller.TabAtm', {
 					if (me.getThisAtmAdd().addAtm(
 						function() {
 							me.getThisAtmList().updateStore();
+						})
+					) {						
+						me.getThisTab().onBackButtonTap();	
+					}						
+				}				
+			},
+			//end AtmAdd
+			//SavingAdd
+			'tab_atm_savingadd button[title = "savingaddcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();	
+				}				
+			},
+			'tab_atm_savingadd button[title = "savingaddsubmitbutton"]': {
+				tap: function() {
+					var me = this;
+					if (me.getThisSavingAdd().addSaving(
+						function() {
+							//me.getThisAtmList().updateStore();
 						})
 					) {						
 						me.getThisTab().onBackButtonTap();	
@@ -127,8 +157,7 @@ Ext.define('MyApp.controller.TabAtm', {
 						me.getThisTab().onBackButtonTap();
 					});	
 				}				
-			},
-			
+			},			
 			//end AtmDetail
 		}
     },
@@ -142,6 +171,12 @@ Ext.define('MyApp.controller.TabAtm', {
 			this._atmAddView = Ext.create('MyApp.view.tab.atm.AtmAdd');
 		}
 		return this._atmAddView;
+	},
+	getSavingAddView: function() {
+		if (!this._savingAddView) {
+			this._savingAddView = Ext.create('MyApp.view.tab.atm.SavingAdd');
+		}
+		return this._savingAddView;
 	},
 	getAtmDetailView: function() {
 		if (!this._atmDetailView) {

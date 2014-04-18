@@ -32,10 +32,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
        		),
        	onItemDisclosure: true
        	
-    },
-	setLocale:function(locale){
-		this.callParent(arguments);
-	},
+    },	
 		
 	initialize: function() {
 		this.callParent(arguments);
