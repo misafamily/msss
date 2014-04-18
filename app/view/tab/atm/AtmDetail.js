@@ -25,9 +25,11 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			                //title: 'Thông tin tài khoản:',
 			                //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
 			                defaults: {
-			                    required: true,
-			                    autoComplete: false,
-			                    autoCorrect: false
+			                    //required: true,
+			                    //autoComplete: false,
+			                    //autoCorrect: false
+			                    readOnly: true,
+			                    clearIcon: false
 			                },
 			                items: [
 			                    {
@@ -47,7 +49,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			                        autoCapitalize: false
 			                    },
 			                     {
-			                        xtype: 'numberfield',
+			                        xtype: 'textfield',
 			                        name: 'amount',
 			                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
 			                        cls:'atmadd-amount',
@@ -202,7 +204,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		
 		this._nameTF.setValue(this.getAtmModel().data.username);
 		this._bankTF.setValue(this.getAtmModel().data.bank);
-		this._amountTF.setValue(this.getAtmModel().data.amount);
+		this._amountTF.setValue(AppUtil.formatMoneyWithUnit(this.getAtmModel().data.amount));
 		
 		this.updateRecentStore();
 		
@@ -222,29 +224,15 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		}
 	},
 	//call from Controller
-	editAtm: function() {		
+	editAtm: function(name, bank, amount) {		
 		var me = this;
-		var name = this._nameTF.getValue();
-		var bank = this._bankTF.getValue();
-		var amount = this._amountTF.getValue();
-		//console.log(amount);
-		//if (amount == '' || amount == null) amount = 0;		
 		
-		if (!name || !bank) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_NOT_FILLED_INPUT);
-			return false;
-		}
-		if (amount == null) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
-			return false;
-		}
-		name = name.trim();
-		bank = bank.trim();
-		amount = amount.toString().trim().split('.').join('');
-		amount = parseInt(amount).toString();
-		this._amountTF.setValue(amount);
+		this._nameTF.setValue(name);
+		this._bankTF.setValue(bank);
+		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 		
 		var atmModel = this.getAtmModel();
+		
 		var now = new Date();
 		
 		if (atmModel.data.username != name || atmModel.data.bank != bank || atmModel.data.amount != amount) {
@@ -273,8 +261,9 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			
 			
 			atmModel.save(function(){
-				var f = me.getCallbackFunc();
-				f();
+				//var f = me.getCallbackFunc();
+				//f();
+				me.updateRecentStore();
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_SUCCESS_EDIT);			
 			});
 		} else {
@@ -289,7 +278,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = this._amountTF.getValue();
+		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
 		
 		if (!AppUtil.canGetCash(m)) {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_FAILED_PUSHIN);
@@ -320,9 +309,10 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			
 			atmHis.save();
 				
-			var f = me.getCallbackFunc();
-				f();
-			me._amountTF.setValue(amount);
+			//var f = me.getCallbackFunc();
+				//f();
+			me.updateRecentStore();
+			me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
 		});
 	},
@@ -333,7 +323,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = this._amountTF.getValue();
+		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
 		var now = new Date();
 		
 		amount -= m;
@@ -361,9 +351,10 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				atmHis.save();
 				
 			
-				var f = me.getCallbackFunc();
-				f();
-				me._amountTF.setValue(amount);
+				//var f = me.getCallbackFunc();
+				//f();
+				me.updateRecentStore();
+				me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
 			});	
 		} else {
@@ -378,7 +369,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = this._amountTF.getValue();
+		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
 		amount += m;		
 		var now = new Date();
 		var atmModel = this.getAtmModel();
@@ -401,9 +392,10 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			
 			atmHis.save();
 				
-			var f = me.getCallbackFunc();
-			f();
-			me._amountTF.setValue(amount);
+			//var f = me.getCallbackFunc();
+			//f();
+			me.updateRecentStore();
+			me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKIN, AppUtil.formatMoneyWithUnit(m)));			
 		});
 	},
@@ -414,7 +406,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = this._amountTF.getValue();
+		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
 		var now = new Date();
 		
 		amount -= m;
@@ -440,9 +432,10 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				atmHis.save();
 				
 			
-				var f = me.getCallbackFunc();
-				f();
-				me._amountTF.setValue(amount);
+				//var f = me.getCallbackFunc();
+				//f();
+				me.updateRecentStore();
+				me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKOUT, AppUtil.formatMoneyWithUnit(m)));			
 			});	
 		} else {
@@ -453,7 +446,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	
 	deleteAtm: function() {
 		var me = this;
-		var amount = this._amountTF.getValue();
+		//var amount = this._amountTF.getValue();
 		var atmModel = this.getAtmModel();
 		var now = new Date();
 		atmModel.data.status = AppUtil.STATUS_DELETED;
@@ -493,7 +486,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			this._bankTF = this.down('textfield[name = "bank"]');
 		}
 		if (!this._amountTF) {
-			this._amountTF = this.down('numberfield[name = "amount"]');
+			this._amountTF = this.down('textfield[name = "amount"]');
 		}
 		if (!this._list) {
 			this._list = this.down('list');

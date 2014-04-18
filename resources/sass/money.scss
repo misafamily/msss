@@ -86,7 +86,7 @@ $fontName: 'ROBOTO-LIGHT';
 
 //FORM
 .atmadd-accountname, .atmadd-bank, .atmadd-amount,
-.savingadd-interestrate, .savingadd-period, .savingadd-createddate,
+.savingadd-interestrate, .savingadd-period, .savingadd-createddate, .savingadd-note, .savingadd-reminder
   {
     .x-input-text{
       font-family: $fontName;
@@ -147,6 +147,8 @@ $fontName: 'ROBOTO-LIGHT';
   .x-input-el {
     background: #ededed url('../images/coloricons/Time-Machine-icon.png') no-repeat 5px 5px;
     background-size: 27px; 
+     padding-left: 45px;        
+    padding-bottom: 10px;
   }
 }
 .savingadd-createddate {
@@ -155,3 +157,17 @@ $fontName: 'ROBOTO-LIGHT';
     background-size: 27px; 
   }
 }
+.savingadd-note {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/notes-edit-icon.png') no-repeat 5px 5px;
+    background-size: 27px; 
+  }
+}
+.savingadd-reminder {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/Business-Money-bag-icon.png') no-repeat 5px 5px;
+    background-size: 27px; 
+    
+  }
+}
+

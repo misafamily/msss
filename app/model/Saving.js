@@ -31,7 +31,17 @@ Ext.define('MyApp.model.Saving', {
             	name:'period',//
             	type:'string',
             	fieldOption:''
-            },            
+            },    
+            {
+            	name:'note',//
+            	type:'string',
+            	fieldOption:''
+            },         
+            {
+            	name:'remindermonth',//
+            	type:'int',
+            	fieldOption:''
+            },   
             {
             	name:'status',
             	type:'string',

@@ -10,13 +10,14 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 			type:'vbox'
 		},
 		cls:'atm-form-container',
+		scrollable: true,
 		items:[
 			{
                 xtype: 'container',
                 //title: 'Thông tin tài khoản:',
                 //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
                 defaults: {
-                    required: true,
+                    //required: true,
                     autoComplete: false,
                     autoCorrect: false
                 },
@@ -40,25 +41,60 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
                      {
                         xtype: 'numberfield',
                         name: 'amount',
-                        placeHolder:'Số tiền (đ) (vd: 1000000)',
+                        placeHolder:'Số tiền gởi (đ) (vd: 1000000)',
                         cls:'atmadd-amount',
                         //label: 'Số tiền hiện có  '
                     },
                     {
                         xtype: 'numberfield',
                         name: 'rate',
-                        placeHolder:'Lãi suất tb (%) (vd: 7, 6.5)',
+                        placeHolder:'Lãi suất (%/năm) (vd: 7)',
                         cls:'savingadd-interestrate',
                         //label: 'Số tiền hiện có  '
                     },
                     {
-                        xtype: 'textfield',
+                        xtype: 'selectfield',
                         name: 'period',
                         //label: 'Ngân hàng ',
                         cls:'savingadd-period',
-                        placeHolder:'Chu kỳ (vd: 7 ngày, 3 tháng)',
-                        autoCapitalize: false
+     
+	                    options: [													
+							{text: 'Kỳ hạn 1 tháng',  value: '30'},
+	                        {text: 'Kỳ hạn 3 tháng',  value: '90'},
+							{text: 'Kỳ hạn 6 tháng',  value: '180'},
+							{text: 'Kỳ hạn 9 tháng',  value: '270'},
+							{text: 'Kỳ hạn 12 tháng',  value: '360'},
+							{text: 'Kỳ hạn 24 tháng',  value: '720'},
+							{text: 'Kỳ hạn 36 tháng',  value: '1080'},
+							{text: 'Không kỳ hạn',  value: '0'},	//minute
+							{text: 'Kỳ hạn 1 ngày',  value: '1'},	//minute
+							{text: 'Kỳ hạn 2 ngày',  value: '2'},	//minute
+							{text: 'Kỳ hạn 3 ngày',  value: '3'},	//minute
+							{text: 'Kỳ hạn 6 ngày',  value: '6'},	//minute
+							{text: 'Kỳ hạn 7 ngày',  value: '7'},	//minute
+						],	
                     },
+                    {
+						xtype: 'selectfield',
+	                    //label: 'Nhắc nhở',//Add reminder
+	                 
+						cls: 'savingadd-reminder',
+	                    options: [						
+	                    	{text: 'Lĩnh lãi 1 tháng/lần',  value: '1'},	//minute
+							{text: 'Lĩnh lãi 2 tháng/lần',  value: '2'},	//minute
+							{text: 'Lĩnh lãi 3 tháng/lần',  value: '3'},
+	                        {text: 'Lĩnh lãi 6 tháng/lần',  value: '6'},
+							{text: 'Lĩnh lãi 9 tháng/lần',  value: '9'},
+							{text: 'Lĩnh lãi 12 tháng/lần',  value: '12'},
+							{text: 'Lĩnh lãi theo ngày',  value: '0'},
+						],	
+						style: {
+							//'margin-top': '100px',
+							//'font-size': '14px',
+							//'margin-left': '-12px'
+						},
+						name: 'reminder'
+					},
                      {
                         xtype: 'textfield',
                         name: 'created_date',
@@ -69,6 +105,15 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
                         autoCapitalize: false,
                         clearIcon:false
                     },
+                    {
+	                    xtype: 'textareafield',
+						label: '',
+	                    placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
+	                    cls:'savingadd-note',
+						name: 'note',
+						maxRows: 3			                    
+	                },
+	                
                 ]    
            },
            {
@@ -199,7 +244,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 			this._rateTF = this.down('numberfield[name = "rate"]');
 		}
 		if (!this._periodTF) {
-			this._periodTF = this.down('textfield[name = "period"]');
+			this._periodTF = this.down('selectfield[name = "period"]');
 		}
 		if (!this._dateField) {
 			this._dateField = this.down('textfield[name = "created_date"]');

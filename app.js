@@ -32,14 +32,11 @@ Ext.application({
     	'AtmHistories',
     	'Savings',
     	'SavingHistories',
-    	'AtmHistories_Recent',<<<<<<< .mine
     	'AtmHistories_Recent',
-
-=======
+    	'AtmHistories_Recent',
     	'Savings',
     	'SavingHistories',
->>>>>>> .theirs
-    	
+
     	'TestATMs',
     	'TestSavings'
 

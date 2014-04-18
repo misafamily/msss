@@ -4,7 +4,8 @@ Ext.define('MyApp.controller.TabAtm', {
 		'MyApp.view.tab.atm.AtmAdd',
 		'MyApp.view.tab.atm.AtmDetail',
 		'MyApp.view.tab.atm.AtmHistory',
-		'MyApp.view.tab.atm.SavingAdd'
+		'MyApp.view.tab.atm.SavingAdd',
+		'MyApp.view.tab.atm.AtmEdit'
 	],
     config: {
         refs: {		
@@ -51,11 +52,30 @@ Ext.define('MyApp.controller.TabAtm', {
 					atmDetail.setCallbackFunc(function() {
 							//console.log('callback delete');
 							me.getThisAtmList().updateStore();
-							atmDetail.updateRecentStore();
+							//atmDetail.updateRecentStore();
 						});
 					me.getThisTab().push(atmDetail);
 				}				
 			},
+			//AtmEdit
+			'tab_atm_atmedit button[title = "atmeditcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();	
+				}				
+			},
+			'tab_atm_atmedit button[title = "atmeditsubmitbutton"]': {
+				tap: function() {
+					var me = this;
+					if (me.getAtmEditView().checkFields(
+						function(name, bank, amount) {
+							me.getAtmDetailView().editAtm(name, bank, amount);
+						})
+					) {						
+						me.getThisTab().onBackButtonTap();	
+					}						
+				}				
+			},
+			//end AtmEdit
 			//AtmAdd
 			'tab_atm_atmadd button[title = "atmaddcancelbutton"]': {
 				tap: function() {
@@ -103,8 +123,9 @@ Ext.define('MyApp.controller.TabAtm', {
 			},
 			'tab_atm_atmdetail button[title = "atmdetaileditbutton"]': {
 				tap: function() {
-					var atmDetail = this.getAtmDetailView();
-					atmDetail.editAtm();	
+					var atmEdit = this.getAtmEditView();
+					atmEdit.updateAtmInfo(this.getAtmDetailView().getAtmModel());
+					this.getThisTab().push(atmEdit);	
 				}				
 			},
 			'tab_atm_atmdetail button[title = "atmdetailpushinbutton"]': {
@@ -184,6 +205,12 @@ Ext.define('MyApp.controller.TabAtm', {
 			this._atmDetailView = Ext.create('MyApp.view.tab.atm.AtmDetail');
 		}
 		return this._atmDetailView;
+	},
+	getAtmEditView: function() {
+		if (!this._atmEditView) {
+			this._atmEditView = Ext.create('MyApp.view.tab.atm.AtmEdit');
+		}
+		return this._atmEditView;
 	},
 	getAtmHistoryView: function() {
 		if (!this._atmHistoryView) {
