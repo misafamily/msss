@@ -22,13 +22,23 @@ Ext.application({
     models:[
     	'System',
     	'Atm',
-    	'AtmHistory'
+    	'AtmHistory',
+    	'Saving',
+    	'SavingHistory',
     ],
     stores:[
     	'Systems',
     	'Atms',
     	'AtmHistories',
+    	'Savings',
+    	'SavingHistories',
+    	'AtmHistories_Recent',<<<<<<< .mine
     	'AtmHistories_Recent',
+
+=======
+    	'Savings',
+    	'SavingHistories',
+>>>>>>> .theirs
     	
     	'TestATMs',
     	'TestSavings'

@@ -85,7 +85,8 @@ $fontName: 'ROBOTO-LIGHT';
 //END TABBAR
 
 //FORM
-.atmadd-accountname, .atmadd-bank, .atmadd-amount
+.atmadd-accountname, .atmadd-bank, .atmadd-amount,
+.savingadd-interestrate, .savingadd-period, .savingadd-createddate,
   {
     .x-input-text{
       font-family: $fontName;
@@ -128,9 +129,29 @@ $fontName: 'ROBOTO-LIGHT';
 .atmadd-amount {
   .x-input-el {
     background: #ededed url('../images/coloricons/dollar-icon.png') no-repeat 5px 5px;
-    background-size: 27px;
-    padding-left: 45px;
+    background-size: 27px; 
+    padding-left: 45px;        
     padding-bottom: 10px;
   }
 }
 
+.savingadd-interestrate {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/star-full-icon.png') no-repeat 5px 5px;
+    background-size: 27px; 
+    padding-left: 45px;        
+    padding-bottom: 10px;
+  }
+}
+.savingadd-period {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/Time-Machine-icon.png') no-repeat 5px 5px;
+    background-size: 27px; 
+  }
+}
+.savingadd-createddate {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/Actions-view-calendar-day-icon.png') no-repeat 5px 5px;
+    background-size: 27px; 
+  }
+}

@@ -33,7 +33,7 @@ Ext.define('MyApp.view.tab.atm.Saving', {
 					},
 					{
 						xtype: 'button',								
-						title: 'atmadd',
+						title: 'savingadd',
 						cls: 'button-icon',
 						iconCls: 'button-icon-addnew'
 					}

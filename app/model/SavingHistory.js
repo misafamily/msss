@@ -1,4 +1,4 @@
-Ext.define('MyApp.model.AtmHistory', {
+Ext.define('MyApp.model.SavingHistory', {
     extend: 'Ext.data.Model',
     config: {
         fields: [
@@ -8,7 +8,7 @@ Ext.define('MyApp.model.AtmHistory', {
             	fieldOption:''
            },
         	{
-            	name:'atm_id',
+            	name:'saving_id',
             	type:'string',
             	fieldOption:''
            },
@@ -18,7 +18,7 @@ Ext.define('MyApp.model.AtmHistory', {
             	fieldOption:''
            },
             {
-            	name:'type',//chuyen_tien, rut_tien, chuyen_khoan, tao_moi, nhan_luong, sua_thong_tin
+            	name:'type',//tao_moi, sua_thong_tin, linh_tien_loi
             	type:'string',
             	fieldOption:''
            },
@@ -67,9 +67,9 @@ Ext.define('MyApp.model.AtmHistory', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'atm_history',
+	    		tablename:'saving_history',
     			dbConn: MyApp.util.AppUtil.dbConnection,
-    			dbQuery:'SELECT * from atm_history'
+    			dbQuery:'SELECT * from SavingHistory'
     		},
     		reader: {
                type: 'array'

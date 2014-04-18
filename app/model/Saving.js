@@ -1,52 +1,52 @@
-Ext.define('MyApp.model.AtmHistory', {
+Ext.define('MyApp.model.Saving', {
     extend: 'Ext.data.Model',
     config: {
         fields: [
         	{
-            	name:'history_id',
-            	type:'string',
-            	fieldOption:''
-           },
-        	{
-            	name:'atm_id',
+            	name:'username',
             	type:'string',
             	fieldOption:''
            },
            {
-            	name:'description',
+            	name:'bank',
             	type:'string',
             	fieldOption:''
-           },
+            },
             {
-            	name:'type',//chuyen_tien, rut_tien, chuyen_khoan, tao_moi, nhan_luong, sua_thong_tin
+            	name:'amount',
             	type:'string',
             	fieldOption:''
-           },
-           {
-            	name:'amount',
-            	type:'string'
-	       },
-	        {
-            	name:'moneycard',
-            	type:'string'
-	       },
-           {
+            },
+            {
+            	name:'created_date',
+            	type:'string',
+            	fieldOption:''
+            },
+             {
+            	name:'interest_rate',
+            	type:'string',
+            	fieldOption:''
+            },
+             {
+            	name:'period',//
+            	type:'string',
+            	fieldOption:''
+            },            
+            {
+            	name:'status',
+            	type:'string',
+            	fieldOption:''
+            },
+             {
+            	name:'saving_id',
+            	type:'string',
+            	fieldOption:''
+            },
+            {
             	name:'time',//date.getTime()
             	type:'number'
-	       },
-           {
-            	name:'dd',
-            	type:'string'
-            },
-            {
-            	name:'mm',
-            	type:'string'
-            },
-			{
-            	name:'yy',
-            	type:'string'
-           },
-           {
+	       	},
+	       	{
             	name:'extra1',
             	type:'string'
            },
@@ -67,9 +67,9 @@ Ext.define('MyApp.model.AtmHistory', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'atm_history',
+	    		tablename:'saving',
     			dbConn: MyApp.util.AppUtil.dbConnection,
-    			dbQuery:'SELECT * from atm_history'
+    			dbQuery:'SELECT * from saving a WHERE a.status = "in_use" ORDER BY time DESC'
     		},
     		reader: {
                type: 'array'
