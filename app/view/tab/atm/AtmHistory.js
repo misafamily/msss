@@ -55,6 +55,13 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 		this.callParent(arguments);
 	},
 	
+	hide: function() {
+		var recentHisStore = this._list.getStore();
+		if (recentHisStore) {
+			recentHisStore.removeAll();
+		}
+	},
+	
 	loadData: function(atmModel) {
 		this.setAtmModel(atmModel);
 		

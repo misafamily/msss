@@ -48,6 +48,7 @@ Ext.define('MyApp.controller.TabAtm', {
 					var me = this;
 					var rec = view.getStore().getAt(index);
 					var atmDetail = this.getAtmDetailView();
+					//atmDetail.setAtmModel(null);
 					atmDetail.setAtmModel(rec);
 					atmDetail.setCallbackFunc(function() {
 							//console.log('callback delete');

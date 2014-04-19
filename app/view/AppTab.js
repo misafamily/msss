@@ -15,8 +15,8 @@ Ext.define('MyApp.view.AppTab', {
 		},
 		items: [
 			{xtype:'tab_home'},
+			{xtype:'tab_atm'},
 			{xtype:'tab_expense'},
-			{xtype:'tab_atm'}
         ]
     }
 });

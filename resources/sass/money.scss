@@ -1,8 +1,8 @@
 $ios7-blue: #fff;
 $fontName: 'ROBOTO-LIGHT';
 
-@import 'sencha-touch/cupertino-crestor';
-@import 'sencha-touch/cupertino-crestor/all';
+@import 'sencha-touch/cupertino';
+@import 'sencha-touch/cupertino/all';
 
 //@include icon('menu');
 
@@ -18,8 +18,8 @@ $fontName: 'ROBOTO-LIGHT';
 //OVERRIDE tab/_Panel.scss
 //change bg img + font of toolbar
 .x-toolbar{
-  //background-color:#33B5E5;
-  background-image: url('../images/top_nav_bg.png');
+  background-color:#0099CC;
+  //background-image: url('../images/top_nav_bg.png');
   .x-title {
     color: #fff;
     font-weight: 500;

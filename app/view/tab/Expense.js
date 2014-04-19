@@ -5,8 +5,9 @@ Ext.define('MyApp.view.tab.Expense', {
 		
 	],
     config: {      
+    	title: 'Chi tiêu',
 		scrollable:true,
-		iconCls:'tabbar-icon-home',
+		iconCls:'tabbar-icon-shopping',
 		navigationBar:{
 			 backButton: {
 	            iconCls: 'app-nav-back-icon',

@@ -5,6 +5,7 @@ Ext.define('MyApp.view.tab.atm.Saving', {
     	'MyApp.view.tab.atm.SavingList'		     
     ],
     config: {
+    	cls: 'atm-segment-item-container',
         layout:{
 			type:'vbox'
 		},

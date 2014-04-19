@@ -90,14 +90,14 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 							items:[					
 								{
 									xtype: 'button',
-									text: 'Nhận c.khoản',
+									text: 'Nhận chuyển<br/>khoản, lương',
 									cls:'button-submit',
 									flex: 1,
 									title: 'atmdetailsalarybutton'
 								},
 								{
 									xtype: 'button',
-									text: 'Chuyển khoản',
+									text: 'Chuyển khoản,<br/>Mua sắm',
 									cls:'button-submit',
 									flex: 1,
 									title: 'atmdetailtransferbutton'
@@ -121,7 +121,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 								},
 								{
 									xtype: 'button',
-									text: 'Xóa t.khoản',
+									text: 'Đóng t.khoản',
 									cls:'button-delete',
 									flex: 1,
 									title: 'atmdetaildeletebutton'
@@ -200,7 +200,15 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		this.assignFields();
 	},
 	
+	/*hide: function() {
+		var recentHisStore = this._list.getStore();
+		if (recentHisStore) {
+			recentHisStore.removeAll();
+		}
+	},*/
+	
 	updateAtmModel: function() {
+		if (!this.getAtmModel()) return;
 		
 		this._nameTF.setValue(this.getAtmModel().data.username);
 		this._bankTF.setValue(this.getAtmModel().data.bank);
@@ -240,7 +248,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			if (atmModel.data.amount != amount) {
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
-					description: 'Cập nhật tài khoản',
+					description: 'Cập nhật tài khoản ATM',
 					type: AppUtil.TYPE_ATM_SUA_THONG_TIN,
 					amount: amount,
 					moneycard:amount,
@@ -297,7 +305,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			//
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
-				description: 'Chuyển tiền mặt vào tài khoản',
+				description: 'Chuyển tiền vào thẻ ATM',
 				type: AppUtil.TYPE_ATM_CHUYEN_TIEN,
 				amount: m,
 				moneycard:amount,
@@ -380,7 +388,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
-				description: 'Nhận tiền chuyển khoản (lương)',
+				description: 'Nhận tiền chuyển khoản, lương',
 				type: AppUtil.TYPE_ATM_NHAN_LUONG,
 				amount: m,
 				moneycard:amount,
@@ -420,7 +428,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
-					description: 'Chuyển khoản cho người khác',
+					description: 'Chuyển khoản, mua sắm bằng thẻ',
 					type: AppUtil.TYPE_ATM_CHUYEN_KHOAN,
 					amount: m,
 					moneycard:amount,
@@ -454,7 +462,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
-					description: 'Xóa tài khoản',
+					description: 'Đóng tài khoản ATM',
 					type: AppUtil.TYPE_ATM_XOA,
 					amount: 0,
 					moneycard:amount,

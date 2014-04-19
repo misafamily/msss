@@ -5,6 +5,7 @@ Ext.define('MyApp.view.tab.atm.Atm', {
     	'MyApp.view.tab.atm.AtmList'		     
     ],
     config: {
+    	cls: 'atm-segment-item-container',
         layout:{
 			type:'vbox'
 		},
@@ -25,7 +26,7 @@ Ext.define('MyApp.view.tab.atm.Atm', {
 					},
 					{
 						xtype: 'label',
-						html:'Tài khoản ATM',
+						html:'Thẻ ATM',
 						cls:'atm-title-item'
 					},
 					{

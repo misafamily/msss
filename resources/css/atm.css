@@ -1,18 +1,30 @@
+.atm-cash-container {
+	/*background-color: #999;*/
+	
+}
+
 .atm-title-container {
-	height: 50px;
-	background-color: #666057;
-	color: #fff;
-	margin-bottom: 1px;
+	/*height: 40px;*/
+	 background-color: #666; 
+	color: #FFF;
+	border-radius: 6px;
+	/*border: 1px solid #ccc;*/
+	/* border: 2px solid; */
+	/*font-weight: bold;*/
+}
+
+.atm-title-container.cash  {
+	/* background-color: #666; */
 }
 
 .atm-title-item {
 	margin-left: 10px;
-	font-size: 18px;
+	/*font-size: 18px;*/
 }
 
 .atm-title-item-icon {
-	width: 40px;
-	height: 40px;
+	width: 34px;
+	height: 34px;
 	margin-left: 10px;	
 }
 
@@ -21,7 +33,17 @@
 	/*font-weight: bold;*/
 	font-size: 17px;
 	margin-left: 10px;
-	color: #FF8800;
+	/*color: #0099CC;*/
+}
+.atm-container {
+	margin: 2px;
+	/*height:auto !important;*/
+}
+.atm-segment-container {
+	
+}
+.atm-segment-item-container {
+	/*margin: 5px;*/
 }
 /*list*/
 

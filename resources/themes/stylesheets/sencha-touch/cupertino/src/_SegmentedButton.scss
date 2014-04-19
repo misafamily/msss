@@ -1,13 +1,16 @@
-/*
+
 .x-toolbar .x-segmentedbutton, .x-segmentedbutton {
 	.x-button {
 		margin: 0 !important;
 		border: 1px solid $ios7-blue;
 		border-right: 0;
 		@include border-radius(0);
-
+		height: 46px;
+    font-size: 15px;
+    background-color: #999;//0099CC;
+    
 		&.x-button-pressed {
-			background-color: #157efb;
+			background-color: #666;//33B5E5;//157efb;
 			.x-button-label {
 				color: #fff;
 			}
@@ -23,4 +26,3 @@
 		border-right: 1px solid $ios7-blue;
 	}
 }
-*/

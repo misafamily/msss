@@ -100,10 +100,22 @@ body {
 
 /*ICONS*/
 .tabbar-icon-home {
-	background-image: url('../images/icon/home.png');
+	background-image: url('../images/coloricons/Actions-go-home-icon.png');
 	background-size: 28px;
   background-repeat: no-repeat;
 }
+
+.tabbar-icon-ketsat {
+	background-image: url('../images/coloricons/safe-icon.png');
+	background-size: 28px;
+  background-repeat: no-repeat;
+}
+.tabbar-icon-shopping {
+	background-image: url('../images/coloricons/shopping-cart-icon.png');
+	background-size: 28px;
+  background-repeat: no-repeat;
+}
+
 
 .toolbar-icon-menu {
   background-image: url('../images/menu_icon.png');
@@ -128,8 +140,8 @@ body {
 .button-icon-addnew {
   background-image: url('../images/coloricons/text-plus-icon.png');
   background-size: cover;
-  width: 30px;
-  height: 30px;
+  width: 28px;
+  height: 28px;
 }
 
 .button-submit {
@@ -144,7 +156,7 @@ body {
 
 .button-submit.small {
    height: 30px;
-   background-color: #0099CC;
+   background-color: #666057;/*0099CC;*/
 }
 
 .button-cancel {
@@ -157,7 +169,7 @@ color: #FFFFFF;
   font-family: 'ROBOTO-LIGHT';
 }
 .button-delete {
- background-color:#fd4c2b;/*ebebeb*/
+ background-color:#f27935;/*fd4c2b*/
 	color: #FFFFFF;
   border: 0px;
   height: 45px;
