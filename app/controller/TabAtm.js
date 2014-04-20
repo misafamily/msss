@@ -107,14 +107,23 @@ Ext.define('MyApp.controller.TabAtm', {
 					var me = this;
 					if (me.getThisSavingAdd().addSaving(
 						function() {
-							//me.getThisAtmList().updateStore();
+							me.getThisSavingList().updateStore();
 						})
 					) {						
 						me.getThisTab().onBackButtonTap();	
 					}						
 				}				
 			},
-			//end AtmAdd
+			'tab_atm_savingadd textfield[name = "created_date"]' : {
+				focus: function(tf) {
+					//console.log('xxxx');
+					var savingAddView = this.getThisSavingAdd();
+					var dp = this.getDatePicker(savingAddView.getSelectedDate(), savingAddView, tf);
+					Ext.Viewport.add(dp);
+					dp.show();
+				}
+			},
+			//end SavingAdd
 			
 			//AtmDetail
 			'tab_atm_atmdetail button[title = "atmdetailcancelbutton"]': {
@@ -218,5 +227,24 @@ Ext.define('MyApp.controller.TabAtm', {
 			this._atmHistoryView = Ext.create('MyApp.view.tab.atm.AtmHistory');
 		}
 		return this._atmHistoryView;
+	},
+	getDatePicker: function(date, view, tf) {
+		if (!this._datepicker) {
+			this._datepicker = Ext.create('Ext.picker.Date', {
+				 //doneButton: 'Xong',
+	       		 //cancelButton: 'Hủy' 
+			});			
+		}
+		this._datepicker.setValue(date);
+		this._datepicker.un('change', this.onDatePickerDone, this);
+		this._datepicker.on('change', this.onDatePickerDone, this, {view: view, tf: tf});
+		return this._datepicker;
+	},
+	onDatePickerDone: function(dp, date, opts) {
+		//console.log('onDatePickerDone: ' + date.format('dd/mm/yyyy'));
+		if (opts) {
+			//opts.tf.setValue(date.format('dd/mm/yyyy'));
+			opts.view.updateSelectedDate(date);
+		}
 	}
 });

@@ -5,7 +5,7 @@
 
 .atm-title-container {
 	/*height: 40px;*/
-	 background-color: #666; 
+	 background-color: #999; 
 	color: #FFF;
 	border-radius: 6px;
 	/*border: 1px solid #ccc;*/
@@ -14,7 +14,7 @@
 }
 
 .atm-title-container.cash  {
-	/* background-color: #666; */
+	background-color: #666;
 }
 
 .atm-title-item {

@@ -93,7 +93,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 							//'font-size': '14px',
 							//'margin-left': '-12px'
 						},
-						name: 'reminder'
+						name: 'interest_paid'
 					},
                      {
                         xtype: 'textfield',
@@ -155,6 +155,8 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		var amount = this._amountTF.getValue();
 		var rate = this._rateTF.getValue();
 		var period = this._periodTF.getValue();
+		var paid = this._paidField.getValue();
+		var note = this._noteField.getValue();
 		var createdDate = this._dateField.getValue();
 		//console.log(amount);
 		//if (amount == '' || amount == null) amount = 0;		
@@ -183,6 +185,8 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 			amount: amount,
 			interest_rate: rate,
 			period: period,
+			interest_paid: paid,
+			note: note,
 			created_date: createdDate,
 			status: AppUtil.STATUS_IN_USE,
 			time: now.getTime(),
@@ -217,17 +221,23 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		this._bankTF.setValue('');
 		this._amountTF.setValue('');
 		this._rateTF.setValue('');
-		this._periodTF.setValue('');
+		this._periodTF.setValue('30');
+		this._noteField.setValue('');
+		this._paidField.setValue('1');
 		this.updateSelectedDate(new Date());
 	},
 	
 	updateSelectedDate: function(date) {		
-		//this._selectedDate = date;
-		if (!this._selectedDate) this._selectedDate = new Date();
-		this._selectedDate.setDate(date.getDate());
-		this._selectedDate.setMonth(date.getMonth());
-		this._selectedDate.setFullYear(date.getFullYear());
+		this._selectedDate = new Date(date.getTime());
+		//if (!this._selectedDate) this._selectedDate = new Date();
+		//this._selectedDate.setDate(date.getDate());
+		//this._selectedDate.setMonth(date.getMonth());
+		//this._selectedDate.setFullYear(date.getFullYear());
 		this._dateField.setValue(date.shortDateFormat());
+	},
+	
+	getSelectedDate: function() {
+		return this._selectedDate;
 	},
 	
 	assignFields: function() {
@@ -248,6 +258,12 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		}
 		if (!this._dateField) {
 			this._dateField = this.down('textfield[name = "created_date"]');
+		}
+		if (!this._noteField) {
+			this._noteField = this.down('textareafield[name = "note"]');
+		}
+		if (!this._paidField) {
+			this._paidField = this.down('selectfield[name = "interest_paid"]');
 		}
 	}
  });   

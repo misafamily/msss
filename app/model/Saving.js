@@ -28,7 +28,7 @@ Ext.define('MyApp.model.Saving', {
             	fieldOption:''
             },
              {
-            	name:'period',//
+            	name:'period',//ky han
             	type:'string',
             	fieldOption:''
             },    
@@ -38,7 +38,7 @@ Ext.define('MyApp.model.Saving', {
             	fieldOption:''
             },         
             {
-            	name:'remindermonth',//
+            	name:'interest_paid',//linh lai
             	type:'int',
             	fieldOption:''
             },   
