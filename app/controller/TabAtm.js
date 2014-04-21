@@ -3,9 +3,11 @@ Ext.define('MyApp.controller.TabAtm', {
 	requires:[		
 		'MyApp.view.tab.atm.AtmAdd',
 		'MyApp.view.tab.atm.AtmDetail',
-		'MyApp.view.tab.atm.AtmHistory',
+		'MyApp.view.tab.atm.AtmHistory',		
+		'MyApp.view.tab.atm.AtmEdit',
+		
 		'MyApp.view.tab.atm.SavingAdd',
-		'MyApp.view.tab.atm.AtmEdit'
+		'MyApp.view.tab.atm.SavingDetail'
 	],
     config: {
         refs: {		
@@ -56,6 +58,20 @@ Ext.define('MyApp.controller.TabAtm', {
 							//atmDetail.updateRecentStore();
 						});
 					me.getThisTab().push(atmDetail);
+				}				
+			},
+			//SavingList
+			'tab_atm_savinglist': {
+				itemtap: function(view, index, item, e) {
+					var me = this;
+					var rec = view.getStore().getAt(index);
+					var savingDetail = this.getSavingDetailView();
+					//atmDetail.setAtmModel(null);
+					savingDetail.setSavingModel(rec);
+					savingDetail.setCallbackFunc(function() {
+							me.getThisSavingList().updateStore();							
+						});
+					me.getThisTab().push(savingDetail);
 				}				
 			},
 			//AtmEdit
@@ -215,6 +231,12 @@ Ext.define('MyApp.controller.TabAtm', {
 			this._atmDetailView = Ext.create('MyApp.view.tab.atm.AtmDetail');
 		}
 		return this._atmDetailView;
+	},
+	getSavingDetailView: function() {
+		if (!this._savingDetailView) {
+			this._savingDetailView = Ext.create('MyApp.view.tab.atm.SavingDetail');
+		}
+		return this._savingDetailView;
 	},
 	getAtmEditView: function() {
 		if (!this._atmEditView) {

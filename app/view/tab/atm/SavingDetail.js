@@ -1,11 +1,13 @@
-Ext.define('MyApp.view.tab.atm.SavingAdd', {
+Ext.define('MyApp.view.tab.atm.SavingDetail', {
     extend: 'Ext.Container',
-    xtype: 'tab_atm_savingadd',
+    xtype: 'tab_atm_savingdetail',
     requires: [
     	 
     ],
     config: {
-    	title: 'Thêm sổ tiết kiệm',
+    	savingModel: null,
+    	callbackFunc: null,
+    	title: 'Chi tiết sổ',
         layout:{
 			type:'vbox'
 		},
@@ -19,7 +21,8 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
                 defaults: {
                     //required: true,
                     autoComplete: false,
-                    autoCorrect: false
+                    autoCorrect: false,
+                    readOnly: true
                 },
                 items: [
                     {
@@ -39,14 +42,14 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
                         autoCapitalize: false
                     },
                      {
-                        xtype: 'numberfield',
+                        xtype: 'textfield',
                         name: 'amount',
                         placeHolder:'Số tiền gởi (đ) (vd: 1000000)',
                         cls:'atmadd-amount',
                         //label: 'Số tiền hiện có  '
                     },
                     {
-                        xtype: 'numberfield',
+                        xtype: 'textfield',
                         name: 'rate',
                         placeHolder:'Lãi suất (%/năm) (vd: 7)',
                         cls:'savingadd-interestrate',
@@ -108,7 +111,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
                     {
 	                    xtype: 'textareafield',
 						label: '',
-	                    placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
+	                    //placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
@@ -125,20 +128,124 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 				items:[
 					{
 						xtype: 'button',
-						text: 'Thêm',
+						text: 'Lĩnh lãi',
 						cls:'button-submit',
 						flex: 1,
-						title: 'savingaddsubmitbutton'
+						title: 'savingdetailpaidbutton'
+					}			
+					
+				]	
+			},
+			{
+				xtype:'container',
+				layout:'hbox',
+				style: {
+					'margin-top': '10px'
+				},
+				items:[
+					{
+						xtype: 'button',
+						text: 'Rút tiền',
+						cls:'button-submit',
+						flex: 1,
+						title: 'savingdetailpushoutbutton'
+					},		
+					{
+						xtype: 'button',
+						text: 'Nạp tiền',
+						cls:'button-submit',
+						flex: 1,
+						title: 'savingdetailpushinbutton'
+					},				
+					
+				]	
+			},
+			{
+				xtype:'container',
+				layout:'hbox',
+				style: {
+					'margin-top': '10px'
+				},
+				items:[				
+					
+					{
+						xtype: 'button',
+						text: 'Sửa thông tin',
+						cls:'button-submit',
+						flex: 1,
+						title: 'savingdetaileditbutton'
 					},
 					{
 						xtype: 'button',
-						text: 'Hủy',
-						cls:'button-cancel',
+						text: 'Đóng sổ',
+						cls:'button-delete',
 						flex: 1,
-						title: 'savingaddcancelbutton'
+						title: 'savingdetaildeletebutton'
 					}
-					
 				]	
+			},
+			{
+				xtype: 'container',
+				style: {
+					'margin-left': '10px',
+					'margin-top': '10px',
+				},
+				layout: {
+					type: 'hbox',
+					pack: 'center',
+					align:'center'
+				},
+				items: [
+					{
+						xtype: 'label',
+						html: 'GIAO DỊCH GẦN NHẤT',
+						flex: 1,
+					},
+					
+					{
+						xtype: 'button',
+						text: 'Xem hết',
+						cls:'button-submit small',
+						
+						title: 'savingdetailhistorybutton'
+					}
+				]
+			},
+			{
+				xclass: 'MyApp.view.component.AppList',
+				store: 'SavingHistories_Recent',
+				cls: 'atm-atmhistory',
+				scrollable: false,
+				itemTpl: new Ext.XTemplate(
+		       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
+							['<div class="info">',
+								'<div class="dateinfo">',
+									'<div class="dateicon"></div>',
+									'<div class="datetime">{time:this.formatDateTime}</div>', //Tên: 
+								'</div>',	
+								'<div class="actioninfo">',
+									'<div class="actionicon {type}"></div>',
+									'<div class="description">{description}</div>',  //Ngân hàng: 
+								'</div>',	
+							'</div>',
+							'<div class="amountinfo">',
+								'<div class="amounticon"></div>',
+								'<div class="amount">{amount:this.format}</div>',
+							'</div>',		
+							'<div class="moneycardinfo">',
+								'<div class="moneycardicon"></div>',
+								'<div class="moneycard">{moneycard:this.format}</div>',
+							'</div>',			
+							].join(''),
+							{
+								formatDateTime:function(time) {
+									return AppUtil.formatDateTime(new Date(time));
+								},
+								format: function(amount) {
+									return AppUtil.formatMoneyWithUnit(amount);
+								}	
+							}
+		       		)
 			}
 		]
     },
@@ -147,73 +254,36 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		this.assignFields();
 	},
 	
-	//call from Controller
-	addSaving: function(callback) {
+	updateSavingModel: function() {
 		var me = this;
-		var name = this._nameTF.getValue();
-		var bank = this._bankTF.getValue();
-		var amount = this._amountTF.getValue();
-		var rate = this._rateTF.getValue();
-		var period = this._periodTF.getValue();
-		var paid = this._paidField.getValue();
-		var note = this._noteField.getValue();
-		var createdDate = this._dateField.getValue();
-		//console.log(amount);
-		//if (amount == '' || amount == null) amount = 0;		
+		if (!me.getSavingModel()) return;		
 		
-		if (!name || !bank || !rate || !period) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_NOT_FILLED_INPUT);
-			return false;
+		var m = me.getSavingModel();
+		
+		me._nameTF.setValue(m.data.username);
+		me._bankTF.setValue(m.data.bank);
+		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(m.data.amount));
+		me._rateTF.setValue(AppUtil.formatRateWithUnit(m.data.interest_rate));
+		me._periodTF.setValue(m.data.period);
+		me._noteField.setValue(m.data.note);
+		me._paidField.setValue(m.data.interest_paid);
+		me._dateField.setValue(m.data.created_date);
+		this.updateRecentStore();
+		
+	},
+	
+	updateRecentStore: function() {
+		var me = this;
+		var recentHisStore = this._list.getStore();
+		//if (!recentHisStore) recentHisStore = Ext.getStore('SavingHistories_Recent');
+		if (recentHisStore) {
+			recentHisStore.removeAll();
+			AppUtil.offline.updateStoreQuery(recentHisStore, 'SavingHistories_Recent', {saving_id: this.getSavingModel().data.saving_id});
+			recentHisStore.load(function(records) {
+				//console.log('recentHisStore lenght: ', records.length)
+				me._list.setHeight(142*records.length);
+			});
 		}
-		if (amount == null) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
-			return false;
-		}		
-		
-		name = name.trim();
-		bank = bank.trim();
-		amount = amount.toString().trim().split('.').join('');
-		amount = parseInt(amount).toString();
-		
-		rate = rate.toString();
-		
-		var now = new Date();
-		var atm_id = 'saving_' + now.getTime();
-		var atmModel = Ext.create('MyApp.model.Saving', {
-			username: name,
-			bank: bank,
-			amount: amount,
-			interest_rate: rate,
-			period: period,
-			interest_paid: paid,
-			note: note,
-			created_date: createdDate,
-			status: AppUtil.STATUS_IN_USE,
-			time: now.getTime(),
-			saving_id: atm_id
-		});		
-		atmModel.save({
-			success: function(savedrecord){
-				//savo to AtmHistory		
-				var atmHis = Ext.create('MyApp.model.SavingHistory', {
-					saving_id: atm_id,
-					description: 'Tạo sổ mới',
-					type: AppUtil.TYPE_ATM_TAO_MOI,
-					amount: amount,
-					moneycard:amount,
-					time: now.getTime(),
-					dd: now.getDate(),
-					mm: now.getMonth(),
-					yy: now.getFullYear()
-				});
-				
-				atmHis.save();
-				//
-				callback();
-			}	
-		});
-		
-		return true;
 	},
 	
 	resetView: function(){
@@ -233,7 +303,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		//this._selectedDate.setDate(date.getDate());
 		//this._selectedDate.setMonth(date.getMonth());
 		//this._selectedDate.setFullYear(date.getFullYear());
-		this._dateField.setValue('Gởi ngày ' + date.shortDateFormat());
+		this._dateField.setValue(date.shortDateFormat());
 	},
 	
 	getSelectedDate: function() {
@@ -248,10 +318,10 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 			this._bankTF = this.down('textfield[name = "bank"]');
 		}
 		if (!this._amountTF) {
-			this._amountTF = this.down('numberfield[name = "amount"]');
+			this._amountTF = this.down('textfield[name = "amount"]');
 		}
 		if (!this._rateTF) {
-			this._rateTF = this.down('numberfield[name = "rate"]');
+			this._rateTF = this.down('textfield[name = "rate"]');
 		}
 		if (!this._periodTF) {
 			this._periodTF = this.down('selectfield[name = "period"]');
@@ -264,6 +334,9 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		}
 		if (!this._paidField) {
 			this._paidField = this.down('selectfield[name = "interest_paid"]');
+		}
+		if (!this._list) {
+			this._list = this.down('list');
 		}
 	}
  });   

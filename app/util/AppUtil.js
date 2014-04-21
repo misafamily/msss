@@ -14,10 +14,13 @@ Ext.define('MyApp.util.AppUtil',{
 	TYPE_ATM_TAO_MOI: 'tao_moi',
 	TYPE_ATM_NHAN_LUONG: 'nhan_luong',
 	TYPE_ATM_SUA_THONG_TIN: 'sua_thong_tin',
-	TYPE_ATM_XOA: 'xoa',
+	TYPE_ATM_DONG: 'tam_dong',
 	TYPE_ATM_KHOI_PHUC: 'khoi_phuc',
+	TYPE_ATM_NAP_TIEN: 'nap_tien',
+	TYPE_ATM_LINH_LAI: 'linh_lai',
 	//STATUS
 	STATUS_IN_USE: 'in_use',
+	STATUS_CLOSED: 'closed',
 	STATUS_DELETED: 'deleted',
 	//CONFIRM
 	CONFIRM_ATM_DELETE: 'Tài khoản ATM sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
@@ -85,6 +88,10 @@ Ext.define('MyApp.util.AppUtil',{
 	
 	formatMoneyWithUnit: function(amount) {
 		return this.formatMoney(amount) + ' ' + this.moneyUnit;
+	},
+	
+	formatRateWithUnit: function(amount) {
+		return amount + ' %/năm';
 	},
 	
 	setLang:function(lang){

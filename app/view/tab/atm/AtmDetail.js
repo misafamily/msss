@@ -221,7 +221,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	updateRecentStore: function() {
 		var me = this;
 		var recentHisStore = this._list.getStore();
-		if (!recentHisStore) recentHisStore = Ext.create('AtmHistories_Recent', {atm_id: this.getAtmModel().data.atm_id});
+		//if (!recentHisStore) recentHisStore = Ext.getStore('AtmHistories_Recent');
 		if (recentHisStore) {
 			recentHisStore.removeAll();
 			AppUtil.offline.updateStoreQuery(recentHisStore, 'AtmHistories_Recent', {atm_id: this.getAtmModel().data.atm_id});
@@ -245,8 +245,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		
 		if (atmModel.data.username != name || atmModel.data.bank != bank || atmModel.data.amount != amount) {
 			
-			if (atmModel.data.amount != amount) {
-				var atmHis = Ext.create('MyApp.model.AtmHistory', {
+			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
 					description: 'Cập nhật tài khoản ATM',
 					type: AppUtil.TYPE_ATM_SUA_THONG_TIN,
@@ -256,10 +255,11 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 					dd: now.getDate(),
 					mm: now.getMonth(),
 					yy: now.getFullYear()
-				});
-				
-				atmHis.save();
-			}
+			});				
+			//if (atmModel.data.amount != amount) {
+				atmHis.save();	
+			//}			
+			
 			
 			atmModel.data.username = name;
 			atmModel.data.bank = bank;
@@ -457,13 +457,13 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		//var amount = this._amountTF.getValue();
 		var atmModel = this.getAtmModel();
 		var now = new Date();
-		atmModel.data.status = AppUtil.STATUS_DELETED;
+		atmModel.data.status = AppUtil.STATUS_CLOSED;
 		atmModel.save(function(){
 	
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
 					description: 'Đóng tài khoản ATM',
-					type: AppUtil.TYPE_ATM_XOA,
+					type: AppUtil.TYPE_ATM_DONG,
 					amount: 0,
 					moneycard:amount,
 					time: now.getTime(),

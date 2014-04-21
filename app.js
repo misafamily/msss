@@ -33,11 +33,10 @@ Ext.onReady(function(){
 	    }
 	});
 	Ext.Date.monthNames = [
-			//'Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1','Thang 1'
 			"Tháng 1","Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng7", "Tháng 8", "Tháng 9", "Tháng 10","Tháng 11","Tháng 12"
 		];
 	Ext.Date.dayNames = [
-		    "Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy",
+		    "Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"
 		];
 
 	var dbconnval = {
@@ -64,10 +63,10 @@ Ext.application({
     	'AtmHistories',
     	'Savings',
     	'SavingHistories',
-    	'AtmHistories_Recent',
-    	'AtmHistories_Recent',
+    	'AtmHistories_Recent',    	
     	'Savings',
     	'SavingHistories',
+    	'SavingHistories_Recent',
 
     	'TestATMs',
     	'TestSavings'

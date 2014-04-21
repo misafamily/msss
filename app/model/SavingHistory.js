@@ -18,7 +18,7 @@ Ext.define('MyApp.model.SavingHistory', {
             	fieldOption:''
            },
             {
-            	name:'type',//tao_moi, sua_thong_tin, linh_tien_loi
+            	name:'type',//tao_moi, sua_thong_tin, linh_lai, dong, rut_tien, nap_tien
             	type:'string',
             	fieldOption:''
            },

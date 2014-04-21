@@ -8,6 +8,7 @@
 	 background-color: #999; 
 	color: #FFF;
 	border-radius: 6px;
+	margin-bottom: 1px;
 	/*border: 1px solid #ccc;*/
 	/* border: 2px solid; */
 	/*font-weight: bold;*/
@@ -15,6 +16,7 @@
 
 .atm-title-container.cash  {
 	background-color: #666;
+	margin-bottom: 0px;
 }
 
 .atm-title-item {
