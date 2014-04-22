@@ -1,11 +1,12 @@
-Ext.define('MyApp.view.tab.atm.SavingAdd', {
+Ext.define('MyApp.view.tab.atm.SavingEdit', {
     extend: 'Ext.Container',
-    xtype: 'tab_atm_savingadd',
+    xtype: 'tab_atm_savingedit',
     requires: [
     	 
     ],
     config: {
-    	title: 'Thêm sổ tiết kiệm',
+    	savingModel: null,
+    	title: 'Sửa thông tin sổ',
         layout:{
 			type:'vbox'
 		},
@@ -125,17 +126,17 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 				items:[
 					{
 						xtype: 'button',
-						text: 'Thêm',
+						text: 'Cập nhật',
 						cls:'button-submit',
 						flex: 1,
-						title: 'savingaddsubmitbutton'
+						title: 'savingeditsubmitbutton'
 					},
 					{
 						xtype: 'button',
 						text: 'Hủy',
 						cls:'button-cancel',
 						flex: 1,
-						title: 'savingaddcancelbutton'
+						title: 'savingeditcancelbutton'
 					}
 					
 				]	
@@ -147,8 +148,22 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		this.assignFields();
 	},
 	
+	updateSavingInfo: function(atm) {
+		var me = this;
+		me.setSavingModel(atm);
+		me._nameTF.setValue(atm.data.username);
+		me._bankTF.setValue(atm.data.bank);
+		me._amountTF.setValue(atm.data.amount);
+		me._rateTF.setValue(atm.data.interest_rate);
+		
+		me._periodTF.setValue(atm.data.period);
+		me._paidField.setValue(atm.data.interest_paid);
+		me._noteField.setValue(atm.data.note);
+		//me.updateRecentStore();
+		me.updateSelectedDate(new Date(atm.data.time));
+	},
 	//call from Controller
-	addSaving: function(callback) {
+	checkFields: function(callback) {
 		var me = this;
 		var name = me._nameTF.getValue();
 		var bank = me._bankTF.getValue();
@@ -178,44 +193,26 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 		rate = rate.toString();
 		
 		var now = new Date();
-		var atm_id = 'saving_' + now.getTime();
-		var atmModel = Ext.create('MyApp.model.Saving', {
+		//var atm_id = 'saving_' + now.getTime();
+		var savingData = {
 			username: name,
 			bank: bank,
 			amount: amount,
 			interest_rate: rate,
 			period: period,
 			interest_paid: paid,
-			interest_paid_index: '0',
+			//interest_paid_index: '0',
 			note: note,
 			created_date: createdDate,
-			status: AppUtil.STATUS_IN_USE,
+			//status: AppUtil.STATUS_IN_USE,
 			time: now.getTime(),
-			saving_id: atm_id
-		});		
-		atmModel.save({
-			success: function(savedrecord){
-				//savo to AtmHistory		
-				var atmHis = Ext.create('MyApp.model.SavingHistory', {
-					saving_id: atm_id,
-					description: 'Tạo sổ mới',
-					type: AppUtil.TYPE_ATM_TAO_MOI,
-					amount: amount,
-					moneycard:amount,
-					time: now.getTime(),
-					dd: now.getDate(),
-					mm: now.getMonth(),
-					yy: now.getFullYear()
-				});
-				
-				atmHis.save();
-				//
-				callback();
-			}	
-		});
+			//saving_id: atm_id
+		};		
 		
+		callback(savingData);
 		return true;
 	},
+	
 	
 	resetView: function(){
 		var me = this;

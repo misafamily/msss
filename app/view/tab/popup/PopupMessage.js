@@ -25,29 +25,33 @@ Ext.define('MyApp.view.tab.popup.PopupMessage', {
 		}
    },
    initialize: function() {
-   		this.callParent(arguments);
-		this.createView();
+   		var me = this;
+   		me.callParent(arguments);
+		me.createView();
    },
    
    updateData: function() {
-   		var text = this.getTextView();
+   		var me = this;
+   		var text = me.getTextView();
 		var msgText = text.down('container[cls = "popup-message-text-box"]');
-		msgText.setHtml(this.getData()['msg']);
+		msgText.setHtml(me.getData()['msg']);
 		msgText.getScrollable().getScroller().scrollToTop();
 		
 		var titleText = text.down('container[cls = "popup-message-title-box"]');
-		titleText.setHtml(this.getData()['title']);
+		titleText.setHtml(me.getData()['title']);
 		
    },
    
    createView: function() {
-   		var text = this.getTextView();
-		this.add(text);
+   		var me = this;
+   		var text = me.getTextView();
+		me.add(text);
    },
    
    getTextView: function() {
-   		if (!this._text) {
-			this._text = Ext.create('Ext.Container', {
+   		var me = this;
+   		if (!me._text) {
+			me._text = Ext.create('Ext.Container', {
 				cls:'popup-message-box',
 				layout: {
 					type:'vbox',
@@ -75,6 +79,6 @@ Ext.define('MyApp.view.tab.popup.PopupMessage', {
 				]
 			});
 		}
-		return this._text;
+		return me._text;
    }
 });

@@ -35,20 +35,22 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
     },	
 		
 	initialize: function() {
+		var me = this;
 		this.callParent(arguments);
 		//Ux.locale.Manager.applyLocaleForCmp(this);
 		this.updateStore();
 	},
 	
 	updateStore: function() {
-		if (!this._atmStore) {
-			this._atmStore = Ext.getStore('Atms');
+		var me = this;
+		if (!me._atmStore) {
+			me._atmStore = Ext.getStore('Atms');
 		}
-		var list = this;
+		//var list = me;
 		//list.getScrollable().getScroller().scrollToTop();
-		this._atmStore.load(function(records) {
+		me._atmStore.load(function(records) {
 			//console.log('records.length: ', records.length);
-			list.setHeight(113*records.length);
+			me.setHeight(113*records.length);
 		});
 	}
 });

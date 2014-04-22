@@ -25,28 +25,32 @@ Ext.define('MyApp.view.tab.popup.PopupAlert', {
 		}
    },
    initialize: function() {
-   		this.callParent(arguments);
-		this.createView();
+   		var me = this;
+   		me.callParent(arguments);
+		me.createView();
    },
    
    updateData: function() {
-   		var text = this.getTextView();
+   		var me = this;
+   		var text = me.getTextView();
 		var msgText = text.down('container[cls = "popup-message-text-box alert"]');
-		msgText.setHtml('<div class="content">' + this.getData()['msg'] + '</div>');
+		msgText.setHtml('<div class="content">' + me.getData()['msg'] + '</div>');
 				
 		var titleText = text.down('container[cls = "popup-alert-title-box"]');
-		titleText.setHtml('<div class="content">' + this.getData()['title'] + '</div>');
+		titleText.setHtml('<div class="content">' + me.getData()['title'] + '</div>');
 		
    },
    
    createView: function() {
-   		var text = this.getTextView();
-		this.add(text);
+   		var me = this;
+   		var text = me.getTextView();
+		me.add(text);
    },
    
    getTextView: function() {
-   		if (!this._text) {
-			this._text = Ext.create('Ext.Container', {
+   		var me = this;
+   		if (!me._text) {
+			me._text = Ext.create('Ext.Container', {
 				cls:'popup-alert-box',
 				layout: {
 					type:'vbox',
@@ -73,6 +77,6 @@ Ext.define('MyApp.view.tab.popup.PopupAlert', {
 				]
 			});
 		}
-		return this._text;
+		return me._text;
    }
 });

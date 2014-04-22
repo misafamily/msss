@@ -7,7 +7,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
     config: {
     	atmModel: null,
     	callbackFunc: null,
-    	title: 'Chi tiết tài khoản',
+    	title: 'Chi tiết thẻ ATM',
 		scrollable: {
 			direction: 'vertical'
 		},
@@ -67,7 +67,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 							items:[					
 								{
 									xtype: 'button',
-									text: 'Chuyển tiền',
+									text: 'Nạp tiền',
 									cls:'button-submit',
 									flex: 1,
 									title: 'atmdetailpushinbutton'
@@ -97,7 +97,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 								},
 								{
 									xtype: 'button',
-									text: 'Chuyển khoản,<br/>Mua sắm',
+									text: 'Chuyển khoản,<br/>Mua sắm = thẻ',
 									cls:'button-submit',
 									flex: 1,
 									title: 'atmdetailtransferbutton'
@@ -173,8 +173,8 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 											'</div>',	
 										'</div>',
 										'<div class="amountinfo">',
-											'<div class="amounticon"></div>',
-											'<div class="amount">{amount:this.format}</div>',
+											'<div class="amounticon {type}"></div>',
+											'<div class="amount {type}">{amount:this.format}</div>',
 										'</div>',		
 										'<div class="moneycardinfo">',
 											'<div class="moneycardicon"></div>',
@@ -196,35 +196,37 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		]
     },
 	initialize: function() {
-		this.callParent(arguments);
-		this.assignFields();
+		var me = this;
+		me.callParent(arguments);
+		me.assignFields();
 	},
 	
 	/*hide: function() {
-		var recentHisStore = this._list.getStore();
+		var recentHisStore = me._list.getStore();
 		if (recentHisStore) {
 			recentHisStore.removeAll();
 		}
 	},*/
 	
 	updateAtmModel: function() {
-		if (!this.getAtmModel()) return;
+		var me = this;
+		if (!me.getAtmModel()) return;
 		
-		this._nameTF.setValue(this.getAtmModel().data.username);
-		this._bankTF.setValue(this.getAtmModel().data.bank);
-		this._amountTF.setValue(AppUtil.formatMoneyWithUnit(this.getAtmModel().data.amount));
+		me._nameTF.setValue(me.getAtmModel().data.username);
+		me._bankTF.setValue(me.getAtmModel().data.bank);
+		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(me.getAtmModel().data.amount));
 		
-		this.updateRecentStore();
+		me.updateRecentStore();
 		
 	},
 	
 	updateRecentStore: function() {
 		var me = this;
-		var recentHisStore = this._list.getStore();
+		var recentHisStore = me._list.getStore();
 		//if (!recentHisStore) recentHisStore = Ext.getStore('AtmHistories_Recent');
 		if (recentHisStore) {
 			recentHisStore.removeAll();
-			AppUtil.offline.updateStoreQuery(recentHisStore, 'AtmHistories_Recent', {atm_id: this.getAtmModel().data.atm_id});
+			AppUtil.offline.updateStoreQuery(recentHisStore, 'AtmHistories_Recent', {atm_id: me.getAtmModel().data.atm_id});
 			recentHisStore.load(function(records) {
 				//console.log('recentHisStore lenght: ', records.length)
 				me._list.setHeight(142*records.length);
@@ -235,11 +237,11 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	editAtm: function(name, bank, amount) {		
 		var me = this;
 		
-		this._nameTF.setValue(name);
-		this._bankTF.setValue(bank);
+		me._nameTF.setValue(name);
+		me._bankTF.setValue(bank);
 		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 		
-		var atmModel = this.getAtmModel();
+		var atmModel = me.getAtmModel();
 		
 		var now = new Date();
 		
@@ -247,7 +249,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
-					description: 'Cập nhật tài khoản ATM',
+					description: 'Cập nhật thông tin thẻ ATM',
 					type: AppUtil.TYPE_ATM_SUA_THONG_TIN,
 					amount: amount,
 					moneycard:amount,
@@ -286,16 +288,16 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
+		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
 		
 		if (!AppUtil.canGetCash(m)) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, AppUtil.MESSAGE_FAILED_PUSHIN);
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHIN,AppUtil.getCashFormat()));
 			return;
 		}
 		
 		amount += m;		
 		var now = new Date();
-		var atmModel = this.getAtmModel();
+		var atmModel = me.getAtmModel();
 		atmModel.data.amount = amount;
 		atmModel.data.time = now.getTime();
 		
@@ -305,8 +307,8 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			//
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
-				description: 'Chuyển tiền vào thẻ ATM',
-				type: AppUtil.TYPE_ATM_CHUYEN_TIEN,
+				description: 'Nạp tiền vào thẻ ATM',
+				type: AppUtil.TYPE_ATM_NAP_TIEN,
 				amount: m,
 				moneycard:amount,
 				time: now.getTime(),
@@ -331,13 +333,13 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
+		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
 		var now = new Date();
 		
 		amount -= m;
 		
 		if (amount >= 0) {
-			var atmModel = this.getAtmModel();
+			var atmModel = me.getAtmModel();
 			atmModel.data.amount = amount;
 			atmModel.data.time = now.getTime();
 			
@@ -366,7 +368,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
 			});	
 		} else {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, AppUtil.MESSAGE_FAILED_PUSHOUT);
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHOUT,AppUtil.formatMoneyWithUnit(amount + m)));
 		}
 		
 	},
@@ -377,10 +379,10 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
+		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
 		amount += m;		
 		var now = new Date();
-		var atmModel = this.getAtmModel();
+		var atmModel = me.getAtmModel();
 		atmModel.data.amount = amount;
 		atmModel.data.time = now.getTime();
 		
@@ -414,13 +416,13 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
 		}
-		var amount = parseInt(this.getAtmModel().data.amount);//this._amountTF.getValue();
+		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
 		var now = new Date();
 		
 		amount -= m;
 		
 		if (amount >= 0) {
-			var atmModel = this.getAtmModel();
+			var atmModel = me.getAtmModel();
 			atmModel.data.amount = amount;
 			atmModel.data.time = now.getTime();
 			
@@ -447,15 +449,16 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKOUT, AppUtil.formatMoneyWithUnit(m)));			
 			});	
 		} else {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, AppUtil.MESSAGE_FAILED_CHECKOUT);
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_CHECKOUT,AppUtil.formatMoneyWithUnit(amount + m)));
+			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, AppUtil.MESSAGE_FAILED_CHECKOUT);
 		}
 		
 	},
 	
 	deleteAtm: function() {
 		var me = this;
-		//var amount = this._amountTF.getValue();
-		var atmModel = this.getAtmModel();
+		//var amount = me._amountTF.getValue();
+		var atmModel = me.getAtmModel();
 		var now = new Date();
 		atmModel.data.status = AppUtil.STATUS_CLOSED;
 		atmModel.save(function(){
@@ -465,7 +468,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 					description: 'Đóng tài khoản ATM',
 					type: AppUtil.TYPE_ATM_DONG,
 					amount: 0,
-					moneycard:amount,
+					moneycard:atmModel.data.amount,
 					time: now.getTime(),
 					dd: now.getDate(),
 					mm: now.getMonth(),
@@ -481,23 +484,25 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		);
 	},
 	resetView: function(){
-		this._nameTF.setValue('');
-		this._bankTF.setValue('');
-		this._amountTF.setValue('');
+		var me = this;
+		me._nameTF.setValue('');
+		me._bankTF.setValue('');
+		me._amountTF.reset();
 	},
 	
 	assignFields: function() {
-		if (!this._nameTF) {
-			this._nameTF = this.down('textfield[name = "name"]');
+		var me = this;
+		if (!me._nameTF) {
+			me._nameTF = me.down('textfield[name = "name"]');
 		}
-		if (!this._bankTF) {
-			this._bankTF = this.down('textfield[name = "bank"]');
+		if (!me._bankTF) {
+			me._bankTF = me.down('textfield[name = "bank"]');
 		}
-		if (!this._amountTF) {
-			this._amountTF = this.down('textfield[name = "amount"]');
+		if (!me._amountTF) {
+			me._amountTF = me.down('textfield[name = "amount"]');
 		}
-		if (!this._list) {
-			this._list = this.down('list');
+		if (!me._list) {
+			me._list = me.down('list');
 		}
 	}
  });   

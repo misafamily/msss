@@ -30,8 +30,8 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 								'</div>',	
 							'</div>',
 							'<div class="amountinfo">',
-								'<div class="amounticon"></div>',
-								'<div class="amount">{amount:this.format}</div>',
+								'<div class="amounticon {type}"></div>',
+								'<div class="amount {type}">{amount:this.format}</div>',
 							'</div>',		
 							'<div class="moneycardinfo">',
 								'<div class="moneycardicon"></div>',
@@ -52,25 +52,28 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 		]
     },
 	initialize: function() {
-		this.callParent(arguments);
+		var me = this;
+		me.callParent(arguments);
 	},
 	
 	hide: function() {
-		var recentHisStore = this._list.getStore();
+		var me = this;
+		var recentHisStore = me._list.getStore();
 		if (recentHisStore) {
 			recentHisStore.removeAll();
 		}
 	},
 	
 	loadData: function(atmModel) {
-		this.setAtmModel(atmModel);
+		var me = this;
+		me.setAtmModel(atmModel);
 		
-		if (!this._list) this._list = this.down('list');
+		if (!me._list) me._list = me.down('list');
 		
-		this._list.getScrollable().getScroller().scrollToTop();
-		var store = this._list.getStore();
+		me._list.getScrollable().getScroller().scrollToTop();
+		var store = me._list.getStore();
 		
-		AppUtil.offline.updateStoreQuery(store, 'AtmHistories', {atm_id: this.getAtmModel().data.atm_id});
+		AppUtil.offline.updateStoreQuery(store, 'AtmHistories', {atm_id: me.getAtmModel().data.atm_id});
 		store.load();
 	}
 	

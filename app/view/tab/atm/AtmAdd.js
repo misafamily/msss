@@ -73,16 +73,17 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 		]
     },
 	initialize: function() {
-		this.callParent(arguments);
-		this.assignFields();
+		var me = this;
+		me.callParent(arguments);
+		me.assignFields();
 	},
 	
 	//call from Controller
 	addAtm: function(callback) {
 		var me = this;
-		var name = this._nameTF.getValue();
-		var bank = this._bankTF.getValue();
-		var amount = this._amountTF.getValue();
+		var name = me._nameTF.getValue();
+		var bank = me._bankTF.getValue();
+		var amount = me._amountTF.getValue();
 		//console.log(amount);
 		//if (amount == '' || amount == null) amount = 0;		
 		
@@ -114,7 +115,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 				//savo to AtmHistory		
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atm_id,
-					description: 'Tạo mới tài khoản',
+					description: 'Tạo mới thẻ ATM',
 					type: AppUtil.TYPE_ATM_TAO_MOI,
 					amount: amount,
 					moneycard:amount,
@@ -134,20 +135,22 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
 	},
 	
 	resetView: function(){
-		this._nameTF.setValue('');
-		this._bankTF.setValue('');
-		this._amountTF.setValue('');
+		var me = this;
+		me._nameTF.setValue('');
+		me._bankTF.setValue('');
+		me._amountTF.reset();
 	},
 	
 	assignFields: function() {
-		if (!this._nameTF) {
-			this._nameTF = this.down('textfield[name = "name"]');
+		var me = this;
+		if (!me._nameTF) {
+			me._nameTF = me.down('textfield[name = "name"]');
 		}
-		if (!this._bankTF) {
-			this._bankTF = this.down('textfield[name = "bank"]');
+		if (!me._bankTF) {
+			me._bankTF = me.down('textfield[name = "bank"]');
 		}
-		if (!this._amountTF) {
-			this._amountTF = this.down('numberfield[name = "amount"]');
+		if (!me._amountTF) {
+			me._amountTF = me.down('numberfield[name = "amount"]');
 		}
 	}
  });   

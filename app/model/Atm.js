@@ -54,7 +54,7 @@ Ext.define('MyApp.model.Atm', {
     		dbConfig: {
 	    		tablename:'atm',
     			dbConn: MyApp.util.AppUtil.dbConnection,
-    			dbQuery:'SELECT * from atm a WHERE a.status = "in_use" ORDER BY time DESC'
+    			dbQuery:'SELECT * from atm a WHERE a.status = "in_use"' //+ '" ORDER BY time DESC
     		},
     		reader: {
                type: 'array'

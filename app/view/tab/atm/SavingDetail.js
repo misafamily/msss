@@ -145,19 +145,18 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 				items:[
 					{
 						xtype: 'button',
-						text: 'Rút tiền',
-						cls:'button-submit',
-						flex: 1,
-						title: 'savingdetailpushoutbutton'
-					},		
-					{
-						xtype: 'button',
 						text: 'Nạp tiền',
 						cls:'button-submit',
 						flex: 1,
 						title: 'savingdetailpushinbutton'
-					},				
-					
+					},	
+					{
+						xtype: 'button',
+						text: 'Rút tiền',
+						cls:'button-submit',
+						flex: 1,
+						title: 'savingdetailpushoutbutton'
+					}
 				]	
 			},
 			{
@@ -229,8 +228,8 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 								'</div>',	
 							'</div>',
 							'<div class="amountinfo">',
-								'<div class="amounticon"></div>',
-								'<div class="amount">{amount:this.format}</div>',
+								'<div class="amounticon {type}"></div>',
+								'<div class="amount {type}">{amount:this.format}</div>',
 							'</div>',		
 							'<div class="moneycardinfo">',
 								'<div class="moneycardicon"></div>',
@@ -268,17 +267,17 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		me._noteField.setValue(m.data.note);
 		me._paidField.setValue(m.data.interest_paid);
 		me._dateField.setValue(m.data.created_date);
-		this.updateRecentStore();
+		me.updateRecentStore();
 		
 	},
 	
 	updateRecentStore: function() {
 		var me = this;
-		var recentHisStore = this._list.getStore();
+		var recentHisStore = me._list.getStore();
 		//if (!recentHisStore) recentHisStore = Ext.getStore('SavingHistories_Recent');
 		if (recentHisStore) {
 			recentHisStore.removeAll();
-			AppUtil.offline.updateStoreQuery(recentHisStore, 'SavingHistories_Recent', {saving_id: this.getSavingModel().data.saving_id});
+			AppUtil.offline.updateStoreQuery(recentHisStore, 'SavingHistories_Recent', {saving_id: me.getSavingModel().data.saving_id});
 			recentHisStore.load(function(records) {
 				//console.log('recentHisStore lenght: ', records.length)
 				me._list.setHeight(142*records.length);
@@ -286,24 +285,156 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		}
 	},
 	
-	resetView: function(){
-		this._nameTF.setValue('');
-		this._bankTF.setValue('');
-		this._amountTF.setValue('');
-		this._rateTF.setValue('');
-		this._periodTF.setValue('30');
-		this._noteField.setValue('');
-		this._paidField.setValue('1');
-		this.updateSelectedDate(new Date());
+	paid: function(money) {
+		var me = this;
+		if (money == null) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
+			return;
+		}
+		var now = new Date();
+		var atmModel = me.getSavingModel();
+		//atmModel.data.amount = amount;
+		var paidIndex = parseInt(atmModel.data.interest_paid_index) + 1;
+		atmModel.data.time = now.getTime();
+		atmModel.data.interest_paid_index = paidIndex.toString();
+		
+		atmModel.save(function(){
+			//minus cash
+			AppUtil.cashPlus(money);
+			//
+			var atmHis = Ext.create('MyApp.model.SavingHistory', {
+				saving_id: atmModel.data.saving_id,
+				description: 'Lĩnh lãi lần ' + paidIndex.toString(),
+				type: AppUtil.TYPE_ATM_LINH_LAI,
+				amount: money,
+				moneycard:atmModel.data.amount,
+				time: now.getTime(),
+				dd: now.getDate(),
+				mm: now.getMonth(),
+				yy: now.getFullYear()
+			});
+			
+			atmHis.save();
+				
+			//var f = me.getCallbackFunc();
+				//f();
+			me.updateRecentStore();
+			//me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_LINHLAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_LINHLAI, AppUtil.formatMoneyWithUnit(money), AppUtil.getCashFormat()));			
+		});
 	},
 	
-	updateSelectedDate: function(date) {		
-		this._selectedDate = new Date(date.getTime());
+	pushInMoney: function(m) {
+		var me = this;
+		if (m == null) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
+			return;
+		}
+		
+		if (!AppUtil.canGetCash(m)) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHIN,AppUtil.getCashFormat()));
+			return;
+		}
+				
+		var now = new Date();
+		var atmModel = me.getSavingModel();
+		var amount = parseInt(atmModel.data.amount);//this._amountTF.getValue();
+		amount += m;
+		atmModel.data.amount = amount;
+		atmModel.data.time = now.getTime();
+		
+		atmModel.save(function(){
+			//minus cash
+			AppUtil.cashMinus(m);
+			//
+			var atmHis = Ext.create('MyApp.model.SavingHistory', {
+				saving_id: atmModel.data.saving_id,
+				description: 'Nạp tiền vào sổ',
+				type: AppUtil.TYPE_ATM_NAP_TIEN,
+				amount: m,
+				moneycard:amount,
+				time: now.getTime(),
+				dd: now.getDate(),
+				mm: now.getMonth(),
+				yy: now.getFullYear()
+			});
+			
+			atmHis.save();
+				
+			//var f = me.getCallbackFunc();
+				//f();
+			me.updateRecentStore();
+			me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
+		});
+	},
+	
+	pushOutMoney: function(m) {
+		var me = this;
+		if (m == null) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
+			return false;
+		}
+		var amount = parseInt(me.getSavingModel().data.amount);//me._amountTF.getValue();
+		var now = new Date();
+		
+		amount -= m;
+		
+		if (amount >= 0) {
+			var atmModel = me.getSavingModel();
+			atmModel.data.amount = amount;
+			atmModel.data.time = now.getTime();
+			
+			atmModel.save(function(){
+				//plus cash
+				AppUtil.cashPlus(m);
+				
+				var atmHis = Ext.create('MyApp.model.SavingHistory', {
+					saving_id: atmModel.data.saving_id,
+					description: 'Rút tiền',
+					type: AppUtil.TYPE_ATM_RUT_TIEN,
+					amount: m,
+					moneycard:amount,
+					time: now.getTime(),
+					dd: now.getDate(),
+					mm: now.getMonth(),
+					yy: now.getFullYear()
+				});
+				atmHis.save();
+				
+			
+				//var f = me.getCallbackFunc();
+				//f();
+				me.updateRecentStore();
+				me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
+			});	
+		} else {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHOUT,AppUtil.formatMoneyWithUnit(amount + m)));
+		}
+		
+	},
+	
+	resetView: function(){
+		var me = this;
+		me._nameTF.setValue('');
+		me._bankTF.setValue('');
+		me._amountTF.reset();
+		me._rateTF.reset();
+		me._periodTF.setValue('30');
+		me._noteField.setValue('');
+		me._paidField.setValue('1');
+		me.updateSelectedDate(new Date());
+	},
+	
+	updateSelectedDate: function(date) {	
+		var me = this;	
+		me._selectedDate = new Date(date.getTime());
 		//if (!this._selectedDate) this._selectedDate = new Date();
 		//this._selectedDate.setDate(date.getDate());
 		//this._selectedDate.setMonth(date.getMonth());
 		//this._selectedDate.setFullYear(date.getFullYear());
-		this._dateField.setValue(date.shortDateFormat());
+		me._dateField.setValue(date.shortDateFormat());
 	},
 	
 	getSelectedDate: function() {
@@ -311,32 +442,33 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 	},
 	
 	assignFields: function() {
-		if (!this._nameTF) {
-			this._nameTF = this.down('textfield[name = "name"]');
+		var me = this;
+		if (!me._nameTF) {
+			me._nameTF = me.down('textfield[name = "name"]');
 		}
-		if (!this._bankTF) {
-			this._bankTF = this.down('textfield[name = "bank"]');
+		if (!me._bankTF) {
+			me._bankTF = me.down('textfield[name = "bank"]');
 		}
-		if (!this._amountTF) {
-			this._amountTF = this.down('textfield[name = "amount"]');
+		if (!me._amountTF) {
+			me._amountTF = me.down('textfield[name = "amount"]');
 		}
-		if (!this._rateTF) {
-			this._rateTF = this.down('textfield[name = "rate"]');
+		if (!me._rateTF) {
+			me._rateTF = me.down('textfield[name = "rate"]');
 		}
-		if (!this._periodTF) {
-			this._periodTF = this.down('selectfield[name = "period"]');
+		if (!me._periodTF) {
+			me._periodTF = me.down('selectfield[name = "period"]');
 		}
-		if (!this._dateField) {
-			this._dateField = this.down('textfield[name = "created_date"]');
+		if (!me._dateField) {
+			me._dateField = me.down('textfield[name = "created_date"]');
 		}
-		if (!this._noteField) {
-			this._noteField = this.down('textareafield[name = "note"]');
+		if (!me._noteField) {
+			me._noteField = me.down('textareafield[name = "note"]');
 		}
-		if (!this._paidField) {
-			this._paidField = this.down('selectfield[name = "interest_paid"]');
+		if (!me._paidField) {
+			me._paidField = me.down('selectfield[name = "interest_paid"]');
 		}
-		if (!this._list) {
-			this._list = this.down('list');
+		if (!me._list) {
+			me._list = me.down('list');
 		}
 	}
  });   

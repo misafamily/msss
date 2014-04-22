@@ -7,8 +7,8 @@ Ext.define('MyApp.util.AppUtil',{
 	CASH: 0,
 	CASH_MODEL: null,
 	//TYPE
-	//chuyen_tien, rut_tien, chuyen_khoan, tao_moi, nhan_luong, sua_thong_tin
-	TYPE_ATM_CHUYEN_TIEN: 'chuyen_tien',
+	//chuyen_tien, rut_tien, nap_tien, tao_moi, nhan_luong, sua_thong_tin
+	//TYPE_ATM_CHUYEN_TIEN: 'chuyen_tien',
 	TYPE_ATM_RUT_TIEN: 'rut_tien',
 	TYPE_ATM_CHUYEN_KHOAN: 'chuyen_khoan',
 	TYPE_ATM_TAO_MOI: 'tao_moi',
@@ -27,24 +27,27 @@ Ext.define('MyApp.util.AppUtil',{
 	//TITLE
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
 	TITLE_EDIT: 'Thay đổi thông tin',
-	TITLE_PUSHIN: 'Nhiều tiền quá, gửi vào thẻ<br/>mất công xài hết',
+	TITLE_PUSHIN: 'Nhiều tiền quá, gởi tiền thôi',
 	TITLE_PUSHOUT: 'Hết tiền rồi, rút tiền xài thôi',
 	TITLE_CHECKIN: 'Nhận tiền chuyển khoản, lương',
 	TITLE_CHECKOUT: 'Chuyển khoản,<br/> mua sắm bằng thẻ',
 	TITLE_ATM_DELETE: 'Đóng tài khoản ATM',
+	TITLE_LINHLAI: 'Lĩnh tiền lãi',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
 	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không hợp lệ',
 	MESSAGE_SUCCESS_EDIT: 'Đã cập nhật',	
-	MESSAGE_SUCCESS_PUSHIN: 'Đã chuyển. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện còn <br/><span>{1}</span>',
+	MESSAGE_SUCCESS_PUSHIN: 'Đã nạp. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện còn <br/><span>{1}</span>',
 	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
-	MESSAGE_SUCCESS_CHECKIN: 'Đã nhận chuyển khoản. Số tiền<br/><span>{0}</span>',
+	MESSAGE_SUCCESS_CHECKIN: 'Đã nhận tiền. Số tiền<br/><span>{0}</span>',
 	MESSAGE_SUCCESS_CHECKOUT: 'Đã chuyển khoản. Số tiền<br/><span>{0}</span>',
 	MESSAGE_SUCCESS_DELETE: 'Đã đóng tài khoản',
+	MESSAGE_SUCCESS_LINHLAI: 'Đã lĩnh. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
+	
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
-	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để chuyển',
-	MESSAGE_FAILED_PUSHOUT: 'Số tiền rút lớn hơn tiền hiện có trong tài khoản',
-	MESSAGE_FAILED_CHECKOUT: 'Số tiền trong tài khoản không đủ',
+	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp.<br/>Tiền mặt hiện có <span>{0}</span>',
+	MESSAGE_FAILED_PUSHOUT: 'Số tiền rút lớn hơn tiền hiện có. Số tiền rút tối đa <span>{0}</span>',
+	MESSAGE_FAILED_CHECKOUT: 'Số tiền trong tài khoản không đủ. Số tiền chuyển tối đa <span>{0}</span>',
 	
 	saveCashModel: function() {
 		if (!this.CASH_MODEL) {

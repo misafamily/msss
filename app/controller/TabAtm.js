@@ -7,7 +7,8 @@ Ext.define('MyApp.controller.TabAtm', {
 		'MyApp.view.tab.atm.AtmEdit',
 		
 		'MyApp.view.tab.atm.SavingAdd',
-		'MyApp.view.tab.atm.SavingDetail'
+		'MyApp.view.tab.atm.SavingDetail',
+		'MyApp.view.tab.atm.SavingEdit'
 	],
     config: {
         refs: {		
@@ -207,6 +208,42 @@ Ext.define('MyApp.controller.TabAtm', {
 				}				
 			},			
 			//end AtmDetail
+			//SavingDetail
+			'tab_atm_savingdetail button[title = "savingdetailpaidbutton"]': {
+				tap: function() {
+					var sDetail = this.getSavingDetailView();
+					var me = this;
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_LINHLAI, function(money){
+						sDetail.paid(money);
+					});	
+				}				
+			},		
+			'tab_atm_savingdetail button[title = "savingdetailpushinbutton"]': {
+				tap: function() {
+					var sDetail = this.getSavingDetailView();
+					//atmDetail.editAtm();
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_PUSHIN, function(money){
+						//console.log('NAP: ', money);
+						sDetail.pushInMoney(money);
+					});	
+				}				
+			},
+			'tab_atm_savingdetail button[title = "savingdetailpushoutbutton"]': {
+				tap: function() {
+					var sDetail = this.getSavingDetailView();
+					this.getApplication().fireEvent('show_moneyinputpopup', AppUtil.TITLE_PUSHOUT, function(money){
+						sDetail.pushOutMoney(money);
+					});	
+				}				
+			},
+			'tab_atm_savingdetail button[title = "savingdetaileditbutton"]': {
+				tap: function() {
+					var sEdit = this.getSavingEditView();
+					sEdit.updateSavingInfo(this.getSavingDetailView().getSavingModel());
+					this.getThisTab().push(sEdit);	
+				}				
+			},
+			//end SavingDetail
 		}
     },
 	
@@ -215,52 +252,66 @@ Ext.define('MyApp.controller.TabAtm', {
 	},
 	
 	getAtmAddView: function() {
-		if (!this._atmAddView) {
-			this._atmAddView = Ext.create('MyApp.view.tab.atm.AtmAdd');
+		var me = this;	
+		if (!me._atmAddView) {
+			me._atmAddView = Ext.create('MyApp.view.tab.atm.AtmAdd');
 		}
-		return this._atmAddView;
+		return me._atmAddView;
 	},
 	getSavingAddView: function() {
-		if (!this._savingAddView) {
-			this._savingAddView = Ext.create('MyApp.view.tab.atm.SavingAdd');
+		var me = this;	
+		if (!me._savingAddView) {
+			me._savingAddView = Ext.create('MyApp.view.tab.atm.SavingAdd');
 		}
-		return this._savingAddView;
+		return me._savingAddView;
 	},
 	getAtmDetailView: function() {
-		if (!this._atmDetailView) {
-			this._atmDetailView = Ext.create('MyApp.view.tab.atm.AtmDetail');
+		var me = this;	
+		if (!me._atmDetailView) {
+			me._atmDetailView = Ext.create('MyApp.view.tab.atm.AtmDetail');
 		}
-		return this._atmDetailView;
+		return me._atmDetailView;
 	},
 	getSavingDetailView: function() {
-		if (!this._savingDetailView) {
-			this._savingDetailView = Ext.create('MyApp.view.tab.atm.SavingDetail');
+		var me = this;	
+		if (!me._savingDetailView) {
+			me._savingDetailView = Ext.create('MyApp.view.tab.atm.SavingDetail');
 		}
-		return this._savingDetailView;
+		return me._savingDetailView;
 	},
 	getAtmEditView: function() {
-		if (!this._atmEditView) {
-			this._atmEditView = Ext.create('MyApp.view.tab.atm.AtmEdit');
+		var me = this;	
+		if (!me._atmEditView) {
+			me._atmEditView = Ext.create('MyApp.view.tab.atm.AtmEdit');
 		}
-		return this._atmEditView;
+		return me._atmEditView;
+	},
+	getSavingEditView: function() {
+		var me = this;	
+		if (!me._savingEditView) {
+			me._savingEditView = Ext.create('MyApp.view.tab.atm.SavingEdit');
+		}
+		return me._savingEditView;
 	},
 	getAtmHistoryView: function() {
-		if (!this._atmHistoryView) {
-			this._atmHistoryView = Ext.create('MyApp.view.tab.atm.AtmHistory');
+		var me = this;	
+		if (!me._atmHistoryView) {
+			me._atmHistoryView = Ext.create('MyApp.view.tab.atm.AtmHistory');
 		}
-		return this._atmHistoryView;
+		return me._atmHistoryView;
 	},
 	getDatePicker: function(date, view, tf) {
-		if (!this._datepicker) {
-			this._datepicker = Ext.create('Ext.picker.Date', {
+		var me = this;	
+		if (!me._datepicker) {
+			me._datepicker = Ext.create('Ext.picker.Date', {
 				 //doneButton: 'Xong',
 	       		 //cancelButton: 'Hủy' 
 			});			
 		}
-		this._datepicker.setValue(date);
-		this._datepicker.un('change', this.onDatePickerDone, this);
-		this._datepicker.on('change', this.onDatePickerDone, this, {view: view, tf: tf});
-		return this._datepicker;
+		me._datepicker.setValue(date);
+		me._datepicker.un('change', me.onDatePickerDone, me);
+		me._datepicker.on('change', me.onDatePickerDone, me, {view: view, tf: tf});
+		return me._datepicker;
 	},
 	onDatePickerDone: function(dp, date, opts) {
 		//console.log('onDatePickerDone: ' + date.format('dd/mm/yyyy'));

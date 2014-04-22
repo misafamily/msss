@@ -30,15 +30,21 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
    },
    
    updateData: function() {
-   		var text = this.getTextView();
-   		if (!this._nField) this._nField = text.down('numberfield[name = "amount"]');
-   		this._nField.setValue('');
+   		var me = this;
+   		var text = me.getTextView();
+   		if (!me._nField) me._nField = text.down('numberfield[name = "amount"]');
+   		me._nField.setValue('');
 		//var msgText = text.down('container[cls = "popup-message-text-box alert"]');
 		//msgText.setHtml('<div class="content">' + this.getData()['msg'] + '</div>');
 				
-		if (!this._tField) this._tField = text.down('container[cls = "popup-alert-title-box"]');
-		this._tField.setHtml('<div class="content">' + this.getData()['title'] + '</div>');
+		if (!me._tField) me._tField = text.down('container[cls = "popup-alert-title-box"]');
+		me._tField.setHtml('<div class="content">' + me.getData()['title'] + '</div>');
 		
+   },
+   
+   resetView: function() {
+   		var me = this;
+   		me._nField.reset();
    },
    
    getInputValue: function() {   		
@@ -46,13 +52,15 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
    },
    
    createView: function() {
-   		var text = this.getTextView();
-		this.add(text);
+   		var me = this;
+   		var text = me.getTextView();
+		me.add(text);
    },
    
    getTextView: function() {
-   		if (!this._text) {
-			this._text = Ext.create('Ext.Container', {
+   		var me = this;
+   		if (!me._text) {
+			me._text = Ext.create('Ext.Container', {
 				cls:'popup-alert-box',
 				layout: {
 					type:'vbox',
@@ -112,6 +120,6 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
 				]
 			});
 		}
-		return this._text;
+		return me._text;
    }
 });

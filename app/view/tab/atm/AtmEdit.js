@@ -6,7 +6,7 @@ Ext.define('MyApp.view.tab.atm.AtmEdit', {
     ],
     config: {
     	atmModel: null,
-    	title: 'Sửa tài khoản',
+    	title: 'Sửa thông tin thẻ',
         layout:{
 			type:'vbox'
 		},
@@ -74,26 +74,28 @@ Ext.define('MyApp.view.tab.atm.AtmEdit', {
 		]
     },
 	initialize: function() {
-		this.callParent(arguments);
-		this.assignFields();
+		var me = this;
+		me.callParent(arguments);
+		me.assignFields();
 	},
 	
 	updateAtmInfo: function(atm) {
-		this.setAtmModel(atm);
-		this._nameTF.setValue(atm.data.username);
-		this._bankTF.setValue(atm.data.bank);
-		this._amountTF.setValue(atm.data.amount);
+		var me = this;
+		me.setAtmModel(atm);
+		me._nameTF.setValue(atm.data.username);
+		me._bankTF.setValue(atm.data.bank);
+		me._amountTF.setValue(atm.data.amount);
 		
-		//this.updateRecentStore();
+		//me.updateRecentStore();
 		
 	},
 	
 	//call from Controller
 	checkFields: function(callback) {
 		var me = this;
-		var name = this._nameTF.getValue();
-		var bank = this._bankTF.getValue();
-		var amount = this._amountTF.getValue();
+		var name = me._nameTF.getValue();
+		var bank = me._bankTF.getValue();
+		var amount = me._amountTF.getValue();
 		//console.log(amount);
 		//if (amount == '' || amount == null) amount = 0;		
 		
@@ -115,20 +117,22 @@ Ext.define('MyApp.view.tab.atm.AtmEdit', {
 	},
 	
 	resetView: function(){
-		this._nameTF.setValue('');
-		this._bankTF.setValue('');
-		this._amountTF.setValue('');
+		var me = this;
+		me._nameTF.setValue('');
+		me._bankTF.setValue('');
+		me._amountTF.reset();
 	},
 	
 	assignFields: function() {
-		if (!this._nameTF) {
-			this._nameTF = this.down('textfield[name = "name"]');
+		var me = this;
+		if (!me._nameTF) {
+			me._nameTF = me.down('textfield[name = "name"]');
 		}
-		if (!this._bankTF) {
-			this._bankTF = this.down('textfield[name = "bank"]');
+		if (!me._bankTF) {
+			me._bankTF = me.down('textfield[name = "bank"]');
 		}
-		if (!this._amountTF) {
-			this._amountTF = this.down('numberfield[name = "amount"]');
+		if (!me._amountTF) {
+			me._amountTF = me.down('numberfield[name = "amount"]');
 		}
 	}
  });   

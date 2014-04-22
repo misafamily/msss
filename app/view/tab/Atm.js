@@ -134,10 +134,11 @@ Ext.define('MyApp.view.tab.Atm', {
    },
    
    initialize: function() {
-   		this.callParent(arguments);
-   		MyApp.app.on('cash_changed', this.onCashChanged, this);
+   		var me = this;
+   		me.callParent(arguments);
+   		MyApp.app.on('cash_changed', me.onCashChanged, me);
    		
-   		this.initView();
+   		me.initView();
    },
    
    initView: function() {
@@ -155,11 +156,12 @@ Ext.define('MyApp.view.tab.Atm', {
    },
    
    onCashChanged: function(cash, amount) {
-   		if (!this._amountLabel) {
-   			this._amountLabel = this.down('label[cls = "atm-tienmat-amount"]');
+   		var me = this;
+   		if (!me._amountLabel) {
+   			me._amountLabel = me.down('label[cls = "atm-tienmat-amount"]');
    		}
    		
-   		this._amountLabel.setHtml(AppUtil.getCashFormat());
+   		me._amountLabel.setHtml(AppUtil.getCashFormat());
    }
 });
 

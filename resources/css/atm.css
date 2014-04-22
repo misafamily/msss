@@ -170,17 +170,52 @@
     margin-right: 5px;
 }
 
+.atm-atmhistory .amountinfo .amounticon.nhan_luong, .atm-atmhistory .amountinfo .amounticon.nap_tien, 
+.atm-atmhistory .amountinfo .amounticon.tao_moi {
+	background: url('../images/coloricons/money-add-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+}
+
+.atm-atmhistory .amountinfo .amounticon.rut_tien, .atm-atmhistory .amountinfo .amounticon.chuyen_khoan {
+	background: url('../images/coloricons/money-delete-icon.png') no-repeat 0px 0px;
+	 background-size: contain;
+}
+
+.atm-atmhistory .amountinfo .amounticon.linh_lai {
+	background: url('../images/coloricons/money-wallet-plus-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+}
+
+.atm-atmhistory .amountinfo .amount.nap_tien, .atm-atmhistory .amountinfo .amount.tao_moi,
+.atm-atmhistory .amountinfo .amount.nhan_luong, .atm-atmhistory .amountinfo .amount.linh_lai
+ {
+	color: #71b700;
+}
+.atm-atmhistory .amountinfo .amount.rut_tien, .atm-atmhistory .amountinfo .amount.chuyen_khoan {
+	color: red;
+}
+
 .atm-atmhistory .actioninfo .actionicon, 
 .atm-atmhistory .actioninfo .description {
 	display: inline-block;
 	vertical-align:middle;
 }
-.atm-atmhistory .actioninfo .actionicon, .atm-atmhistory .actioninfo .actionicon.nhan_luong  {
-	background: url('../images/coloricons/money-add-icon.png') no-repeat 0px 0px;
+.atm-atmhistory .actioninfo .actionicon {
+	background: url('../images/coloricons/atm-money-icon.png') no-repeat 0px 0px;
     background-size: contain;
     width: 30px;
     height: 30px;
     margin-right: 5px;
+}
+
+.atm-atmhistory .actioninfo .actionicon.tao_moi {
+	background: url('../images/coloricons/Credit-card-icon (1).png') no-repeat 0px 0px;
+	 background-size: contain;
+}
+/*
+.atm-atmhistory .actioninfo .actionicon.nhan_luong, .atm-atmhistory .actioninfo .actionicon.nap_tien {
+	background: url('../images/coloricons/money-add-icon.png') no-repeat 0px 0px;
+    background-size: contain;
 }
 
 .atm-atmhistory .actioninfo .actionicon.rut_tien, .atm-atmhistory .actioninfo .actionicon.chuyen_khoan {
@@ -192,6 +227,6 @@
 	background: url('../images/coloricons/Paper-Money-icon.png') no-repeat 0px 0px;
 	 background-size: contain;
 }
-
+*/
 /**/
 

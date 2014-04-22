@@ -43,6 +43,11 @@ Ext.define('MyApp.model.Saving', {
             	fieldOption:''
             },   
             {
+            	name:'interest_paid_index',//linh lai lan thu ?
+            	type:'string',
+            	fieldOption:''
+            },   
+            {
             	name:'status',
             	type:'string',
             	fieldOption:''
@@ -79,7 +84,7 @@ Ext.define('MyApp.model.Saving', {
     		dbConfig: {
 	    		tablename:'saving',
     			dbConn: MyApp.util.AppUtil.dbConnection,
-    			dbQuery:'SELECT * from saving a WHERE a.status = "in_use" ORDER BY time DESC'
+    			dbQuery:'SELECT * from saving a WHERE a.status = "in_use"' // ORDER BY time DESC
     		},
     		reader: {
                type: 'array'
