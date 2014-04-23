@@ -8,7 +8,8 @@ Ext.define('MyApp.controller.TabAtm', {
 		
 		'MyApp.view.tab.atm.SavingAdd',
 		'MyApp.view.tab.atm.SavingDetail',
-		'MyApp.view.tab.atm.SavingEdit'
+		'MyApp.view.tab.atm.SavingEdit',
+		'MyApp.view.tab.atm.SavingHistory'
 	],
     config: {
         refs: {		
@@ -94,6 +95,34 @@ Ext.define('MyApp.controller.TabAtm', {
 				}				
 			},
 			//end AtmEdit
+			//SavingEdit
+			'tab_atm_savingedit button[title = "savingeditcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();	
+				}				
+			},
+			'tab_atm_savingedit button[title = "savingeditsubmitbutton"]': {
+				tap: function() {
+					var me = this;
+					if (me.getSavingEditView().checkFields(
+						function(data) {
+							me.getSavingDetailView().editSaving(data);
+						})
+					) {						
+						me.getThisTab().onBackButtonTap();	
+					}						
+				}				
+			},
+			'tab_atm_savingedit textfield[name = "created_date"]' : {
+				focus: function(tf) {
+					//console.log('xxxx');
+					var savingEditView = this.getSavingEditView();
+					var dp = this.getDatePicker(savingEditView.getSelectedDate(), savingEditView, tf);
+					Ext.Viewport.add(dp);
+					dp.show();
+				}
+			},
+			//end SavingEdit
 			//AtmAdd
 			'tab_atm_atmadd button[title = "atmaddcancelbutton"]': {
 				tap: function() {
@@ -243,6 +272,24 @@ Ext.define('MyApp.controller.TabAtm', {
 					this.getThisTab().push(sEdit);	
 				}				
 			},
+			'tab_atm_savingdetail button[title = "savingdetaildeletebutton"]': {
+				tap: function() {
+					var sEdit = this.getSavingDetailView();
+					var me = this;
+					this.getApplication().fireEvent('show_confirm', AppUtil.CONFIRM_SAVING_DELETE, function(){
+						sEdit.deleteSaving();
+						me.getThisTab().onBackButtonTap();
+					});	
+				}				
+			},	
+			'tab_atm_savingdetail button[title = "savingdetailhistorybutton"]': {
+				tap: function() {
+					var atmHistory = this.getSavingHistoryView();
+					var atmDetail = this.getSavingDetailView();
+					atmHistory.loadData(atmDetail.getSavingModel());
+					this.getThisTab().push(atmHistory);
+				}				
+			},
 			//end SavingDetail
 		}
     },
@@ -299,6 +346,13 @@ Ext.define('MyApp.controller.TabAtm', {
 			me._atmHistoryView = Ext.create('MyApp.view.tab.atm.AtmHistory');
 		}
 		return me._atmHistoryView;
+	},
+	getSavingHistoryView: function() {
+		var me = this;	
+		if (!me._savingHistoryView) {
+			me._savingHistoryView = Ext.create('MyApp.view.tab.atm.SavingHistory');
+		}
+		return me._savingHistoryView;
 	},
 	getDatePicker: function(date, view, tf) {
 		var me = this;	

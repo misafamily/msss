@@ -3,6 +3,7 @@ Ext.define('MyApp.store.SavingHistories', {
     config: {
         model: 'MyApp.model.SavingHistory',
         autoLoad:false,
-        autoSync:false
+        autoSync:false,
+        pageSize: 6,
     }
 });

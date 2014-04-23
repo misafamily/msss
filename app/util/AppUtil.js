@@ -24,6 +24,7 @@ Ext.define('MyApp.util.AppUtil',{
 	STATUS_DELETED: 'deleted',
 	//CONFIRM
 	CONFIRM_ATM_DELETE: 'Tài khoản ATM sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
+	CONFIRM_SAVING_DELETE: 'Sổ sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
 	//TITLE
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
 	TITLE_EDIT: 'Thay đổi thông tin',
@@ -32,6 +33,8 @@ Ext.define('MyApp.util.AppUtil',{
 	TITLE_CHECKIN: 'Nhận tiền chuyển khoản, lương',
 	TITLE_CHECKOUT: 'Chuyển khoản,<br/> mua sắm bằng thẻ',
 	TITLE_ATM_DELETE: 'Đóng tài khoản ATM',
+	TITLE_SAVING_DELETE: 'Đóng sổ tiết kiệm',
+	
 	TITLE_LINHLAI: 'Lĩnh tiền lãi',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
@@ -41,7 +44,7 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
 	MESSAGE_SUCCESS_CHECKIN: 'Đã nhận tiền. Số tiền<br/><span>{0}</span>',
 	MESSAGE_SUCCESS_CHECKOUT: 'Đã chuyển khoản. Số tiền<br/><span>{0}</span>',
-	MESSAGE_SUCCESS_DELETE: 'Đã đóng tài khoản',
+	MESSAGE_SUCCESS_DELETE: 'Đã đóng xong',
 	MESSAGE_SUCCESS_LINHLAI: 'Đã lĩnh. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
 	
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',

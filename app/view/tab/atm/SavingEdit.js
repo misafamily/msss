@@ -192,7 +192,7 @@ Ext.define('MyApp.view.tab.atm.SavingEdit', {
 		
 		rate = rate.toString();
 		
-		var now = new Date();
+		var now = me._selectedDate.getTime();
 		//var atm_id = 'saving_' + now.getTime();
 		var savingData = {
 			username: name,
@@ -205,7 +205,7 @@ Ext.define('MyApp.view.tab.atm.SavingEdit', {
 			note: note,
 			created_date: createdDate,
 			//status: AppUtil.STATUS_IN_USE,
-			time: now.getTime(),
+			time: now,
 			//saving_id: atm_id
 		};		
 		

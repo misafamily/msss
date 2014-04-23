@@ -3,6 +3,7 @@ Ext.define('MyApp.store.AtmHistories', {
     config: {
         model: 'MyApp.model.AtmHistory',
         autoLoad:false,
-        autoSync:false
+        autoSync:false,
+        pageSize: 6,
     }
 });

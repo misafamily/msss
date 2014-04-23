@@ -1,11 +1,11 @@
-Ext.define('MyApp.view.tab.atm.AtmHistory', {
+Ext.define('MyApp.view.tab.atm.SavingHistory', {
     extend: 'Ext.Container',
-    xtype: 'tab_atm_atmhistory',
+    xtype: 'tab_atm_savinghistory',
     requires: [
     	 
     ],
     config: {
-    	atmModel: null,
+    	savingModel: null,
     	title: 'Lịch sử giao dịch',
         layout:{
 			type:'vbox'
@@ -16,7 +16,7 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
            {
 				xclass:'MyApp.view.component.AppListPull',
 				cls: 'atm-atmhistory',
-				store: 'AtmHistories',  	
+				store: 'SavingHistories',  	
 		       	itemTpl: new Ext.XTemplate(
 		       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
 							['<div class="info">',
@@ -66,14 +66,14 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 	
 	loadData: function(atmModel) {
 		var me = this;
-		me.setAtmModel(atmModel);
+		me.setSavingModel(atmModel);
 		
 		if (!me._list) me._list = me.down('list');
 		
 		me._list.getScrollable().getScroller().scrollToTop();
 		var store = me._list.getStore();
 		
-		AppUtil.offline.updateStoreQuery(store, 'AtmHistories', {atm_id: me.getAtmModel().data.atm_id});
+		AppUtil.offline.updateStoreQuery(store, 'SavingHistories', {saving_id: me.getSavingModel().data.saving_id});
 		store.load();
 	}
 	
