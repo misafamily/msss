@@ -158,7 +158,9 @@ Ext.define('MyApp.view.tab.atm.SavingEdit', {
 		
 		me._periodTF.setValue(atm.data.period);
 		me._paidField.setValue(atm.data.interest_paid);
-		me._noteField.setValue(atm.data.note);
+		if (atm.data.note != '' && atm.data.note != null) me._noteField.setValue(atm.data.note);
+		else me._noteField.reset();
+		
 		//me.updateRecentStore();
 		me.updateSelectedDate(new Date(atm.data.time));
 	},

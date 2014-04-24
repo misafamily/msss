@@ -5,7 +5,7 @@
 
 .atm-title-container {
 	/*height: 40px;*/
-	 background-color: #999; 
+	 background-color: #666; 
 	color: #FFF;
 	border-radius: 6px;
 	margin-bottom: 1px;
@@ -15,7 +15,7 @@
 }
 
 .atm-title-container.cash  {
-	background-color: #666;
+	/*background-color: #666;*/
 	margin-bottom: 0px;
 }
 
@@ -38,7 +38,8 @@
 	/*color: #0099CC;*/
 }
 .atm-container {
-	margin: 2px;
+	margin-left: 2px;
+	margin-right: 2px;
 	/*height:auto !important;*/
 }
 .atm-segment-container {

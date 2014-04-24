@@ -2,11 +2,12 @@ Ext.define('MyApp.view.tab.Expense', {
     extend: 'MyApp.view.component.NavigationViewBase',
     xtype: 'tab_expense',
     requires: [
-		
+		'MyApp.view.tab.expense.Day'
 	],
     config: {      
     	title: 'Chi tiêu',
-		scrollable:true,
+		//scrollable:true,
+		flex: 1,
 		iconCls:'tabbar-icon-shopping',
 		navigationBar:{
 			 backButton: {
@@ -48,16 +49,40 @@ Ext.define('MyApp.view.tab.Expense', {
 		items:[
 			{
 				xtype:'container',
-				title: 'Chi tiêu',
+				title: 'Quản lý chi tiêu',
+				cls: 'atm-container',
 				items:[
 					{
-						xtype:'container',
-						layout:'vbox',
+						xtype: 'segmentedbutton',
+						defaults: {
+							xtype:'button',
+							flex: 1
+						},
+						items: [
+							{
+								text: 'Ngày',
+								pressed: true,									
+							},
+							{
+								text: 'Tuần'
+							},
+							{
+								text: 'Tháng'
+							}
+						],
+						style: {
+							//'margin-bottom': '1px'
+						}
+					},
+					{
+						xtype: 'container',
+						layout: {
+							//type: 'card'
+						},
+						flex: 1,
 						items:[
 							{
-								xtype: 'label',
-								html:'Hôm nay, 17 - 09 - 2014',
-								cls:'today-title'
+								xtype: 'tab_expense_day'
 							}
 						]
 					}

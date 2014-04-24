@@ -118,12 +118,12 @@ body {
 
 
 .toolbar-icon-menu {
-  background-image: url('../images/menu_icon.png');
+  background-image: url('../images/ic_overflow_tab.png');
   background-size: cover;
 }
 
 .toolbar-icon-add {
-  background-image: url('../images/add_icon.png');
+  background-image: url('../images/ic_add.png');
   background-size: cover;
 }
 
@@ -138,7 +138,7 @@ body {
 }
 
 .button-icon-addnew {
-  background-image: url('../images/coloricons/text-plus-icon.png');
+  background-image: url('../images/ic_add.png');
   background-size: cover;
   width: 28px;
   height: 28px;
@@ -176,6 +176,27 @@ color: #FFFFFF;
   margin-left: 10px;
   margin-right: 10px;
   font-family: 'ROBOTO-LIGHT';
+}
+
+.button-border {
+	background-color: #777;
+	border: 1px solid #999;
+	color: #FFFFFF;
+	font-family: 'ROBOTO-LIGHT';
+	margin: 5px;
+}
+
+.button-icon-previous {
+  background-image: url('../images/ic_previous.png');
+  background-size: cover;
+  width: 28px;
+  height: 28px;
+}
+.button-icon-next {
+  background-image: url('../images/ic_next.png');
+  background-size: cover;
+  width: 28px;
+  height: 28px;
 }
 /*
 .button-submit .x-button-label, .button-cancel .x-button-label, .button-delete .x-button-label {

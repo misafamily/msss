@@ -88,11 +88,11 @@ Ext.application({
 	views: ['App','AppMenu'],
     controllers: ['App', 'TabHome', 'TabExpense','TabAtm'],
     launch: function() {
-    	//if(!App.util.CommonUtil.runningDevice()){
+    	if(!AppUtil.runningDevice()){
     		this.onDeviceReady();
-    	//}else{
-    		//document.addEventListener("deviceready", this.onDeviceReady, false);
-    	//}
+    	}else{
+    		document.addEventListener("deviceready", this.onDeviceReady, false);
+    	}
     	
     },
     onDeviceReady:function(){

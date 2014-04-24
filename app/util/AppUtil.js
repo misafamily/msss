@@ -178,5 +178,9 @@ Ext.define('MyApp.util.AppUtil',{
 			var language = navigator.language? navigator.language.split('-')[0] : navigator.userLanguage.split('-')[0];
 			this.setLang(language);
 		}
+	},
+	
+	log: function(msg) {
+		console.log(msg);
 	}
 });

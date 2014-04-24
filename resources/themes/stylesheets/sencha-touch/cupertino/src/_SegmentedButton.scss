@@ -7,10 +7,10 @@
 		@include border-radius(0);
 		height: 46px;
     font-size: 15px;
-    background-color: #999;//0099CC;
+    background-color: #666;//0099CC;
     
 		&.x-button-pressed {
-			background-color: #666;//33B5E5;//157efb;
+			background-color: #999;//33B5E5;//157efb;
 			.x-button-label {
 				color: #fff;
 			}

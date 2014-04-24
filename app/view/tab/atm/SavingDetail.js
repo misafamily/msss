@@ -264,7 +264,10 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(m.data.amount));
 		me._rateTF.setValue(AppUtil.formatRateWithUnit(m.data.interest_rate));
 		me._periodTF.setValue(m.data.period);
-		me._noteField.setValue(m.data.note);
+		if (m.data.note != '' && m.data.note != null) me._noteField.setValue(m.data.note);
+		else {
+			me._noteField.reset();
+		}
 		me._paidField.setValue(m.data.interest_paid);
 		me._dateField.setValue(m.data.created_date);
 		me.updateRecentStore();
@@ -351,7 +354,9 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 			me._amountTF.setValue(AppUtil.formatMoneyWithUnit(atmModel.data.amount));
 			me._rateTF.setValue(AppUtil.formatRateWithUnit(atmModel.data.interest_rate));
 			me._periodTF.setValue(atmModel.data.period);
-			me._noteField.setValue(atmModel.data.note);
+			if (atmModel.data.note != '' && atmModel.data.note != null) me._noteField.setValue(atmModel.data.note);
+			else me._noteField.reset();
+			
 			me._paidField.setValue(atmModel.data.interest_paid);
 			me._dateField.setValue(atmModel.data.created_date);
 			

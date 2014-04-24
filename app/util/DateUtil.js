@@ -149,26 +149,61 @@
 	};	
 	
 	Date.prototype.yesterday = function() {
-		var today = new Date();
+		//var today = new Date();
         var millisecondsInADay = 86400000;
-        var yesterday = new Date(today - millisecondsInADay);
+        var yesterday = new Date(this.getTime() - millisecondsInADay);
         return yesterday;
 	};
 	
+	Date.prototype.tomorrow = function() {
+		//var today = new Date();
+        var millisecondsInADay = 86400000;
+        var tomorrow = new Date(this.getTime() + millisecondsInADay);
+        return tomorrow;
+	};
+	
 	Date.prototype.dateFormat = function() {
+		var s = this.dateFormatWithoutTime(); 
+		s += ', ' + this.format(dateFormat.masks.shortTime);
+		return s;
+	};
+	
+	Date.prototype.dateFormatWithoutTime = function() {
 		var s = '';
 		var now = new Date();
-		var yesterday = this.yesterday();
+		var yesterday = now.yesterday();
+		var tomorrow = now.tomorrow();
 		if (this.getDate() == now.getDate() && this.getMonth() == now.getMonth() && this.getFullYear() == now.getFullYear()) {
 			s += 'Hôm nay, ';
 		} else if (this.getDate() == yesterday.getDate() && this.getMonth() == yesterday.getMonth() && this.getFullYear() == yesterday.getFullYear()) {
 			s += 'Hôm qua, ';
+		} else if (this.getDate() == tomorrow.getDate() && this.getMonth() == yesterday.getMonth() && this.getFullYear() == yesterday.getFullYear()) {
+			s += 'Ngày mai, ';
 		} else s += this.getDayName() + ', ';
 		
 		s += this.getDate() + ' ' + this.getShortMonthName() + ' ' + this.getFullYear(); 
-		s += ', ' + this.format(dateFormat.masks.shortTime);
+		//s += ', ' + this.format(dateFormat.masks.shortTime);
 		return s;
 	};
+	
+	Date.prototype.dateShortFormatWithoutTime = function() {
+		var s = '';
+		var now = new Date();
+		var yesterday = now.yesterday();
+		var tomorrow = now.tomorrow();
+		if (this.getDate() == now.getDate() && this.getMonth() == now.getMonth() && this.getFullYear() == now.getFullYear()) {
+			s += 'Hôm nay, ';
+		} else if (this.getDate() == yesterday.getDate() && this.getMonth() == yesterday.getMonth() && this.getFullYear() == yesterday.getFullYear()) {
+			s += 'Hôm qua, ';
+		} else if (this.getDate() == tomorrow.getDate() && this.getMonth() == yesterday.getMonth() && this.getFullYear() == yesterday.getFullYear()) {
+			s += 'Ngày mai, ';
+		}
+		s += this.getDayName() + ', ';		
+		s += this.getDate() + ' ' + this.getShortMonthName() + " '" + String(this.getFullYear()).slice(2); 
+		//s += ', ' + this.format(dateFormat.masks.shortTime);
+		return s;
+	};
+	
 	
 	Date.prototype.shortDateFormat = function() {
 		var s = '';		

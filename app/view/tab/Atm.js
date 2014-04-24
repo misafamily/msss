@@ -10,7 +10,7 @@ Ext.define('MyApp.view.tab.Atm', {
 		iconCls:'tabbar-icon-ketsat',	
 		items:[
 			{			
-				title:'Quản lý Két sắt',
+				title:'Quản lý két sắt',
 				xtype: 'container',
 				scrollable:{
 					direction: 'vertical'
