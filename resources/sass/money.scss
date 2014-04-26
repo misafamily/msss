@@ -5,10 +5,11 @@ $fontName: 'ROBOTO-LIGHT';
 @import 'sencha-touch/cupertino/all';
 
 //@include icon('menu');
+@include st-loading-spinner;
 
 //embed fonts
 //@include font-face('ROBOTO-THIN', inline-font-files('roboto/Roboto-Thin.ttf', opentype));
-//@include font-face('ROBOTO-BOLD', inline-font-files('roboto/Roboto-Bold.ttf', opentype));
+@include font-face('ROBOTO-BOLD', inline-font-files('roboto/Roboto-Bold.ttf', opentype));
 //@include font-face('ROBOTO-BLACK', inline-font-files('roboto/Roboto-Black.ttf', opentype));
 //@include font-face('ROBOTO-MEDIUM', inline-font-files('roboto/Roboto-Medium.ttf', opentype));
 @include font-face('ROBOTO-LIGHT', inline-font-files('roboto/Roboto-Light.ttf', opentype));
@@ -170,4 +171,14 @@ $fontName: 'ROBOTO-LIGHT';
     
   }
 }
+
+.expenseadd-buyingtype {
+  .x-input-el {
+    background: #ededed url('../images/coloricons/shopping-cart-icon.png') no-repeat 5px 5px;
+    background-size: 27px; 
+    padding-left: 45px;        
+    //padding-bottom: 10px;
+  }
+}
+
 

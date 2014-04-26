@@ -11,9 +11,12 @@
     
 		&.x-button-pressed {
 			background-color: #999;//33B5E5;//157efb;
+			
 			.x-button-label {
 				color: #fff;
+				font-family: 'ROBOTO-BOLD';
 			}
+			
 		}
 	}
 

@@ -18,6 +18,7 @@ Ext.define('MyApp.util.AppUtil',{
 	TYPE_ATM_KHOI_PHUC: 'khoi_phuc',
 	TYPE_ATM_NAP_TIEN: 'nap_tien',
 	TYPE_ATM_LINH_LAI: 'linh_lai',
+	
 	//STATUS
 	STATUS_IN_USE: 'in_use',
 	STATUS_CLOSED: 'closed',
@@ -34,7 +35,7 @@ Ext.define('MyApp.util.AppUtil',{
 	TITLE_CHECKOUT: 'Chuyển khoản,<br/> mua sắm bằng thẻ',
 	TITLE_ATM_DELETE: 'Đóng tài khoản ATM',
 	TITLE_SAVING_DELETE: 'Đóng sổ tiết kiệm',
-	
+	TITLE_UOCTINH_LAI: 'Ước tình tiền lãi',
 	TITLE_LINHLAI: 'Lĩnh tiền lãi',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
@@ -46,6 +47,7 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_SUCCESS_CHECKOUT: 'Đã chuyển khoản. Số tiền<br/><span>{0}</span>',
 	MESSAGE_SUCCESS_DELETE: 'Đã đóng xong',
 	MESSAGE_SUCCESS_LINHLAI: 'Đã lĩnh. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
+	MESSAGE_SUCCESS_UOCTINH_LAI: 'Số tiền lãi ước tính từ ngày<br/><span>{0}</span><br/>là <span>{1}</span>',
 	
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
 	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp.<br/>Tiền mặt hiện có <span>{0}</span>',
@@ -89,6 +91,7 @@ Ext.define('MyApp.util.AppUtil',{
 	},
 	
 	formatMoney: function(amount) {
+		amount = amount || 0;
 		return parseInt(amount).format(0, 3, '.');
 	},
 	

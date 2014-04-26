@@ -35,6 +35,7 @@
 	/*font-weight: bold;*/
 	font-size: 17px;
 	margin-left: 10px;
+	font-family: 'ROBOTO-BOLD';
 	/*color: #0099CC;*/
 }
 .atm-container {
@@ -55,6 +56,11 @@
 	top: 32px;
 }
 
+.atm-atmlist.expenseday .x-list-item-tpl .x-list-disclosure {
+	top: 18px;
+}
+
+
 .atm-atmlist .info, .atm-atmlist .amountinfo {
 	white-space: nowrap;
 	margin-right: 20px;
@@ -64,6 +70,10 @@
 }
 
 .atm-atmlist .info .usernameinfo .usernameicon, 
+.atm-atmlist .info .usernameinfo .shoppingicon,
+.atm-atmlist .info .usernameinfo .dateicon,
+.atm-atmlist .info .usernameinfo .thuicon,
+.atm-atmlist .info .usernameinfo .chiicon,
 .atm-atmlist .info .usernameinfo .username {
 	display: inline-block;
 	vertical-align:middle;
@@ -75,6 +85,41 @@
     height: 30px;
     margin-right: 10px;
 }
+
+.atm-atmlist .info .usernameinfo .dateicon {
+	background: url('../images/coloricons/Apps-date-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.atm-atmlist .info .usernameinfo .thuicon {
+	background: url('../images/coloricons/dollar-icon-plus.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+.atm-atmlist .info .usernameinfo .chiicon {
+	background: url('../images/coloricons/dollar-icon-minus.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 5px;
+}
+
+
+
+.atm-atmlist .info .usernameinfo .shoppingicon {
+	background: url('../images/coloricons/shopping-cart-icon.png') no-repeat 0px 0px;
+    background-size: contain;
+    width: 30px;
+    height: 30px;
+    margin-right: 10px;
+}
+
 
 .atm-atmlist .info .bankinfo .bankicon, 
 .atm-atmlist .info .bankinfo .bank {

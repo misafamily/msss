@@ -98,6 +98,20 @@ body {
 	font-family: 'ROBOTO-LIGHT';
 }
 
+/*LIST HEADER*/
+.x-list .x-list-header {
+	/*background: url('../images/coloricons/Apps-date-icon.png') no-repeat 0px 0px;
+    background-size: contain;*/
+   background-color: #777;
+}
+
+.x-list .x-list-header .x-innerhtml {
+	font-size: 16px;
+	font-family: 'ROBOTO-LIGHT';
+	font-weight: normal;
+	color: white;
+}
+
 /*ICONS*/
 .tabbar-icon-home {
 	background-image: url('../images/coloricons/Actions-go-home-icon.png');
@@ -183,20 +197,17 @@ color: #FFFFFF;
 	border: 1px solid #999;
 	color: #FFFFFF;
 	font-family: 'ROBOTO-LIGHT';
-	margin: 5px;
+	margin: 5px 0px;
+	padding: 0 2px;
 }
 
 .button-icon-previous {
   background-image: url('../images/ic_previous.png');
   background-size: cover;
-  width: 28px;
-  height: 28px;
 }
 .button-icon-next {
   background-image: url('../images/ic_next.png');
   background-size: cover;
-  width: 28px;
-  height: 28px;
 }
 /*
 .button-submit .x-button-label, .button-cancel .x-button-label, .button-delete .x-button-label {

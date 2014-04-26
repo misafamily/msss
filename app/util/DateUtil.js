@@ -204,11 +204,42 @@
 		return s;
 	};
 	
+	Date.prototype.sameDateWith = function(date){
+		if (!date) return false;
+		return (this.getDate() == date.getDate() &&
+				this.getMonth() == date.getMonth() &&
+				this.getFullYear() == date.getFullYear());
+	};
+	
+	Date.prototype.sameMonthWith = function(date){
+		if (!date) return false;
+		return (this.getMonth() == date.getMonth() &&
+				this.getFullYear() == date.getFullYear());
+	};
+	
+	Date.prototype.formatForExpense = function() {
+		return this.getDayName() + ', ' + this.shortDateFormat();
+	};
+	
 	
 	Date.prototype.shortDateFormat = function() {
 		var s = '';		
 		s += this.getDate() + ' ' + this.getShortMonthName() + ' ' + this.getFullYear();		
 		return s;
+	};
+	
+	Date.prototype.shortDateFormat2 = function() {
+		var s = '';		
+		s += this.getDate() + ' ' + this.getShortMonthName() + " '" + String(this.getFullYear()).slice(2); 		
+		return s;
+	};
+	
+	Date.prototype.getFirstAndLastDayOfWeek = function() {
+		var startDay = 1; //0=sunday, 1=monday etc.
+		var d = this.getDay(); //get the current day
+		var weekStart = new Date(this.valueOf() - (d<=0 ? 7-startDay:d-startDay)*86400000); //rewind to start day
+		var weekEnd = new Date(weekStart.valueOf() + 6*86400000); //add 6 days to get last day
+		return {first: weekStart, last: weekEnd};
 	};
 	
 	/**

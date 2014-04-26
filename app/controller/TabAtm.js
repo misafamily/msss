@@ -290,6 +290,12 @@ Ext.define('MyApp.controller.TabAtm', {
 					this.getThisTab().push(atmHistory);
 				}				
 			},
+			'tab_atm_savingdetail button[title = "savingdetailestimatebutton"]': {
+				tap: function() {
+					var atmDetail = this.getSavingDetailView();
+					atmDetail.estimate();
+				}				
+			},
 			//end SavingDetail
 		}
     },

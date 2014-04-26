@@ -2,7 +2,9 @@ Ext.define('MyApp.view.tab.Expense', {
     extend: 'MyApp.view.component.NavigationViewBase',
     xtype: 'tab_expense',
     requires: [
-		'MyApp.view.tab.expense.Day'
+		'MyApp.view.tab.expense.Day',
+		'MyApp.view.tab.expense.Week',
+		'MyApp.view.tab.expense.Month'
 	],
     config: {      
     	title: 'Chi tiêu',
@@ -11,8 +13,11 @@ Ext.define('MyApp.view.tab.Expense', {
 		iconCls:'tabbar-icon-shopping',
 		navigationBar:{
 			 backButton: {
-	            iconCls: 'app-nav-back-icon',
-	            ui: 'plain'
+	            iconCls: 'back',
+	            //ui: 'plain',
+	            style: {
+	            	'margin-left': '10px'
+	            }
 	        },
         	defaults:{
 				xtype:'button',
@@ -29,7 +34,8 @@ Ext.define('MyApp.view.tab.Expense', {
                     showAnimation:{
                         type: 'fadeIn',
                         duration: 100
-                    }
+                    },
+                    title: 'toolbar_tabexpense_menu_button'
 				},
 				{
 					iconCls:'toolbar-icon-add',
@@ -51,6 +57,7 @@ Ext.define('MyApp.view.tab.Expense', {
 				xtype:'container',
 				title: 'Quản lý chi tiêu',
 				cls: 'atm-container',
+				height: '100%',
 				items:[
 					{
 						xtype: 'segmentedbutton',
@@ -61,13 +68,16 @@ Ext.define('MyApp.view.tab.Expense', {
 						items: [
 							{
 								text: 'Ngày',
-								pressed: true,									
+								pressed: true,		
+								viewIndex: 0							
 							},
 							{
-								text: 'Tuần'
+								text: 'Tuần',		
+								viewIndex: 1
 							},
 							{
-								text: 'Tháng'
+								text: 'Tháng',		
+								viewIndex: 2
 							}
 						],
 						style: {
@@ -76,13 +86,20 @@ Ext.define('MyApp.view.tab.Expense', {
 					},
 					{
 						xtype: 'container',
+						cls: 'segment-container',
 						layout: {
-							//type: 'card'
+							type: 'card'
 						},
-						flex: 1,
+						height: '100%',
 						items:[
 							{
 								xtype: 'tab_expense_day'
+							},
+							{
+								xtype: 'tab_expense_week'
+							},
+							{
+								xtype: 'tab_expense_month'
 							}
 						]
 					}

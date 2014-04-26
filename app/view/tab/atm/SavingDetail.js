@@ -132,7 +132,14 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 						cls:'button-submit',
 						flex: 1,
 						title: 'savingdetailpaidbutton'
-					}			
+					},
+					{
+						xtype: 'button',
+						text: 'Ước tính tiền lãi',
+						cls:'button-submit',
+						flex: 1,
+						title: 'savingdetailestimatebutton'
+					}					
 					
 				]	
 			},
@@ -327,6 +334,20 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		});
 	},
 	
+	estimate: function() {
+		var me = this;
+		var m = 0;
+		var atmModel = me.getSavingModel();
+		var now = new Date();
+		var lastPaid = new Date(atmModel.data.time);	
+		m = parseInt(atmModel.data.amount) * parseInt(atmModel.data.interest_rate)/100;
+		var diff = Ext.Date.diff(lastPaid, now, Ext.Date.DAY);	
+		m *= diff/360;	
+		m = Math.round(m);
+		
+		MyApp.app.fireEvent('show_alert', AppUtil.TITLE_UOCTINH_LAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_UOCTINH_LAI, lastPaid.shortDateFormat(), AppUtil.formatMoneyWithUnit(m)));
+	},
+	
 	editSaving: function(data) {		
 		var me = this;
 		
@@ -347,7 +368,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 			atmModel.data.interest_paid = data.interest_paid;
 			atmModel.data.note = data.note;
 			atmModel.data.created_date = data.created_date;
-			atmModel.data.time = data.time;
+			if (parseInt(atmModel.data.interest_paid_index) > 0) atmModel.data.time = data.time;
 	
 			me._nameTF.setValue(atmModel.data.username);
 			me._bankTF.setValue(atmModel.data.bank);

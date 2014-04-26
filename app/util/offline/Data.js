@@ -24,21 +24,47 @@ Ext.define('MyApp.util.offline.Data',{
   	switch(name){
   			case 'AtmHistories':
   				var atm_id = extra.atm_id;
-  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time DESC';
+  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY id DESC';
   				break;
   			case 'AtmHistories_Recent':
   				var atm_id = extra.atm_id;
-  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time DESC LIMIT 2';
+  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time id LIMIT 2';
   				//console.log(queryStr);
   				break;
   			case 'SavingHistories':
   				var saving_id = extra.saving_id;
-  				queryStr = 'SELECT * FROM saving_history WHERE saving_id="' + saving_id + '" ORDER BY time DESC';
+  				queryStr = 'SELECT * FROM saving_history WHERE saving_id="' + saving_id + '" ORDER BY id DESC';
   				break;
   			case 'SavingHistories_Recent':
   				var saving_id = extra.saving_id;
-  				queryStr = 'SELECT * FROM saving_history WHERE saving_id="' + saving_id + '" ORDER BY time DESC LIMIT 2';
+  				queryStr = 'SELECT * FROM saving_history WHERE saving_id="' + saving_id + '" ORDER BY id DESC LIMIT 2';
   				//console.log(queryStr);
+  				break;
+  			case 'Expenses_Day':
+  				var dd = extra.dd;
+  				var mm = extra.mm;
+  				var yy = extra.yy;
+  				queryStr = 'SELECT * FROM expense WHERE dd=' + dd + ' AND mm=' + mm + ' AND yy=' + yy + ' ORDER BY id DESC';
+  				//console.log(queryStr);
+  				break;
+  			case 'Expenses_Week':
+  				var fDate = extra.from;
+  				Ext.Date.clearTime(fDate);
+  				
+  				var tDate = extra.to;
+  				tDate = Ext.Date.clearTime(tDate, true);
+  				tDate.setDate(tDate.getDate() + 1);
+  								
+  				queryStr = 'SELECT * FROM expense WHERE time >= ' + fDate.getTime() + ' AND time < ' + tDate.getTime() + ' ORDER BY id DESC';
+  				//console.log(queryStr);
+  				break;
+  			
+  			case 'Expenses_Month':
+  				var mm = extra.mm;
+  				var yy = extra.yy;
+  				
+  				queryStr = 'SELECT SUM(amount) as chi, time FROM expense WHERE mm = ' + mm + ' AND yy = ' + yy + ' GROUP BY dd,mm,yy ORDER BY dd DESC';
+  				console.log(queryStr);
   				break;
 			/*case 'Records_Lastest':
 				var limit = 'LIMIT ';
