@@ -123,6 +123,7 @@ Ext.define('MyApp.controller.TabExpense', {
 						function(date) {
 							me.getThisExpenseDay().updateStoreData(date);
 							me.getThisExpenseWeek().updateStoreDataWithDate(date);
+							me.getThisExpenseMonth().updateStoreDataWithDate(date);
 						})
 					) {						
 						me.getThisTab().onBackButtonTap();	

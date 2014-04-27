@@ -30,6 +30,7 @@ Ext.define('MyApp.util.AppUtil',{
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
 	TITLE_EDIT: 'Thay đổi thông tin',
 	TITLE_PUSHIN: 'Nhiều tiền quá, gởi tiền thôi',
+	TITLE_EXPENSE: 'Chi tiêu trong ngày',
 	TITLE_PUSHOUT: 'Hết tiền rồi, rút tiền xài thôi',
 	TITLE_CHECKIN: 'Nhận tiền chuyển khoản, lương',
 	TITLE_CHECKOUT: 'Chuyển khoản,<br/> mua sắm bằng thẻ',
@@ -47,27 +48,54 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_SUCCESS_CHECKOUT: 'Đã chuyển khoản. Số tiền<br/><span>{0}</span>',
 	MESSAGE_SUCCESS_DELETE: 'Đã đóng xong',
 	MESSAGE_SUCCESS_LINHLAI: 'Đã lĩnh. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
-	MESSAGE_SUCCESS_UOCTINH_LAI: 'Số tiền lãi ước tính từ ngày<br/><span>{0}</span><br/>là <span>{1}</span>',
+	MESSAGE_SUCCESS_UOCTINH_LAI: 'Số tiền lãi ước tính từ ngày<br/>{0}, {1}<br/>là <span>{2}</span>',
 	
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
-	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp.<br/>Tiền mặt hiện có <span>{0}</span>',
+	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp,<br/>hiện có <span>{0}</span>',
+	MESSAGE_FAILED_EXPENSE: 'Tiền mặt không đủ để chi tiêu,<br/>hiện có <span>{0}</span>',
 	MESSAGE_FAILED_PUSHOUT: 'Số tiền rút lớn hơn tiền hiện có. Số tiền rút tối đa <span>{0}</span>',
 	MESSAGE_FAILED_CHECKOUT: 'Số tiền trong tài khoản không đủ. Số tiền chuyển tối đa <span>{0}</span>',
 	
+	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank ) {
+		var now = new Date();
+		var expenseId = 'expensive_' + now.getTime();
+		var expenseData = {
+			expense_id: expenseId,
+			amount: amount,
+			type: expensetype,
+			buyingwhat: buyingwhat,
+			buyingtype: buyingtype,
+			frombank: frombank,
+			//note: note,
+			time: now.getTime(),
+			week: Ext.Date.getWeekOfYear(now),
+			dd: now.getDate(),
+			mm: now.getMonth(),
+			yy: now.getFullYear()
+		};
+		
+		var model = Ext.create('MyApp.model.Expense', expenseData);
+		model.save(function() {
+			MyApp.app.fireEvent('expense_changed', now);
+		});
+	},
+	
 	saveCashModel: function() {
-		if (!this.CASH_MODEL) {
-			this.CASH_MODEL = Ext.create('MyApp.model.System', {
+		var me = this;
+		if (!me.CASH_MODEL) {
+			me.CASH_MODEL = Ext.create('MyApp.model.System', {
 				name: 'cash',
 				value: '0'
 			});
 		}
 		
-		this.CASH_MODEL.data.value = this.CASH.toString();
-		this.CASH_MODEL.save();
+		me.CASH_MODEL.data.value = me.CASH.toString();
+		me.CASH_MODEL.save();
 	},
 	
 	getCashFormat: function() {
-		return this.formatMoneyWithUnit(this.CASH);
+		var me = this;
+		return me.formatMoneyWithUnit(me.CASH);
 	},
 	
 	canGetCash: function(amount) {
@@ -75,14 +103,16 @@ Ext.define('MyApp.util.AppUtil',{
 	},
 	
 	cashPlus: function(amount) {
-		this.CASH += amount;
-		this.saveCashModel();
-		MyApp.app.fireEvent('cash_changed', this.CASH, amount);
+		var me = this;
+		me.CASH += amount;
+		me.saveCashModel();
+		MyApp.app.fireEvent('cash_changed', me.CASH, amount);
 	},
 	
 	cashMinus: function(amount) {
-		this.CASH -= amount;
-		this.saveCashModel();
+		var me = this;
+		me.CASH -= amount;
+		me.saveCashModel();
 		MyApp.app.fireEvent('cash_changed', this.CASH, -amount);
 	},
 	
@@ -96,7 +126,8 @@ Ext.define('MyApp.util.AppUtil',{
 	},
 	
 	formatMoneyWithUnit: function(amount) {
-		return this.formatMoney(amount) + ' ' + this.moneyUnit;
+		var me = this;
+		return me.formatMoney(amount) + ' ' + me.moneyUnit;
 	},
 	
 	formatRateWithUnit: function(amount) {
@@ -109,14 +140,7 @@ Ext.define('MyApp.util.AppUtil',{
 	getLang:function(){
 		return this._lang;
 	},
-	shuffle:function(len){
-		var o = [];
-		for(var i = 0; i < len;i++){
-			o.push(i);
-		}
-		for(var j, x, i = o.length; i; j = parseInt(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-		return o;
-	},
+	
 	isOnline: function() {
         /*
         var states = {};
@@ -147,30 +171,7 @@ Ext.define('MyApp.util.AppUtil',{
 	   		return false;
 	   	}
    },
-   getDateTime:function(datestr){
-   		var dates = datestr.split(" ")[0].split("-");
-   		var times = datestr.split(" ")[1].split(":");
-   		return new Date(dates[0], dates[1], dates[2], times[0], times[1], times[2]);
-   },
-   //FOR MEAL PLANNING
-
-
-   getDayNames: function() {   		
-		return this.dayNames;
-   },
-   getWeekNumber: function() {
-   		if (!this._initDatePrototype) {
-			this._initDatePrototype = true;			
-		}  		
-		
-		return (new Date()).getWeek();
-   },
-   getDayInWeek: function(date, dayIndex) {
-	  var d = new Date(date);
-	  var day = d.getDay(),
-	      diff = d.getDate() - day + dayIndex; // adjust when day is sunday
-	  return new Date(d.setDate(diff)); //Mon Feb 10 2014 11:24:23 GMT+0700 (SE Asia Standard Time)
-	},
+ 
 	preferredLanguage:function(){
 		try{
 			navigator.globalization.getPreferredLanguage(

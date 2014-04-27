@@ -28,7 +28,7 @@ Ext.define('MyApp.util.offline.Data',{
   				break;
   			case 'AtmHistories_Recent':
   				var atm_id = extra.atm_id;
-  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY time id LIMIT 2';
+  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY id DESC LIMIT 2';
   				//console.log(queryStr);
   				break;
   			case 'SavingHistories':
@@ -55,7 +55,7 @@ Ext.define('MyApp.util.offline.Data',{
   				tDate = Ext.Date.clearTime(tDate, true);
   				tDate.setDate(tDate.getDate() + 1);
   								
-  				queryStr = 'SELECT * FROM expense WHERE time >= ' + fDate.getTime() + ' AND time < ' + tDate.getTime() + ' ORDER BY id DESC';
+  				queryStr = 'SELECT * FROM expense WHERE time >= ' + fDate.getTime() + ' AND time < ' + tDate.getTime() + ' ORDER BY time DESC';
   				//console.log(queryStr);
   				break;
   			
@@ -63,8 +63,9 @@ Ext.define('MyApp.util.offline.Data',{
   				var mm = extra.mm;
   				var yy = extra.yy;
   				
-  				queryStr = 'SELECT SUM(amount) as chi, time FROM expense WHERE mm = ' + mm + ' AND yy = ' + yy + ' GROUP BY dd,mm,yy ORDER BY dd DESC';
-  				console.log(queryStr);
+  				//queryStr = 'SELECT SUM(amount) as chi, time FROM expense WHERE mm = ' + mm + ' AND yy = ' + yy + ' GROUP BY dd,mm,yy,type ORDER BY dd DESC';
+  				queryStr = 'SELECT * FROM expense WHERE mm = ' + mm + ' AND yy = ' + yy + ' ORDER BY time DESC';
+  				//console.log(queryStr);
   				break;
 			/*case 'Records_Lastest':
 				var limit = 'LIMIT ';

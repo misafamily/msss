@@ -109,6 +109,10 @@
     height: 30px;
     margin-right: 5px;
 }
+.atm-atmlist .info .usernameinfo .chiicon.thu {
+	background: url('../images/coloricons/dollar-icon-plus.png') no-repeat 0px 0px;
+	background-size: contain;
+} 
 
 
 
@@ -119,6 +123,17 @@
     height: 30px;
     margin-right: 10px;
 }
+
+.atm-atmlist .info .usernameinfo .shoppingicon.atm {
+	background: url('../images/coloricons/Credit-Card-icon.png') no-repeat 0px 0px;
+	background-size: contain;
+}
+
+.atm-atmlist .info .usernameinfo .shoppingicon.saving {
+	background: url('../images/coloricons/dollar-folder-icon.png') no-repeat 0px 0px;
+	background-size: contain;
+}
+
 
 
 .atm-atmlist .info .bankinfo .bankicon, 

@@ -1,5 +1,5 @@
 Ext.define('MyApp.view.tab.atm.Atm', {
-    extend: 'Ext.Container',
+    extend: 'MyApp.view.component.AppContainer',
     xtype: 'tab_atm_atm',
     requires: [
     	'MyApp.view.tab.atm.AtmList'		     
@@ -46,9 +46,5 @@ Ext.define('MyApp.view.tab.atm.Atm', {
 				scrollable: false,
 			}
 		]
-    },
-	initialize: function() {
-		this.callParent(arguments);
-		//this.assignFields(true, true);
-	}
+    }
  });   

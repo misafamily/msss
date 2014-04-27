@@ -39,14 +39,15 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 							{text: 'Đi chợ hàng ngày',  value: 'di_cho'},
 	                        {text: 'Thực phẩm từ Sữa',  value: 'thuc_pham_sua'},
 							{text: 'Y tế, chăm sóc sức khỏe',  value: 'y_te'},
-							{text: 'Điện, nước, gas, truyền hình cáp',  value: 'dien_nuoc_ga'},
+							{text: 'Điện, nước, gas',  value: 'dien_nuoc_ga'},
+							{text: 'Giao dịch ngân hàng, cước phí',  value: 'giao_dich'},
 							{text: 'Xe cộ, taxi, xăng',  value: 'xe_xang'},
 							{text: 'Nhà ở, sinh hoạt dân cư',  value: 'thue_nha'},
 							{text: 'Đồ  sinh hoạt: gia vị, chất tẩy rửa',  value: 'sinh_hoat'},
 							{text: 'Đồ nội - ngoại thất',  value: 'noi_ngoai_that'},
 							{text: 'Quần áo, giày dép, mỹ phẩm',  value: 'quanao_giaydep'},	//minute
 							{text: 'Ăn uống, giải trí, tiêu vặt',  value: 'an_uong'},	//minute
-							{text: 'Cá nhân: thể thao, làm tóc, cước đt',  value: 'ca_nhan'},	//minute
+							//{text: 'Cá nhân: thể thao, làm tóc, cước đt',  value: 'ca_nhan'},	//minute
 							{text: 'Du lịch, dã ngoại',  value: 'du_lich'},	//minute
 							{text: 'Học hành, sách vở, báo chí',  value: 'hoc_hanh'},	//minute
 							{text: 'Đãi tiệc, đám cưới',  value: 'tiec_cuoi'},	//minute
@@ -148,13 +149,17 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 		//console.log(amount);
 		//if (amount == '' || amount == null) amount = 0;		
 		
-		if (!amount) {
+		/*if (!amount) {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_NOT_FILLED_INPUT);
 			return false;
-		}
+		}*/
 		if (amount == null) {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
 			return false;
+		}
+		if (!AppUtil.canGetCash(amount)) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EXPENSE, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EXPENSE,AppUtil.getCashFormat()));
+			return;
 		}
 		amount = parseInt(amount).toString();
 		
@@ -166,6 +171,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 			type: 'chi',
 			buyingwhat: what,
 			buyingtype: type,
+			frombank: 'tien_mat',
 			note: note,
 			time: now.getTime(),
 			week: Ext.Date.getWeekOfYear(now),

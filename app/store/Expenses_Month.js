@@ -1,20 +1,19 @@
 Ext.define('MyApp.store.Expenses_Month', {
     extend: 'Ext.data.Store',
     config: {
-       fields: ['thu', 'chi', 'time'],
+       	//fields: ['thu', 'chi', 'time'],
+       	model: 'MyApp.model.Expense',
         autoLoad:false,
         autoSync:false,
         
-         proxy:{
-    		type:'sqlitestorage',
-    		dbConfig: {
-	    		tablename:'expense',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
-    			dbQuery:'SELECT * from expense ORDER BY time DESC'
-    		},
-    		reader: {
-               type: 'array'
+         grouper: {
+            groupFn: function(record) {
+               //return record.get('dd') + ' - ' + record.get('mm') + ' - ' + record.get('yy');
+              // if (record.get('type') == 'thu')
+               		//return 'Thu nhập';
+               //	else 
+               return record.get('buyingwhat');
             }
-       }
+        },
     }
 });

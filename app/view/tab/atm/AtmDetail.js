@@ -1,5 +1,5 @@
 Ext.define('MyApp.view.tab.atm.AtmDetail', {
-    extend: 'Ext.Container',
+    extend: 'MyApp.view.component.AppContainer',
     xtype: 'tab_atm_atmdetail',
     requires: [
     	 
@@ -307,7 +307,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			//
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
-				description: 'Nạp tiền vào thẻ ATM',
+				description: 'Nạp tiền',
 				type: AppUtil.TYPE_ATM_NAP_TIEN,
 				amount: m,
 				moneycard:amount,
@@ -387,7 +387,9 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		atmModel.data.time = now.getTime();
 		
 		atmModel.save(function(){
-	
+			
+			AppUtil.saveExpenseModel('thu', m, atmModel.data.atm_id, 'Nhận tiền chuyển khoản, lương', 'atm', atmModel.data.bank + '-' + atmModel.data.username  );
+			
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
 				description: 'Nhận tiền chuyển khoản, lương',
@@ -427,7 +429,9 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			atmModel.data.time = now.getTime();
 			
 			atmModel.save(function(){
-	
+				
+				AppUtil.saveExpenseModel('chi', m, atmModel.data.atm_id, 'Chuyển khoản, mua sắm bằng thẻ', 'atm', atmModel.data.bank + '-' + atmModel.data.username );
+				
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
 					description: 'Chuyển khoản, mua sắm bằng thẻ',

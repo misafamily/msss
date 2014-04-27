@@ -7,7 +7,7 @@ Ext.define('MyApp.view.tab.Expense', {
 		'MyApp.view.tab.expense.Month'
 	],
     config: {      
-    	title: 'Chi tiêu',
+    	title: 'Thu chi',
 		//scrollable:true,
 		flex: 1,
 		iconCls:'tabbar-icon-shopping',
@@ -55,7 +55,7 @@ Ext.define('MyApp.view.tab.Expense', {
 		items:[
 			{
 				xtype:'container',
-				title: 'Quản lý chi tiêu',
+				title: 'Quản lý thu chi',
 				cls: 'atm-container',
 				height: '100%',
 				items:[

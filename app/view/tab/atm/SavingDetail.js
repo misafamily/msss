@@ -1,5 +1,5 @@
 Ext.define('MyApp.view.tab.atm.SavingDetail', {
-    extend: 'Ext.Container',
+    extend: 'MyApp.view.component.AppContainer',
     xtype: 'tab_atm_savingdetail',
     requires: [
     	 
@@ -303,14 +303,19 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		}
 		var now = new Date();
 		var atmModel = me.getSavingModel();
+		var lastpaidtime = atmModel.data.last_paid_time;
+		
 		//atmModel.data.amount = amount;
 		var paidIndex = parseInt(atmModel.data.interest_paid_index) + 1;
-		atmModel.data.time = now.getTime();
+		//atmModel.data.time = now.getTime();
 		atmModel.data.interest_paid_index = paidIndex.toString();
+		atmModel.data.last_paid_time = now.getTime();
 		
 		atmModel.save(function(){
 			//minus cash
 			AppUtil.cashPlus(money);
+			
+			AppUtil.saveExpenseModel('thu', money, atmModel.data.saving_id, 'Lĩnh lãi', 'saving', atmModel.data.bank + '-' + atmModel.data.username );
 			//
 			var atmHis = Ext.create('MyApp.model.SavingHistory', {
 				saving_id: atmModel.data.saving_id,
@@ -319,6 +324,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 				amount: money,
 				moneycard:atmModel.data.amount,
 				time: now.getTime(),
+				last_paid_time: lastpaidtime,
 				dd: now.getDate(),
 				mm: now.getMonth(),
 				yy: now.getFullYear()
@@ -339,13 +345,16 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		var m = 0;
 		var atmModel = me.getSavingModel();
 		var now = new Date();
-		var lastPaid = new Date(atmModel.data.time);	
-		m = parseInt(atmModel.data.amount) * parseInt(atmModel.data.interest_rate)/100;
+		var lastPaid = new Date(atmModel.data.last_paid_time);	
+		m = parseInt(atmModel.data.amount) * parseFloat(atmModel.data.interest_rate)/100;
 		var diff = Ext.Date.diff(lastPaid, now, Ext.Date.DAY);	
 		m *= diff/360;	
 		m = Math.round(m);
 		
-		MyApp.app.fireEvent('show_alert', AppUtil.TITLE_UOCTINH_LAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_UOCTINH_LAI, lastPaid.shortDateFormat(), AppUtil.formatMoneyWithUnit(m)));
+		var paidIndex = parseInt(atmModel.data.interest_paid_index);
+		var s = paidIndex == 0 ? 'gởi' : 'lĩnh lãi thứ ' + paidIndex;
+		
+		MyApp.app.fireEvent('show_alert', AppUtil.TITLE_UOCTINH_LAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_UOCTINH_LAI, s, lastPaid.shortDateFormat(), AppUtil.formatMoneyWithUnit(m)));
 	},
 	
 	editSaving: function(data) {		
@@ -368,8 +377,12 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 			atmModel.data.interest_paid = data.interest_paid;
 			atmModel.data.note = data.note;
 			atmModel.data.created_date = data.created_date;
-			if (parseInt(atmModel.data.interest_paid_index) > 0) atmModel.data.time = data.time;
-	
+			atmModel.data.time = data.time;
+			var interest_paid_index = parseInt(atmModel.data.interest_paid_index);
+			if (interest_paid_index < 1) {
+				atmModel.data.last_paid_time = data.time;
+			}
+
 			me._nameTF.setValue(atmModel.data.username);
 			me._bankTF.setValue(atmModel.data.bank);
 			me._amountTF.setValue(AppUtil.formatMoneyWithUnit(atmModel.data.amount));
@@ -425,7 +438,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		var amount = parseInt(atmModel.data.amount);//this._amountTF.getValue();
 		amount += m;
 		atmModel.data.amount = amount;
-		atmModel.data.time = now.getTime();
+		//atmModel.data.time = now.getTime();
 		
 		atmModel.save(function(){
 			//minus cash
@@ -467,7 +480,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		if (amount >= 0) {
 			var atmModel = me.getSavingModel();
 			atmModel.data.amount = amount;
-			atmModel.data.time = now.getTime();
+			//atmModel.data.time = now.getTime();
 			
 			atmModel.save(function(){
 				//plus cash

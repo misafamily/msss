@@ -61,6 +61,14 @@ Ext.define('MyApp.model.Saving', {
             	name:'time',//date.getTime()
             	type:'number'
 	       	},
+	       	 {
+            	name:'last_paid_time',//date.getTime()
+            	type:'number'
+	       	},
+	       	{
+            	name:'last_info',//date.getTime()
+            	type:'string'
+	       	},
 	       	{
             	name:'extra1',
             	type:'string'

@@ -66,7 +66,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 					},	
 					{
 					xtype: 'label',
-					html:'1.000.000 (đ)',
+					html:'0 (đ)',
 					title:'tong_thu',
 					cls:'atm-tienmat-amount'
 					}
@@ -82,7 +82,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 				style: {
 					'height': '40px',
 					'margin-left': '15px',
-					'border-bottom': '1px solid gray',
+					//'border-bottom': '1px solid gray',
 					//'margin-right': '20px'
 				},							
 				items:[
@@ -93,7 +93,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 					},	
 					{
 					xtype: 'label',
-					html:'100.000 (đ)',
+					html:'0 (đ)',
 					title:'tong_chi',
 					cls:'atm-tienmat-amount'
 					}
@@ -116,12 +116,8 @@ Ext.define('MyApp.view.tab.expense.Month', {
 							'<div class="username">{time:this.formatDate}</div>',  //Ngân hàng: 
 						'</div>',	
 						'<div class="usernameinfo">',
-							'<div class="thuicon"></div>',
-							'<div class="username">Thu: {thu:this.format}</div>', //Tên: 
-						'</div>',	
-						'<div class="usernameinfo">',
-							'<div class="chiicon"></div>',
-							'<div class="username">Chi: {chi:this.format}</div>',
+							'<div class="chiicon {type}"></div>',
+							'<div class="username {type}">{amount:this.format}</div>', //Tên: 
 						'</div>',		
 					'</div>',
 								
@@ -136,7 +132,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 						}	
 					}
        			),
-       			onItemDisclosure: true,
+       			//onItemDisclosure: true,
        			//grouped: true
 			}
 		]
@@ -146,6 +142,14 @@ Ext.define('MyApp.view.tab.expense.Month', {
 		me.callParent(arguments);
 		me.assignFields();
 		me.showThisMonth();
+		MyApp.app.on('expense_changed', me.onExpenseChanged, me);
+	},
+	
+	onExpenseChanged: function(date) {
+		var me = this;
+		//if (me._currentDate.sameDateWith(date)) {
+			me.updateStoreDataWithDate(date);
+		//}
 	},
 	
 	assignFields: function() {
@@ -161,8 +165,8 @@ Ext.define('MyApp.view.tab.expense.Month', {
 	
 	updateStoreDataWithDate: function(date) {
 		var me = this;
-		if (Ext.Date.between(date, me.beginDateOfWeek, me.endDateOfWeek)) {
-			me.updateStoreData(me.beginDateOfWeek, me.endDateOfWeek);
+		if (date.sameMonthWith(me._currentDate)) {
+			me.updateStoreData(date);
 		}
 	},
 	
@@ -171,21 +175,28 @@ Ext.define('MyApp.view.tab.expense.Month', {
 		
 		if (!me._list) me._list = me.down('list');
 		if (!me._amountLbl) me._amountLbl = me.down('label[title = "tong_chi"]');
+		if (!me._amountLblThu) me._amountLblThu = me.down('label[title = "tong_thu"]');
 		if (!me._list.getStore())  me._list.setStore(Ext.getStore('Expenses_Month'));
 		var store = me._list.getStore();
 		me._list.getScrollable().getScroller().scrollToTop();
 		store.removeAll();
+		me._list.setGrouped(true);
 		//me._list.setGrouped(true);
 		AppUtil.offline.updateStoreQuery(store, 'Expenses_Month', {mm: date.getMonth(), yy: date.getFullYear()});
 		store.load(function(records){
-			/*var sum = 0;
+			var sumChi = 0;
+			var sumThu = 0;
 			Ext.Array.each(records, function(item, index) {
-				sum += parseInt(item.data.amount);
+				if (item.data.type == 'chi')
+					sumChi += parseInt(item.data.amount);
+				else
+					sumThu += parseInt(item.data.amount);
 			});
 			
-			me._amountLbl.setHtml(AppUtil.formatMoneyWithUnit(sum));*/
-			AppUtil.log('records');
-			AppUtil.log(records);
+			me._amountLbl.setHtml(AppUtil.formatMoneyWithUnit(sumChi));
+			me._amountLblThu.setHtml(AppUtil.formatMoneyWithUnit(sumThu));
+			//AppUtil.log('records');
+			//AppUtil.log(records);
 		});
 			
 		
@@ -195,12 +206,12 @@ Ext.define('MyApp.view.tab.expense.Month', {
 		var me = this;
 		var now = new Date();
 		
-		if (!now.sameMonthWith(me._currentDate)) {
+		//if (!now.sameMonthWith(me._currentDate)) {
 			me._currentDate = now;
 			me._thisMonthButton.setText(me.formatMonth(me._currentDate));
 			
 			me.updateStoreData(me._currentDate);
-		}
+		//}
 	},
 	
 	showNextMonth: function() {

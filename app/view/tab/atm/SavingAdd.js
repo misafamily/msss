@@ -191,6 +191,8 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 			created_date: createdDate,
 			status: AppUtil.STATUS_IN_USE,
 			time: me._selectedDate.getTime(),
+			last_paid_time: me._selectedDate.getTime(),
+			last_info: '',
 			saving_id: atm_id
 		});		
 		atmModel.save({

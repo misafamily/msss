@@ -32,6 +32,16 @@ Ext.define('MyApp.model.Expense', {
             	type:'string',
             	fieldOption:''
             },
+             {
+            	name:'frombank',
+            	type:'string',
+            	fieldOption:''
+            },
+            {
+            	name:'external_id',
+            	type:'string',
+            	fieldOption:''
+            },
             {
             	name:'time',//date.getTime()
             	type:'number'

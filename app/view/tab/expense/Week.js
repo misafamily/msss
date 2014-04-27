@@ -66,7 +66,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 					},	
 					{
 					xtype: 'label',
-					html:'1.000.000 (đ)',
+					html:'0 (đ)',
 					title:'tong_thu',
 					cls:'atm-tienmat-amount'
 					}
@@ -92,10 +92,10 @@ Ext.define('MyApp.view.tab.expense.Week', {
 						//cls:'atm-tienmat-amount'
 					},	
 					{
-					xtype: 'label',
-					html:'100.000 (đ)',
-					title:'tong_chi',
-					cls:'atm-tienmat-amount'
+						xtype: 'label',
+						html:'0 (đ)',
+						title:'tong_chi',
+						cls:'atm-tienmat-amount'
 					}
 				]
 				
@@ -115,12 +115,12 @@ Ext.define('MyApp.view.tab.expense.Week', {
        				 */
 					['<div class="info">',
 						'<div class="usernameinfo">',
-							'<div class="shoppingicon"></div>',
+							'<div class="shoppingicon {buyingtype}"></div>',
 							'<div class="username">{buyingwhat}</div>', //Tên: 
 						'</div>',	
 						'<div class="usernameinfo">',
-							'<div class="chiicon"></div>',
-							'<div class="username">{amount:this.format}</div>',
+							'<div class="chiicon {type}"></div>',
+							'<div class="username {type}">{amount:this.format}</div>',
 						'</div>',		
 					'</div>'
 								
@@ -145,6 +145,14 @@ Ext.define('MyApp.view.tab.expense.Week', {
 		me.callParent(arguments);
 		me.assignFields();
 		me.showThisWeek();
+		MyApp.app.on('expense_changed', me.onExpenseChanged, me);
+	},
+	
+	onExpenseChanged: function(date) {
+		var me = this;
+		//if (me._currentDate.sameDateWith(date)) {
+			me.updateStoreDataWithDate(date);
+		//}
 	},
 	
 	assignFields: function() {
@@ -172,6 +180,8 @@ Ext.define('MyApp.view.tab.expense.Week', {
 		
 		if (!me._list) me._list = me.down('list');
 		if (!me._amountLbl) me._amountLbl = me.down('label[title = "tong_chi"]');
+		if (!me._amountLblThu) me._amountLblThu = me.down('label[title = "tong_thu"]');
+		
 		if (!me._list.getStore())  me._list.setStore(new MyApp.store.Expenses());
 		var store = me._list.getStore();
 		me._list.getScrollable().getScroller().scrollToTop();
@@ -181,12 +191,17 @@ Ext.define('MyApp.view.tab.expense.Week', {
 		
 		AppUtil.offline.updateStoreQuery(store, 'Expenses_Week', {from: fromDate, to: toDate});
 		store.load(function(records){
-			var sum = 0;
+			var sumThu = 0;
+			var sumChi = 0;
 			Ext.Array.each(records, function(item, index) {
-				sum += parseInt(item.data.amount);
+				if (item.data.type == 'chi')
+					sumChi += parseInt(item.data.amount);
+				else 
+					sumThu += parseInt(item.data.amount);
 			});
 			
-			me._amountLbl.setHtml(AppUtil.formatMoneyWithUnit(sum));
+			me._amountLbl.setHtml(AppUtil.formatMoneyWithUnit(sumChi));
+			me._amountLblThu.setHtml(AppUtil.formatMoneyWithUnit(sumThu));
 		});
 			
 		

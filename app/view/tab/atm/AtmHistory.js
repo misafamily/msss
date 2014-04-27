@@ -1,10 +1,11 @@
 Ext.define('MyApp.view.tab.atm.AtmHistory', {
-    extend: 'Ext.Container',
+    extend: 'MyApp.view.component.AppContainer',
     xtype: 'tab_atm_atmhistory',
     requires: [
     	 
     ],
     config: {
+    	emptyListOnHide: true,
     	atmModel: null,
     	title: 'Lịch sử giao dịch',
         layout:{
@@ -56,13 +57,13 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 		me.callParent(arguments);
 	},
 	
-	hide: function() {
+	/*hide: function() {
 		var me = this;
 		var recentHisStore = me._list.getStore();
 		if (recentHisStore) {
 			recentHisStore.removeAll();
 		}
-	},
+	},*/
 	
 	loadData: function(atmModel) {
 		var me = this;

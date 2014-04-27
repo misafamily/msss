@@ -1,5 +1,5 @@
 Ext.define('MyApp.view.tab.atm.Saving', {
-    extend: 'Ext.Container',
+    extend: 'MyApp.view.component.AppContainer',
     xtype: 'tab_atm_saving',
     requires: [
     	'MyApp.view.tab.atm.SavingList'		     
