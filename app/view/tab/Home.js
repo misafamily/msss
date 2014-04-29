@@ -19,5 +19,7 @@ Ext.define('MyApp.view.tab.Home', {
    
    initialize: function() {
    		this.callParent(arguments);
+   		
+   		//this.hideRightButtons();
    }
 });

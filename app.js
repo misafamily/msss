@@ -6,10 +6,12 @@ Ext.application({
     name:'MyApp',
 	 requires: [	 	
 	 	'MyApp.override.picker.Date',
-	 	'MyApp.util.AppUtil',		
+	 	'MyApp.util.AppUtil',
+	 	'MyApp.util.offline.Connection',		
 		'MyApp.util.offline.Proxy',
 		'MyApp.util.offline.Data'
     ],   
+    profiles: ['DefaultProfile'],
     models:[
     	'System',
     	'Atm',
@@ -47,17 +49,15 @@ Ext.application({
 	views: ['App','AppMenu'],
     controllers: ['App', 'TabHome', 'TabExpense','TabAtm'],
     launch: function() {
-    	if(!AppUtil.runningDevice()){
+    	//if(!AppUtil.runningDevice()){
     		this.onDeviceReady();
-    	}else{
-    		document.addEventListener("deviceready", this.onDeviceReady, false);
-    	}
+    	//}else{
+    		//document.addEventListener("deviceready", this.onDeviceReady, false);
+    	//}
     	
     },
     onDeviceReady:function(){
     	//PatientDiary.util.CommonUtil.preferredLanguage();
-    	MyApp.util.AppUtil.offline = Ext.create('MyApp.util.offline.Data',{});
-    	
     	Ext.Date.monthNames = [
 			"Tháng 1","Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng7", "Tháng 8", "Tháng 9", "Tháng 10","Tháng 11","Tháng 12"
 		];

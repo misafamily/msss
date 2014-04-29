@@ -54,7 +54,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 				style: {
 					//'height': '40px',
 					'margin-top': '10px',
-					'margin-left': '15px',
+					'margin-left': '15px'
 					//'border-bottom': '1px solid gray',
 					//'margin-right': '20px'
 				},							
@@ -81,14 +81,14 @@ Ext.define('MyApp.view.tab.expense.Week', {
 				},
 				style: {
 					'height': '40px',
-					'margin-left': '15px',
+					'margin-left': '15px'
 					//'border-bottom': '1px solid gray',
 					//'margin-right': '20px'
 				},							
 				items:[
 					{
 						xtype: 'label',
-						html:'Tổng chi:',
+						html:'Tổng chi:'
 						//cls:'atm-tienmat-amount'
 					},	
 					{

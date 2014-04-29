@@ -5,6 +5,7 @@ Ext.define('MyApp.controller.TabAtm', {
 		'MyApp.view.tab.atm.AtmDetail',
 		'MyApp.view.tab.atm.AtmHistory',		
 		'MyApp.view.tab.atm.AtmEdit',
+		'MyApp.view.tab.atm.AtmTrade',
 		
 		'MyApp.view.tab.atm.SavingAdd',
 		'MyApp.view.tab.atm.SavingDetail',
@@ -16,20 +17,108 @@ Ext.define('MyApp.controller.TabAtm', {
 			thisTab: 'tab_atm',
 			thisMenuButton: 'tab_atm button[iconCls = "toolbar-icon-menu"]',
 			thisAtmAdd: 'tab_atm_atmadd',
+			thisAtmDetail: 'tab_atm_atmdetail',
+			thisAtmTrade: 'tab_atm_atmtrade',
 			thisAtmList: 'tab_atm_atmlist',
 			thisSavingAdd: 'tab_atm_savingadd',
+			thisSavingDetail: 'tab_atm_savingdetail',
 			thisSavingList: 'tab_atm_savinglist'
         },//end refs
         control: {
 			thisTab: {
 				initialize: 'onTabInit',
-				push: function(me, view) {
-					this.getThisMenuButton().hide();
+				push: function(mee, view) {
+					var me = this;
+					me.getThisMenuButton().hide();
+					if (view.getId().indexOf('tab_atm_atmdetail') > -1 || 
+						view.getId().indexOf('tab_atm_savingdetail') > -1) {
+						mee.showRightButtons();
+					} else {
+						mee.hideRightButtons();
+					}
+					if (!me._viewIdStack) me._viewIdStack = [];
+					me._viewIdStack.push(view.getId());
+					
+					//AppUtil.log('push: ' + me._viewIdStack);
+					//AppUtil.log('button stack: ' + mee.getNavigationBar().backButtonStack);
 				},
-				pop: function(me, view, level) {
+				pop: function(mee, view, level) {
+					var me = this;
 					if (level < 3) this.getThisMenuButton().show();
+					if (view.getId().indexOf('tab_atm_atmtrade') > -1||
+						view.getId().indexOf('tab_atm_atmhistory') > -1) {
+						mee.showRightButtons();
+					}
+					if (me._viewIdStack) Ext.Array.erase(me._viewIdStack, me._viewIdStack.length-1, 1);
+					//AppUtil.log('pop: ' + me._viewIdStack);
 				},
+				
+				back: function(mee, opts) {
+					mee.hideRightButtons();
+				}
 			},
+			
+			//bar buttons
+			'tab_atm button[title="trade"]': {
+				tap: function() {
+					var me = this;
+					if (me._viewIdStack) {
+						if (me._viewIdStack.length > 0) {
+							var currentViewId = me._viewIdStack[me._viewIdStack.length-1];
+							AppUtil.log('trade tapped view id: ' + currentViewId);
+							if (currentViewId.indexOf('tab_atm_atmdetail') > -1) {
+								var atmTradeView = me.getAtmTradeView();
+								var atmDetail = me.getAtmDetailView();
+								atmTradeView.resetView();
+								atmTradeView.setAtmModel(atmDetail.getAtmModel());
+								atmTradeView.updateAtmModel2();
+								me.getThisTab().push(atmTradeView);
+							}
+						}						
+					}
+				}
+			},
+			'tab_atm button[title="edit"]': {
+				tap: function() {
+					AppUtil.log('edit tapped');
+				}
+			},
+			'tab_atm button[title="delete"]': {
+				tap: function() {
+					AppUtil.log('delete tapped');
+				}
+			},
+			//AtmTrade
+			'tab_atm_atmtrade button[title = "atmtradecancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();	
+				}				
+			},
+			'tab_atm_atmtrade button[title = "atmtradesubmitbutton"]': {
+				tap: function() {
+					var me = this;
+					if (me._viewIdStack) {
+						if (me._viewIdStack.length > 0) {
+							var currentViewId = me._viewIdStack[me._viewIdStack.length-1];
+							//AppUtil.log('trade tapped view id: ' + currentViewId);
+							if (currentViewId.indexOf('tab_atm_atmtrade') > -1) {
+								var atmTradeView = me.getAtmTradeView();
+								var atmDetail = me.getAtmDetailView();
+								
+								if (atmTradeView.doTrade()) {
+									atmDetail.updateAtmModel();
+									var m = atmTradeView.getAtmModel();
+									m = m.copy();
+									m = null;
+									this.getThisTab().onBackButtonTap();	
+								}
+							}
+						}						
+					}
+					//this.getThisTab().onBackButtonTap();	
+				}				
+			},
+			//
 			'tab_atm_atm button[title = "atmadd"]': {
 				tap: function() {
 					//console.log('tap tap');
@@ -331,6 +420,13 @@ Ext.define('MyApp.controller.TabAtm', {
 			me._savingDetailView = Ext.create('MyApp.view.tab.atm.SavingDetail');
 		}
 		return me._savingDetailView;
+	},
+	getAtmTradeView: function() {
+		var me = this;	
+		if (!me._atmTradeView) {
+			me._atmTradeView = Ext.create('MyApp.view.tab.atm.AtmTrade');
+		}
+		return me._atmTradeView;
 	},
 	getAtmEditView: function() {
 		var me = this;	

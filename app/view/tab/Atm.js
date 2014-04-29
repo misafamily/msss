@@ -152,7 +152,8 @@ Ext.define('MyApp.view.tab.Atm', {
    		
    		me._segmentContainer.add(me._atm);
    		me._segmentContainer.add(me._saving);
-   
+   		
+   		//me.hideRightButtons();
    },
    
    onCashChanged: function(cash, amount) {

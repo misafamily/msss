@@ -37,7 +37,7 @@ $fontName: 'ROBOTO-LIGHT';
 //change bg img of active item in bottom tabbar
 .x-tabbar.x-docked-bottom .x-tab-active { 
   //background-image: url('../images/Bottom_navi_active.png');
-  background-color:#33B5E5;//0099CC;
+  //background-color:#33B5E5;//0099CC;
 }
 
 //change button width + remove margin between each buttons on tabbar
@@ -73,8 +73,18 @@ $fontName: 'ROBOTO-LIGHT';
     }
   }
   
+  &.x-tab-active {
+    x-button-label {
+      color: #fff;
+    }
+
+    .x-button-icon:before, .x-button-label {
+      color: #fff;
+    }
+  }
+  
   .x-button-label, .x-tab .x-badge {
-    color: #fff;
+    color: #ccc;
     font-family: $fontName;
   }
 }

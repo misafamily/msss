@@ -29,10 +29,10 @@ Ext.define('MyApp.util.AppUtil',{
 	//TITLE
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
 	TITLE_EDIT: 'Thay đổi thông tin',
-	TITLE_PUSHIN: 'Nhiều tiền quá, gởi tiền thôi',
+	TITLE_PUSHIN: 'Nạp tiền',
 	TITLE_EXPENSE: 'Chi tiêu trong ngày',
-	TITLE_PUSHOUT: 'Hết tiền rồi, rút tiền xài thôi',
-	TITLE_CHECKIN: 'Nhận tiền chuyển khoản, lương',
+	TITLE_PUSHOUT: 'Rút tiền',
+	TITLE_CHECKIN: 'Nhận lương, tiền chuyển khoản',
 	TITLE_CHECKOUT: 'Chuyển khoản,<br/> mua sắm bằng thẻ',
 	TITLE_ATM_DELETE: 'Đóng tài khoản ATM',
 	TITLE_SAVING_DELETE: 'Đóng sổ tiết kiệm',
@@ -53,8 +53,8 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
 	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp,<br/>hiện có <span>{0}</span>',
 	MESSAGE_FAILED_EXPENSE: 'Tiền mặt không đủ để chi tiêu,<br/>hiện có <span>{0}</span>',
-	MESSAGE_FAILED_PUSHOUT: 'Số tiền rút lớn hơn tiền hiện có. Số tiền rút tối đa <span>{0}</span>',
-	MESSAGE_FAILED_CHECKOUT: 'Số tiền trong tài khoản không đủ. Số tiền chuyển tối đa <span>{0}</span>',
+	MESSAGE_FAILED_PUSHOUT: 'Tiền trong tài khoản không đủ. Có thể rút tối đa <span>{0}</span>',
+	MESSAGE_FAILED_CHECKOUT: 'Tiền trong tài khoản không đủ. Có thể chuyển tối đa <span>{0}</span>',
 	
 	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank ) {
 		var now = new Date();
@@ -162,6 +162,7 @@ Ext.define('MyApp.util.AppUtil',{
         return true;
    },
    runningDevice:function(){
+   		//alert('Ext.os.deviceType: ' + Ext.os.deviceType);
 	   if (Ext.os.deviceType == "Desktop") {
             return false;
         }
@@ -182,5 +183,6 @@ Ext.define('MyApp.util.AppUtil',{
 	
 	log: function(msg) {
 		console.log(msg);
+		//Ext.log.Logger.log(msg);
 	}
 });

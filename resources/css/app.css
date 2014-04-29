@@ -117,17 +117,26 @@ body {
 	background-image: url('../images/coloricons/Actions-go-home-icon.png');
 	background-size: 28px;
   background-repeat: no-repeat;
+   opacity: 0.5;
 }
 
 .tabbar-icon-ketsat {
 	background-image: url('../images/coloricons/safe-icon.png');
 	background-size: 28px;
   background-repeat: no-repeat;
+   opacity: 0.5;
 }
 .tabbar-icon-shopping {
 	background-image: url('../images/coloricons/shopping-cart-icon.png');
 	background-size: 28px;
   background-repeat: no-repeat;
+   opacity: 0.5;
+}
+
+.x-tab.x-tab-active .tabbar-icon-home, 
+.x-tab.x-tab-active .tabbar-icon-ketsat, 
+.x-tab.x-tab-active .tabbar-icon-shopping{
+   opacity:1 !important;
 }
 
 
@@ -140,7 +149,18 @@ body {
   background-image: url('../images/ic_add.png');
   background-size: cover;
 }
-
+.toolbar-icon-edit {
+  background-image: url('../images/ic_edit.png');
+  background-size: cover;
+}
+.toolbar-icon-delete {
+  background-image: url('../images/ic_delete.png');
+  background-size: cover;
+}
+.toolbar-icon-trade {
+  background-image: url('../images/ic_buy.png');
+  background-size: cover;
+}
 
 .button-rectangle {
 	background-image: url('../images/button_bg.png');	
