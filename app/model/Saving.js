@@ -90,8 +90,7 @@ Ext.define('MyApp.model.Saving', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'saving',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
+	    		tablename:'saving',    			
     			dbQuery:'SELECT * from saving a WHERE a.status = "in_use"' // ORDER BY time DESC
     		},
     		reader: {

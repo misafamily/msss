@@ -71,8 +71,7 @@ Ext.define('MyApp.model.SavingHistory', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'saving_history',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
+	    		tablename:'saving_history',    			
     			dbQuery:'SELECT * from SavingHistory'
     		},
     		reader: {

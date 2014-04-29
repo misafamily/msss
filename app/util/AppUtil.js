@@ -162,14 +162,10 @@ Ext.define('MyApp.util.AppUtil',{
         return true;
    },
    runningDevice:function(){
-	   	try{
-	   		if(device.platform == null){
-	   			return false;
-	   		}
-	   		return true;
-	   	}catch(e){
-	   		return false;
-	   	}
+	   if (Ext.os.deviceType == "Desktop") {
+            return false;
+        }
+        return true;
    },
  
 	preferredLanguage:function(){

@@ -21,8 +21,7 @@ Ext.define('MyApp.model.System', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'system',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
+	    		tablename:'system',    			
     			dbQuery:'SELECT * from system'
     		},
     		reader: {

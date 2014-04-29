@@ -52,8 +52,7 @@ Ext.define('MyApp.model.Atm', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'atm',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
+	    		tablename:'atm',    			
     			dbQuery:'SELECT * from atm a WHERE a.status = "in_use"' //+ '" ORDER BY time DESC
     		},
     		reader: {

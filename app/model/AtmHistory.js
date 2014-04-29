@@ -67,8 +67,7 @@ Ext.define('MyApp.model.AtmHistory', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'atm_history',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
+	    		tablename:'atm_history',    			
     			dbQuery:'SELECT * from atm_history'
     		},
     		reader: {

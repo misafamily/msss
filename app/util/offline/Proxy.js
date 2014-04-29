@@ -3,6 +3,13 @@ Ext.define('MyApp.util.offline.Proxy', {
     alias: 'proxy.sqlitestorage',
     alternateClassName: 'Ext.data.SqliteStorageProxy',
 
+    dbName: "moneysss",
+    
+    dbVersion: '1.0',
+    dbDescription: 'moneysss database',
+    dbSize: 5 * 1024 * 1024,
+    
+    dbConn: undefined,
     
     constructor: function(config) {
         this.callParent([config]);
@@ -10,6 +17,15 @@ Ext.define('MyApp.util.offline.Proxy', {
         //ensures that the reader has been instantiated properly
        this.setReader(this.reader);
         var me = this;
+        me.callParent([this]);
+        
+        try{
+        	if(!me.dbConn)
+        		me.dbConn = window.openDatabase(me.dbName,me.dbVersion, me.dbDescription, me.dbSize);
+        }catch(e){
+        	console.log(e.message);
+        }
+        
         //console.log(me);
         me.createTable();
         
@@ -108,7 +124,7 @@ Ext.define('MyApp.util.offline.Proxy', {
      */
     getDb : function(){
         //return Ext.DbConnection.dbConn || this.config.dbConfig.dbConn;
-        return this.config.dbConfig.dbConn.dbConn;
+        return this.dbConn;
     },
     /**
      *@private

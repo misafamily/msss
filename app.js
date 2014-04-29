@@ -1,54 +1,14 @@
 Ext.Loader.setPath({
     'MyApp': 'app'
 });
-Ext.require([
-		'MyApp.util.AppUtil',
-		'MyApp.util.offline.Connection',
-		'MyApp.util.offline.Proxy',
-		'MyApp.util.offline.Data'
-]);
-Ext.onReady(function(){
-	Ext.define('binhdocco.picker.Picker', {
-	    override : 'Ext.picker.Picker',
-	
-	    config : {
-	        doneButton   : {
-	           text: 'Xong'
-	        },
-	        cancelButton : {
-	           text: 'Hủy'
-	        }
-	    }
-	});
-	Ext.define('binhdocco.picker.Date', {
-	    override : 'Ext.picker.Date',
-	
-	    config : {
-	        doneButton   : {
-	           text: 'Xong'
-	        },
-	        cancelButton : {
-	           text: 'Hủy'
-	        }
-	    }
-	});
-	Ext.Date.monthNames = [
-			"Tháng 1","Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng7", "Tháng 8", "Tháng 9", "Tháng 10","Tháng 11","Tháng 12"
-		];
-	Ext.Date.dayNames = [
-		    "Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"
-		];
 
-	var dbconnval = {
-        dbName: "moneysss",
-        dbDescription: "MoneySSS database"
-    };
-   MyApp.util.AppUtil.dbConnection = Ext.create('MyApp.util.offline.Connection',dbconnval);
-   MyApp.util.AppUtil.offline = Ext.create('MyApp.util.offline.Data',{});
-});
 Ext.application({
     name:'MyApp',
 	 requires: [	 	
+	 	'MyApp.override.picker.Date',
+	 	'MyApp.util.AppUtil',		
+		'MyApp.util.offline.Proxy',
+		'MyApp.util.offline.Data'
     ],   
     models:[
     	'System',
@@ -96,6 +56,14 @@ Ext.application({
     },
     onDeviceReady:function(){
     	//PatientDiary.util.CommonUtil.preferredLanguage();
+    	MyApp.util.AppUtil.offline = Ext.create('MyApp.util.offline.Data',{});
+    	
+    	Ext.Date.monthNames = [
+			"Tháng 1","Tháng 2", "Tháng 3", "Tháng 4", "Tháng 5", "Tháng 6", "Tháng7", "Tháng 8", "Tháng 9", "Tháng 10","Tháng 11","Tháng 12"
+		];
+		Ext.Date.dayNames = [
+		    "Chủ nhật", "Thứ hai", "Thứ ba", "Thứ tư", "Thứ năm", "Thứ sáu", "Thứ bảy"
+		];
     	
     	var storeSystem = Ext.getStore('Systems');
 		storeSystem.load(function(){				

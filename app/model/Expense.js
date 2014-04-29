@@ -83,8 +83,7 @@ Ext.define('MyApp.model.Expense', {
         proxy:{
     		type:'sqlitestorage',
     		dbConfig: {
-	    		tablename:'expense',
-    			dbConn: MyApp.util.AppUtil.dbConnection,
+	    		tablename:'expense',    			
     			dbQuery:'SELECT * from expense ORDER BY time DESC'
     		},
     		reader: {
