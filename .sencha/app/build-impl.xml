@@ -192,8 +192,8 @@ this file in most cases.
             depends="refresh,
                      resolve,
                      js,
-                     resources,    
-					  sass,
+                     resources,
+                     sass,
                      slice,
                      page,
                      native-package"/>

@@ -16,9 +16,7 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSet": "../../../src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLResultSetRowList": "../../../src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "../../../src/device/sqlite/Sencha.js",
-  "MyApp": "app",
-  "binhdocco.picker.Date": "app.js",
-  "binhdocco.picker.Picker": "app.js"
+  "MyApp": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -646,18 +644,20 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.TabHome": [],
   "MyApp.model.Atm": [],
   "MyApp.model.AtmHistory": [],
+  "MyApp.model.Expense": [],
   "MyApp.model.Saving": [],
   "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
+  "MyApp.override.picker.Date": [],
   "MyApp.store.AtmHistories": [],
   "MyApp.store.AtmHistories_Recent": [],
   "MyApp.store.Atms": [],
+  "MyApp.store.Expenses": [],
+  "MyApp.store.Expenses_Month": [],
   "MyApp.store.SavingHistories": [],
   "MyApp.store.SavingHistories_Recent": [],
   "MyApp.store.Savings": [],
   "MyApp.store.Systems": [],
-  "MyApp.store.TestATMs": [],
-  "MyApp.store.TestSavings": [],
   "MyApp.util.AppUtil": [
     "AppUtil"
   ],
@@ -671,7 +671,9 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AppMenu": [],
   "MyApp.view.AppTab": [],
   "MyApp.view.Main": [],
+  "MyApp.view.component.AppContainer": [],
   "MyApp.view.component.AppList": [],
+  "MyApp.view.component.AppListPull": [],
   "MyApp.view.component.MenuButton": [],
   "MyApp.view.component.MenuToolbarBase": [],
   "MyApp.view.component.NavigationViewBase": [],
@@ -688,14 +690,16 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.tab.atm.SavingAdd": [],
   "MyApp.view.tab.atm.SavingDetail": [],
   "MyApp.view.tab.atm.SavingEdit": [],
+  "MyApp.view.tab.atm.SavingHistory": [],
   "MyApp.view.tab.atm.SavingList": [],
+  "MyApp.view.tab.expense.Day": [],
+  "MyApp.view.tab.expense.ExpenseAdd": [],
+  "MyApp.view.tab.expense.Month": [],
+  "MyApp.view.tab.expense.Week": [],
   "MyApp.view.tab.popup.PopupAlert": [],
-  "MyApp.view.tab.popup.PopupBackground": [],
   "MyApp.view.tab.popup.PopupConfirm": [],
   "MyApp.view.tab.popup.PopupMessage": [],
-  "MyApp.view.tab.popup.PopupMoneyInput": [],
-  "binhdocco.picker.Date": [],
-  "binhdocco.picker.Picker": []
+  "MyApp.view.tab.popup.PopupMoneyInput": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1420,18 +1424,20 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.TabHome": [],
   "MyApp.model.Atm": [],
   "MyApp.model.AtmHistory": [],
+  "MyApp.model.Expense": [],
   "MyApp.model.Saving": [],
   "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
+  "MyApp.override.picker.Date": [],
   "MyApp.store.AtmHistories": [],
   "MyApp.store.AtmHistories_Recent": [],
   "MyApp.store.Atms": [],
+  "MyApp.store.Expenses": [],
+  "MyApp.store.Expenses_Month": [],
   "MyApp.store.SavingHistories": [],
   "MyApp.store.SavingHistories_Recent": [],
   "MyApp.store.Savings": [],
   "MyApp.store.Systems": [],
-  "MyApp.store.TestATMs": [],
-  "MyApp.store.TestSavings": [],
   "MyApp.util.AppUtil": [],
   "MyApp.util.offline.Connection": [],
   "MyApp.util.offline.Data": [
@@ -1455,7 +1461,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.Main": [
     "widget.main"
   ],
+  "MyApp.view.component.AppContainer": [],
   "MyApp.view.component.AppList": [],
+  "MyApp.view.component.AppListPull": [],
   "MyApp.view.component.MenuButton": [
     "widget.component_menubutton"
   ],
@@ -1504,14 +1512,26 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.tab.atm.SavingEdit": [
     "widget.tab_atm_savingedit"
   ],
+  "MyApp.view.tab.atm.SavingHistory": [
+    "widget.tab_atm_savinghistory"
+  ],
   "MyApp.view.tab.atm.SavingList": [
     "widget.tab_atm_savinglist"
   ],
+  "MyApp.view.tab.expense.Day": [
+    "widget.tab_expense_day"
+  ],
+  "MyApp.view.tab.expense.ExpenseAdd": [
+    "widget.tab_expense_expenseadd"
+  ],
+  "MyApp.view.tab.expense.Month": [
+    "widget.tab_expense_month"
+  ],
+  "MyApp.view.tab.expense.Week": [
+    "widget.tab_expense_week"
+  ],
   "MyApp.view.tab.popup.PopupAlert": [
     "widget.tab_popup_popupalert"
-  ],
-  "MyApp.view.tab.popup.PopupBackground": [
-    "widget.tab_popup_popupbackground"
   ],
   "MyApp.view.tab.popup.PopupConfirm": [
     "widget.tab_popup_popupconfirm"
@@ -1521,7 +1541,5 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.tab.popup.PopupMoneyInput": [
     "widget.tab_popup_popupmoneyinput"
-  ],
-  "binhdocco.picker.Date": [],
-  "binhdocco.picker.Picker": []
+  ]
 });
