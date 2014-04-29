@@ -1,7 +1,6 @@
 Ext.define('MyApp.controller.App', {
     extend: 'Ext.app.Controller',
 	requires:[		
-		'MyApp.view.tab.popup.PopupBackground',
 		'MyApp.view.tab.popup.PopupMessage',
 		'MyApp.view.tab.popup.PopupAlert',
 		'MyApp.view.tab.popup.PopupConfirm',
@@ -48,24 +47,17 @@ Ext.define('MyApp.controller.App', {
 	
 	onClosePopup: function() {
 		var me = this;	
-		var popup = me.getPopupBgView();
-		popup.hide();	
 		var message = me.getPopupMessageView();
 		message.hide();		
 	},
 	
 	onCloseAlert: function() {
 		var me = this;	
-		var popup = me.getPopupAlertBgView();
-		popup.hide();	
 		var message = me.getPopupAlertView();
 		message.hide();		
 	},
 	onConfirmCancel: function() {
 		var me = this;	
-		var popup = me.getPopupBgView();
-		popup.hide();		
-		
 		var message = me.getPopupConfirmView();
 		message.hide();
 	
@@ -73,9 +65,6 @@ Ext.define('MyApp.controller.App', {
 	
 	onPopupMoneyCancel:function() {
 		var me = this;	
-		var popup = me.getPopupBgView();
-		popup.hide();		
-		
 		var message = me.getPopupMoneyInputView();
 		message.hide();
 	},
@@ -103,9 +92,6 @@ Ext.define('MyApp.controller.App', {
 	
 	showPopup:function(title, msg){	
 		var me = this;	
-		var popup = me.getPopupBgView();
-		Ext.Viewport.add(popup);	
-		popup.show();	
 		var message = me.getPopupMessageView();
 		message.setData({msg: msg, title: title});
 		Ext.Viewport.add(message);
@@ -113,31 +99,10 @@ Ext.define('MyApp.controller.App', {
 	},
 	showAlert:function(title, msg){	
 		var me = this;	
-		var popup = me.getPopupAlertBgView();
-		Ext.Viewport.add(popup);	
-		popup.show();	
 		var message = me.getPopupAlertView();
 		message.setData({msg: msg, title: title});
 		Ext.Viewport.add(message);
 		message.show();
-	},
-	
-	getPopupAlertBgView: function() {
-		var me = this;	
-		if (!me._popupAlertBg) {
-			me._popupAlertBg = Ext.create('MyApp.view.tab.popup.PopupBackground', {
-				cls: 'alert-container'
-			});
-		}
-		return me._popupAlertBg;
-	},
-	
-	getPopupBgView: function() {
-		var me = this;	
-		if (!me._popupBg) {
-			me._popupBg = Ext.create('MyApp.view.tab.popup.PopupBackground');
-		}
-		return me._popupBg;
 	},
 	
 	getPopupMessageView: function() {
@@ -181,10 +146,7 @@ Ext.define('MyApp.controller.App', {
 		me.showAlert(title, msg);
 	},
 	onConfirmShown: function(msg, callback) {
-		var me = this;	
-		var popup = me.getPopupBgView();
-		Ext.Viewport.add(popup);	
-		popup.show();		
+		var me = this;
 		
 		var message = me.getPopupConfirmView();
 		message.setData({msg: msg});
@@ -197,10 +159,7 @@ Ext.define('MyApp.controller.App', {
 	},
 	onMoneyInputShown: function(title, callback) {
 		var me = this;
-		var popup = me.getPopupBgView();
-		Ext.Viewport.add(popup);	
-		popup.show();		
-
+	
 		var message = me.getPopupMoneyInputView();
 		message.setData({title: title});
 		message.resetView();

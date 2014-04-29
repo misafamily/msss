@@ -16,7 +16,9 @@ Ext.Loader.addClassPathMappings({
   "Ext.device.sqlite.SQLResultSet": "../../../src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLResultSetRowList": "../../../src/device/sqlite/Sencha.js",
   "Ext.device.sqlite.SQLTransaction": "../../../src/device/sqlite/Sencha.js",
-  "MyApp": "app"
+  "MyApp": "app",
+  "binhdocco.picker.Date": "app.js",
+  "binhdocco.picker.Picker": "app.js"
 });
 Ext.ClassManager.addNameAlternateMappings({
   "Ext.AbstractComponent": [],
@@ -644,9 +646,15 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.controller.TabHome": [],
   "MyApp.model.Atm": [],
   "MyApp.model.AtmHistory": [],
+  "MyApp.model.Saving": [],
+  "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
   "MyApp.store.AtmHistories": [],
+  "MyApp.store.AtmHistories_Recent": [],
   "MyApp.store.Atms": [],
+  "MyApp.store.SavingHistories": [],
+  "MyApp.store.SavingHistories_Recent": [],
+  "MyApp.store.Savings": [],
   "MyApp.store.Systems": [],
   "MyApp.store.TestATMs": [],
   "MyApp.store.TestSavings": [],
@@ -673,15 +681,21 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.tab.atm.Atm": [],
   "MyApp.view.tab.atm.AtmAdd": [],
   "MyApp.view.tab.atm.AtmDetail": [],
+  "MyApp.view.tab.atm.AtmEdit": [],
   "MyApp.view.tab.atm.AtmHistory": [],
   "MyApp.view.tab.atm.AtmList": [],
   "MyApp.view.tab.atm.Saving": [],
+  "MyApp.view.tab.atm.SavingAdd": [],
+  "MyApp.view.tab.atm.SavingDetail": [],
+  "MyApp.view.tab.atm.SavingEdit": [],
   "MyApp.view.tab.atm.SavingList": [],
   "MyApp.view.tab.popup.PopupAlert": [],
   "MyApp.view.tab.popup.PopupBackground": [],
   "MyApp.view.tab.popup.PopupConfirm": [],
   "MyApp.view.tab.popup.PopupMessage": [],
-  "MyApp.view.tab.popup.PopupMoneyInput": []
+  "MyApp.view.tab.popup.PopupMoneyInput": [],
+  "binhdocco.picker.Date": [],
+  "binhdocco.picker.Picker": []
 });
 Ext.ClassManager.addNameAliasMappings({
   "Ext.AbstractComponent": [],
@@ -1406,9 +1420,15 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.controller.TabHome": [],
   "MyApp.model.Atm": [],
   "MyApp.model.AtmHistory": [],
+  "MyApp.model.Saving": [],
+  "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
   "MyApp.store.AtmHistories": [],
+  "MyApp.store.AtmHistories_Recent": [],
   "MyApp.store.Atms": [],
+  "MyApp.store.SavingHistories": [],
+  "MyApp.store.SavingHistories_Recent": [],
+  "MyApp.store.Savings": [],
   "MyApp.store.Systems": [],
   "MyApp.store.TestATMs": [],
   "MyApp.store.TestSavings": [],
@@ -1463,6 +1483,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.tab.atm.AtmDetail": [
     "widget.tab_atm_atmdetail"
   ],
+  "MyApp.view.tab.atm.AtmEdit": [
+    "widget.tab_atm_atmedit"
+  ],
   "MyApp.view.tab.atm.AtmHistory": [
     "widget.tab_atm_atmhistory"
   ],
@@ -1471,6 +1494,15 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.tab.atm.Saving": [
     "widget.tab_atm_saving"
+  ],
+  "MyApp.view.tab.atm.SavingAdd": [
+    "widget.tab_atm_savingadd"
+  ],
+  "MyApp.view.tab.atm.SavingDetail": [
+    "widget.tab_atm_savingdetail"
+  ],
+  "MyApp.view.tab.atm.SavingEdit": [
+    "widget.tab_atm_savingedit"
   ],
   "MyApp.view.tab.atm.SavingList": [
     "widget.tab_atm_savinglist"
@@ -1489,5 +1521,7 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.tab.popup.PopupMoneyInput": [
     "widget.tab_popup_popupmoneyinput"
-  ]
+  ],
+  "binhdocco.picker.Date": [],
+  "binhdocco.picker.Picker": []
 });
