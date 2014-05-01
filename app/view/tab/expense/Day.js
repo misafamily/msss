@@ -82,8 +82,9 @@ Ext.define('MyApp.view.tab.expense.Day', {
 				},
 				style: {
 					'height': '40px',
+					//'margin-top': '9px',
 					'margin-left': '15px',
-					'border-bottom': '1px solid gray'
+					//'border-bottom': '1px solid gray'
 					//'margin-right': '20px'
 				},							
 				items:[
@@ -113,7 +114,7 @@ Ext.define('MyApp.view.tab.expense.Day', {
 							'<div class="username">{buyingwhat}</div>', //Tên: 
 						'</div>',	
 						'<div class="usernameinfo">',
-							'<div class="chiicon {type}"></div>',
+							'<div class="amounticon {type}"></div>',
 							'<div class="username {type}">{amount:this.format}</div>',
 						'</div>',	
 					'</div>'
@@ -164,6 +165,7 @@ Ext.define('MyApp.view.tab.expense.Day', {
 		if (!me._list) me._list = me.down('list');
 		if (!me._amountLbl) me._amountLbl = me.down('label[title = "tong_chi"]');
 		if (!me._amountLblThu) me._amountLblThu = me.down('label[title = "tong_thu"]');
+		//if (!me._amountLblRut) me._amountLblRut = me.down('label[title = "tong_rut"]');
 		
 		if (! me._list.getStore())  me._list.setStore(new MyApp.store.Expenses());
 		
@@ -182,20 +184,30 @@ Ext.define('MyApp.view.tab.expense.Day', {
 		if (needRefresh) {
 			me._list.getScrollable().getScroller().scrollToTop();
 			store.removeAll();
+			me._list.setGrouped(true);
 			
 			AppUtil.offline.updateStoreQuery(store, 'Expenses_Day', {dd: date.getDate(), mm: date.getMonth(), yy: date.getFullYear()});
 			store.load(function(records){
 				var sumThu = 0;
 				var sumChi = 0;
+				//var sumRut = 0;
+				//var sumNap = 0;
 				Ext.Array.each(records, function(item, index) {
 					if (item.data.type == 'chi')
 						sumChi += parseInt(item.data.amount);
-					else 
+					else if (item.data.type == 'thu')
 						sumThu += parseInt(item.data.amount);
+					/*else if (item.data.type == 'rut')
+						sumRut += parseInt(item.data.amount);
+					else if (item.data.type == 'nap')
+						sumNap += parseInt(item.data.amount);*/
 				});
 				
-				me._amountLbl.setHtml(AppUtil.formatMoneyWithUnit(sumChi));
-				me._amountLblThu.setHtml(AppUtil.formatMoneyWithUnit(sumThu));
+				me._amountLbl.setHtml(AppUtil.formatMoneyWithUnit(sumChi));// + ' / ' + AppUtil.formatMoneyWithUnit(sumNap));
+				me._amountLblThu.setHtml(AppUtil.formatMoneyWithUnit(sumThu));// + ' / ' + AppUtil.formatMoneyWithUnit(sumRut));
+				//me._amountLblRut.setHtml(AppUtil.formatMoneyWithUnit(sumRut));
+				
+				//me._list.setHeight(82*records.length);
 			});
 					
 		}

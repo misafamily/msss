@@ -87,6 +87,15 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 										'margin-bottom': '5px'
 									}
 			                	},
+			                	 {
+			                        xtype: 'textfield',
+			                        name: 'tradedate',
+			                        //label: 'Ngân hàng ',
+			                        cls:'savingadd-createddate',
+			                        //placeHolder:'Chu kỳ (vd: 7 ngày, 3 tháng)',
+			                        autoCapitalize: false,
+			                        clearIcon:false
+			                  },
 			                    {
 			                        xtype: 'selectfield',
 			                        name: 'tradetype',
@@ -94,10 +103,10 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			                        cls:'savingadd-period',
 			     
 				                    options: [			
-				                    	{text: 'Rút tiền',  value: 'rut_tien'},									
-										{text: 'Nạp tiền',  value: 'nap_tien'},
-				                    	{text: 'Nhận lương, tiền chuyển khoản',  value: 'nhan_luong'},											
-										{text: 'Chuyển khoản, mua sắm qua thẻ',  value: 'chuyen_khoan'}
+				                    	{text: 'Rút tiền',  value: 'rut_tien'},																		
+				                    	{text: 'Nhận tiền chuyển khoản (lương)',  value: 'nhan_luong'},											
+										{text: 'Chuyển khoản, mua sắm qua thẻ',  value: 'chuyen_khoan'},
+										{text: 'Nạp tiền',  value: 'nap_tien'}
 									],	
 			                    },
 			                     
@@ -169,7 +178,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		var me = this;
 		var type = me._tradeTypeTF.getValue();
 		var m = me._tradeAmountTF.getValue(); 
-		AppUtil.log('amount: ' + m);
+		//AppUtil.log('amount: ' + m);
 		switch (type) {
 			case AppUtil.TYPE_ATM_NAP_TIEN:
 				return me.pushInMoney(m);
@@ -201,7 +210,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		}
 		
 		amount += m;		
-		var now = new Date();
+		var now = me._selectedDate;
 		var atmModel = me.getAtmModel();
 		atmModel.data.amount = amount;
 		atmModel.data.time = now.getTime();
@@ -209,8 +218,8 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		atmModel.save(function(){
 			//minus cash
 			AppUtil.cashMinus(m);
-			AppUtil.saveExpenseModel('chi', m, atmModel.data.atm_id, me._tradeTypeTF._value.data.text + ' ATM ', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username  );
-			AppUtil.saveExpenseModel('thu', m, atmModel.data.atm_id, 'Nhận lương, tiền chuyển khoản', 'atm', atmModel.data.bank + '-' + atmModel.data.username  );
+			AppUtil.saveExpenseModel('nap_tien', m, atmModel.data.atm_id, 'Tiền nạp', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
+			AppUtil.saveExpenseModel('nap', m, atmModel.data.atm_id, 'Nạp tiền', 'atm', atmModel.data.bank + '-' + atmModel.data.username, now  );
 			
 			//
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
@@ -243,7 +252,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			return false;
 		}
 		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
-		var now = new Date();
+		var now = me._selectedDate;
 		
 		amount -= m;
 		
@@ -255,8 +264,8 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			atmModel.save(function(){
 				//plus cash
 				AppUtil.cashPlus(m);
-				AppUtil.saveExpenseModel('thu', m, atmModel.data.atm_id, me._tradeTypeTF._value.data.text  + ' ATM', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username  );
-				AppUtil.saveExpenseModel('chi', m, atmModel.data.atm_id, me._tradeTypeTF._value.data.text, 'atm', atmModel.data.bank + '-' + atmModel.data.username  );
+				AppUtil.saveExpenseModel('rut_tien', m, atmModel.data.atm_id, 'Tiền rút', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
+				AppUtil.saveExpenseModel('rut', m, atmModel.data.atm_id, me._tradeTypeTF._value.data.text, 'atm', atmModel.data.bank + '-' + atmModel.data.username, now  );
 				
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
@@ -295,14 +304,14 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		}
 		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
 		amount += m;		
-		var now = new Date();
+		var now = me._selectedDate;
 		var atmModel = me.getAtmModel();
 		atmModel.data.amount = amount;
 		atmModel.data.time = now.getTime();
 		
 		atmModel.save(function(){
 			
-			AppUtil.saveExpenseModel('thu', m, atmModel.data.atm_id, 'Nhận tiền chuyển khoản, lương', 'atm', atmModel.data.bank + '-' + atmModel.data.username  );
+			AppUtil.saveExpenseModel('thu', m, atmModel.data.atm_id, 'Nhận tiền chuyển khoản', 'atm', atmModel.data.bank + '-' + atmModel.data.username, now  );
 			
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
@@ -334,7 +343,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			return false;
 		}
 		var amount = parseInt(me.getAtmModel().data.amount);//me._amountTF.getValue();
-		var now = new Date();
+		var now = me._selectedDate;
 		
 		amount -= m;
 		
@@ -345,7 +354,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			
 			atmModel.save(function(){
 				
-				AppUtil.saveExpenseModel('chi', m, atmModel.data.atm_id, 'Chuyển khoản, mua sắm bằng thẻ', 'atm', atmModel.data.bank + '-' + atmModel.data.username );
+				AppUtil.saveExpenseModel('chi', m, atmModel.data.atm_id, 'Chuyển khoản, mua sắm bằng thẻ', 'atm', atmModel.data.bank + '-' + atmModel.data.username, now );
 				
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
@@ -382,6 +391,21 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		//me._amountTF.reset();
 		me._tradeTypeTF.setValue('rut_tien');
 		me._tradeAmountTF.reset();
+		me.updateSelectedDate(new Date());
+	},
+	
+	updateSelectedDate: function(date) {	
+		var me = this;	
+		me._selectedDate = new Date(date.getTime());
+		//if (!this._selectedDate) this._selectedDate = new Date();
+		//this._selectedDate.setDate(date.getDate());
+		//this._selectedDate.setMonth(date.getMonth());
+		//this._selectedDate.setFullYear(date.getFullYear());
+		me._tradeDateTF.setValue(date.shortDateFormat());
+	},
+	
+	getSelectedDate: function() {
+		return this._selectedDate;
 	},
 	
 	assignFields: function() {
@@ -400,6 +424,9 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		}
 		if (!me._tradeAmountTF) {
 			me._tradeAmountTF = me.down('numberfield[name = "amounttrade"]');
+		}
+		if (!me._tradeDateTF) {
+			me._tradeDateTF = me.down('textfield[name = "tradedate"]');
 		}
 	}
  });   

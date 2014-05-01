@@ -102,7 +102,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 			},
 			{
 				xclass: 'MyApp.view.component.AppList',
-				//store: 'Expenses',
+				store: 'Expenses_Week',
 				cls: 'atm-atmlist expenseday',
 				itemTpl: new Ext.XTemplate(
        				//'<div class="thumb">{dd}<br/>{monthname}</div>',
@@ -119,7 +119,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 							'<div class="username">{buyingwhat}</div>', //Tên: 
 						'</div>',	
 						'<div class="usernameinfo">',
-							'<div class="chiicon {type}"></div>',
+							'<div class="amounticon {type}"></div>',
 							'<div class="username {type}">{amount:this.format}</div>',
 						'</div>',		
 					'</div>'
@@ -182,7 +182,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 		if (!me._amountLbl) me._amountLbl = me.down('label[title = "tong_chi"]');
 		if (!me._amountLblThu) me._amountLblThu = me.down('label[title = "tong_thu"]');
 		
-		if (!me._list.getStore())  me._list.setStore(new MyApp.store.Expenses());
+		if (!me._list.getStore())  me._list.setStore(new MyApp.store.Expenses_Week());
 		var store = me._list.getStore();
 		me._list.getScrollable().getScroller().scrollToTop();
 		store.removeAll();
@@ -196,7 +196,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 			Ext.Array.each(records, function(item, index) {
 				if (item.data.type == 'chi')
 					sumChi += parseInt(item.data.amount);
-				else 
+				else if (item.data.type == 'thu')
 					sumThu += parseInt(item.data.amount);
 			});
 			

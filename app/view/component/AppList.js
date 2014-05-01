@@ -6,6 +6,7 @@ Ext.define('MyApp.view.component.AppList', {
         disableSelection: true,
         allowDeselect: false,  
 		flex: 1,
+		//height: '100%',
 		emptyText:'',//Chưa có dữ liệu
 		/*localize:true,
 		locales : {

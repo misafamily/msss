@@ -115,11 +115,11 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 	                
                 ]    
            },
-           {
+          /* {
 				xtype:'container',
 				layout:'hbox',
 				style: {
@@ -189,7 +189,25 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 						title: 'savingdetaildeletebutton'
 					}
 				]	
-			},
+			},*/
+			{
+        		xtype: 'label',
+        		//html: 'Tiền lãi ước tính từ ngày {0}',
+        		style: {
+					'margin-left': '2px',
+					'margin-bottom': '5px',
+					'margin-top': '5px'
+				},
+				name: 'estimatelabel'
+        	},
+        	 {
+                xtype: 'textfield',
+                name: 'estimateamount',
+                //placeHolder:'Số tiền gởi (đ) (vd: 1000000)',
+                cls:'savingadd-reminder',
+                readOnly: true
+                //label: 'Số tiền hiện có  '
+            },
 			{
 				xtype: 'container',
 				style: {
@@ -278,7 +296,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		me._paidField.setValue(m.data.interest_paid);
 		me._dateField.setValue(m.data.created_date);
 		me.updateRecentStore();
-		
+		me.estimate();
 	},
 	
 	updateRecentStore: function() {
@@ -294,52 +312,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 			});
 		}
 	},
-	
-	paid: function(money) {
-		var me = this;
-		if (money == null) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
-			return;
-		}
-		var now = new Date();
-		var atmModel = me.getSavingModel();
-		var lastpaidtime = atmModel.data.last_paid_time;
 		
-		//atmModel.data.amount = amount;
-		var paidIndex = parseInt(atmModel.data.interest_paid_index) + 1;
-		//atmModel.data.time = now.getTime();
-		atmModel.data.interest_paid_index = paidIndex.toString();
-		atmModel.data.last_paid_time = now.getTime();
-		
-		atmModel.save(function(){
-			//minus cash
-			AppUtil.cashPlus(money);
-			
-			AppUtil.saveExpenseModel('thu', money, atmModel.data.saving_id, 'Lĩnh lãi', 'saving', atmModel.data.bank + '-' + atmModel.data.username );
-			//
-			var atmHis = Ext.create('MyApp.model.SavingHistory', {
-				saving_id: atmModel.data.saving_id,
-				description: 'Lĩnh lãi lần ' + paidIndex.toString(),
-				type: AppUtil.TYPE_ATM_LINH_LAI,
-				amount: money,
-				moneycard:atmModel.data.amount,
-				time: now.getTime(),
-				last_paid_time: lastpaidtime,
-				dd: now.getDate(),
-				mm: now.getMonth(),
-				yy: now.getFullYear()
-			});
-			
-			atmHis.save();
-				
-			//var f = me.getCallbackFunc();
-				//f();
-			me.updateRecentStore();
-			//me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_LINHLAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_LINHLAI, AppUtil.formatMoneyWithUnit(money), AppUtil.getCashFormat()));			
-		});
-	},
-	
 	estimate: function() {
 		var me = this;
 		var m = 0;
@@ -352,9 +325,11 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		m = Math.round(m);
 		
 		var paidIndex = parseInt(atmModel.data.interest_paid_index);
-		var s = paidIndex == 0 ? 'gởi' : 'lĩnh lãi thứ ' + paidIndex;
+		var s = paidIndex == 0 ? 'gởi' : 'lĩnh lãi lần ' + paidIndex;
 		
-		MyApp.app.fireEvent('show_alert', AppUtil.TITLE_UOCTINH_LAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_UOCTINH_LAI, s, lastPaid.shortDateFormat(), AppUtil.formatMoneyWithUnit(m)));
+		me._estimateLabel.setHtml(Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_UOCTINH_LAI, s, lastPaid.shortDateFormat()));
+		me._estimateAmountField.setValue(AppUtil.formatMoneyWithUnit(m));
+		//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_UOCTINH_LAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_UOCTINH_LAI, s, lastPaid.shortDateFormat(), AppUtil.formatMoneyWithUnit(m)));
 	},
 	
 	editSaving: function(data) {		
@@ -417,97 +392,6 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 			});
 		} else {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_FAILED_EDIT);
-		}
-		
-	},
-	
-	pushInMoney: function(m) {
-		var me = this;
-		if (m == null) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
-			return;
-		}
-		
-		if (!AppUtil.canGetCash(m)) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHIN,AppUtil.getCashFormat()));
-			return;
-		}
-				
-		var now = new Date();
-		var atmModel = me.getSavingModel();
-		var amount = parseInt(atmModel.data.amount);//this._amountTF.getValue();
-		amount += m;
-		atmModel.data.amount = amount;
-		//atmModel.data.time = now.getTime();
-		
-		atmModel.save(function(){
-			//minus cash
-			AppUtil.cashMinus(m);
-			//
-			var atmHis = Ext.create('MyApp.model.SavingHistory', {
-				saving_id: atmModel.data.saving_id,
-				description: 'Nạp tiền vào sổ',
-				type: AppUtil.TYPE_ATM_NAP_TIEN,
-				amount: m,
-				moneycard:amount,
-				time: now.getTime(),
-				dd: now.getDate(),
-				mm: now.getMonth(),
-				yy: now.getFullYear()
-			});
-			
-			atmHis.save();
-				
-			//var f = me.getCallbackFunc();
-				//f();
-			me.updateRecentStore();
-			me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
-		});
-	},
-	
-	pushOutMoney: function(m) {
-		var me = this;
-		if (m == null) {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
-			return false;
-		}
-		var amount = parseInt(me.getSavingModel().data.amount);//me._amountTF.getValue();
-		var now = new Date();
-		
-		amount -= m;
-		
-		if (amount >= 0) {
-			var atmModel = me.getSavingModel();
-			atmModel.data.amount = amount;
-			//atmModel.data.time = now.getTime();
-			
-			atmModel.save(function(){
-				//plus cash
-				AppUtil.cashPlus(m);
-				
-				var atmHis = Ext.create('MyApp.model.SavingHistory', {
-					saving_id: atmModel.data.saving_id,
-					description: 'Rút tiền',
-					type: AppUtil.TYPE_ATM_RUT_TIEN,
-					amount: m,
-					moneycard:amount,
-					time: now.getTime(),
-					dd: now.getDate(),
-					mm: now.getMonth(),
-					yy: now.getFullYear()
-				});
-				atmHis.save();
-				
-			
-				//var f = me.getCallbackFunc();
-				//f();
-				me.updateRecentStore();
-				me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
-			});	
-		} else {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHOUT,AppUtil.formatMoneyWithUnit(amount + m)));
 		}
 		
 	},
@@ -596,5 +480,12 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 		if (!me._list) {
 			me._list = me.down('list');
 		}
+		if (!me._estimateAmountField) {
+			me._estimateAmountField = me.down('textfield[name = "estimateamount"]');
+		}
+		if (!me._estimateLabel) {
+			me._estimateLabel = me.down('label[name = "estimatelabel"]');
+		}
+		
 	}
  });   

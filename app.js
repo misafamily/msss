@@ -31,7 +31,10 @@ Ext.application({
     	'SavingHistories',
     	'SavingHistories_Recent',
     	'Expenses',
-    	'Expenses_Month'
+    	'Expenses_Month',
+    	'Expenses_Week',
+    	'Cashs',
+    	'Cashs_Recent'
 	],
 	startupImage: {
         '320x460': 'resources/startup/Default.png', // Non-retina iPhone, iPod touch, and all Android devices

@@ -6,8 +6,7 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
     ],
     config: {
     	emptyListOnHide: true,
-    	atmModel: null,
-    	title: 'Lịch sử giao dịch',
+     	title: 'Lịch sử giao dịch',
         layout:{
 			type:'vbox'
 		},
@@ -52,19 +51,7 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
            
 		]
     },
-	initialize: function() {
-		var me = this;
-		me.callParent(arguments);
-	},
-	
-	/*hide: function() {
-		var me = this;
-		var recentHisStore = me._list.getStore();
-		if (recentHisStore) {
-			recentHisStore.removeAll();
-		}
-	},*/
-	
+
 	loadData: function(atmModel) {
 		var me = this;
 		me.setAtmModel(atmModel);

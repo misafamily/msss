@@ -1,18 +1,17 @@
-Ext.define('MyApp.view.tab.atm.AtmDetail', {
+Ext.define('MyApp.view.tab.atm.CashDetail', {
     extend: 'MyApp.view.component.AppContainer',
-    xtype: 'tab_atm_atmdetail',
+    xtype: 'tab_atm_cashdetail',
     requires: [
     	 
     ],
     config: {
     	atmModel: null,
     	callbackFunc: null,
-    	title: 'Chi tiết thẻ',
+    	title: 'Chi tiết',
 		scrollable: {
 			direction: 'vertical'
 		},
 		cls:'atm-form-container',
-		//layout: 'fit',
 		items:[
 			{
 				xtype:'container',
@@ -34,21 +33,13 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			                },
 			                items: [
 			                    {
-			                        xtype: 'textfield',
-			                        name: 'name',
-			                        //label: 'Tên tài khoản ',
-			                        cls:'atmadd-accountname',
-			                        //placeHolder:'Tên chủ thẻ (vd: NGUYEN VAN A)',
-			                        autoCapitalize: false
-			                    },
-			                     {
-			                        xtype: 'textfield',
-			                        name: 'bank',
-			                        //label: 'Ngân hàng ',
-			                        cls:'atmadd-bank',
-			                        //placeHolder:'Ngân hàng (vd: VCB, HSBC, ACB ...)',
-			                        autoCapitalize: false
-			                    },
+			                		xtype: 'label',
+			                		html: 'Tiền mặt hiện có',
+			                		style: {
+										'margin-left': '15px',
+										'margin-bottom': '5px'
+									}	
+			                	},
 			                     {
 			                        xtype: 'textfield',
 			                        name: 'amount',
@@ -57,78 +48,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 			                        //label: 'Số tiền hiện có  '
 			                    },
 			                ]    
-			           },
-			          /*
-			           {
-							xtype:'container',
-							layout:'hbox',
-							style: {
-								'margin-top': '10px'
-							},
-							items:[					
-								{
-									xtype: 'button',
-									text: 'Nạp tiền',
-									cls:'button-submit',
-									flex: 1,
-									title: 'atmdetailpushinbutton'
-								},
-								{
-									xtype: 'button',
-									text: 'Rút tiền',
-									cls:'button-submit',
-									flex: 1,
-									title: 'atmdetailpushoutbutton'
-								}
-							]	
-						},
-						 {
-							xtype:'container',
-							layout:'hbox',
-							style: {
-								'margin-top': '10px'
-							},
-							items:[					
-								{
-									xtype: 'button',
-									text: 'Nhận chuyển<br/>khoản, lương',
-									cls:'button-submit',
-									flex: 1,
-									title: 'atmdetailsalarybutton'
-								},
-								{
-									xtype: 'button',
-									text: 'Chuyển khoản,<br/>Mua sắm = thẻ',
-									cls:'button-submit',
-									flex: 1,
-									title: 'atmdetailtransferbutton'
-								}
-							]	
-						},
-						  {
-							xtype:'container',
-							layout:'hbox',
-							style: {
-								'margin-top': '10px'
-							},
-							items:[				
-								
-								{
-									xtype: 'button',
-									text: 'Sửa thông tin',
-									cls:'button-submit',
-									flex: 1,
-									title: 'atmdetaileditbutton'
-								},
-								{
-									xtype: 'button',
-									text: 'Đóng t.khoản',
-									cls:'button-delete',
-									flex: 1,
-									title: 'atmdetaildeletebutton'
-								}
-							]	
-						},*/
+			          },
 						{
 							xtype: 'container',
 							style: {
@@ -143,7 +63,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 							items: [
 								{
 									xtype: 'label',
-									html: 'GIAO DỊCH GẦN NHẤT',
+									html: 'THU CHI GẦN NHẤT',
 									flex: 1,
 								},
 								
@@ -152,35 +72,31 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 									text: 'Xem hết',
 									cls:'button-submit small',
 									
-									title: 'atmdetailhistorybutton'
+									title: 'cashdetailhistorybutton'
 								}
 							]
 						},
 						{
 							xclass: 'MyApp.view.component.AppList',
-							store: 'AtmHistories_Recent',
-							cls: 'atm-atmhistory',
+							store: 'Cashs_Recent',
+							cls: 'atm-atmlist',
 							scrollable: false,
 							itemTpl: new Ext.XTemplate(
 					       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
 										['<div class="info">',
-											'<div class="dateinfo">',
+											'<div class="usernameinfo">',
 												'<div class="dateicon"></div>',
-												'<div class="datetime">{time:this.formatDateTime}</div>', //Tên: 
+												'<div class="username">{time:this.formatDateTime}</div>',  //Ngân hàng: 
 											'</div>',	
-											'<div class="actioninfo">',
-												'<div class="actionicon {type}"></div>',
-												'<div class="description">{description}</div>',  //Ngân hàng: 
-											'</div>',	
+											'<div class="usernameinfo">',
+												'<div class="shoppingicon {buyingtype}"></div>',
+												'<div class="username">{buyingwhat}</div>', //Tên: 
+											'</div>',
+											'<div class="usernameinfo">',
+												'<div class="amounticon cash {type}"></div>',
+												'<div class="username {type}">{amount:this.format}</div>', //Tên: 
+											'</div>',		
 										'</div>',
-										'<div class="amountinfo">',
-											'<div class="amounticon {type}"></div>',
-											'<div class="amount {type}">{amount:this.format}</div>',
-										'</div>',		
-										'<div class="moneycardinfo">',
-											'<div class="moneycardicon"></div>',
-											'<div class="moneycard">{moneycard:this.format}</div>',
-										'</div>',			
 										].join(''),
 										{
 											formatDateTime:function(time) {
@@ -190,7 +106,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 												return AppUtil.formatMoneyWithUnit(amount);
 											}	
 										}
-					       		)
+					       	)
 						}
 					]
 			}
@@ -209,27 +125,14 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		}
 	},*/
 	
-	updateAtmModel: function() {
-		var me = this;
-		if (!me.getAtmModel()) return;
-		
-		me._nameTF.setValue(me.getAtmModel().data.username);
-		me._bankTF.setValue(me.getAtmModel().data.bank);
-		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(me.getAtmModel().data.amount));
-		
-		me.updateRecentStore();
-		
-	},
-	
 	updateRecentStore: function() {
 		var me = this;
 		var recentHisStore = me._list.getStore();
-		//if (!recentHisStore) recentHisStore = Ext.getStore('AtmHistories_Recent');
 		if (recentHisStore) {
 			recentHisStore.removeAll();
-			AppUtil.offline.updateStoreQuery(recentHisStore, 'AtmHistories_Recent', {atm_id: me.getAtmModel().data.atm_id});
+			AppUtil.offline.updateStoreQuery(recentHisStore, 'Cashs_Recent');
 			recentHisStore.load(function(records) {
-				//console.log('recentHisStore lenght: ', records.length)
+				//AppUtil.log(records);
 				me._list.setHeight(142*records.length);
 			});
 		}
@@ -313,19 +216,14 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 	},
 	resetView: function(){
 		var me = this;
-		me._nameTF.setValue('');
-		me._bankTF.setValue('');
-		me._amountTF.reset();
+		//me._nameTF.setValue('');
+		//me._bankTF.setValue('');
+		me._amountTF.setValue(AppUtil.getCashFormat());
+		me.updateRecentStore();
 	},
 	
 	assignFields: function() {
 		var me = this;
-		if (!me._nameTF) {
-			me._nameTF = me.down('textfield[name = "name"]');
-		}
-		if (!me._bankTF) {
-			me._bankTF = me.down('textfield[name = "bank"]');
-		}
 		if (!me._amountTF) {
 			me._amountTF = me.down('textfield[name = "amount"]');
 		}

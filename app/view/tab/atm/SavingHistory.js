@@ -52,18 +52,6 @@ Ext.define('MyApp.view.tab.atm.SavingHistory', {
            
 		]
     },
-	initialize: function() {
-		var me = this;
-		me.callParent(arguments);
-	},
-	
-	/*hide: function() {
-		var me = this;
-		var recentHisStore = me._list.getStore();
-		if (recentHisStore) {
-			recentHisStore.removeAll();
-		}
-	},*/
 	
 	loadData: function(atmModel) {
 		var me = this;

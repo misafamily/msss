@@ -38,9 +38,11 @@ Ext.define('MyApp.util.AppUtil',{
 	TITLE_SAVING_DELETE: 'Đóng sổ tiết kiệm',
 	TITLE_UOCTINH_LAI: 'Ước tình tiền lãi',
 	TITLE_LINHLAI: 'Lĩnh tiền lãi',
+	TITLE_THEMTIEN: 'Thêm tiền mặt',
 	//MESSAGE
 	MESSAGE_NOT_FILLED_INPUT: 'Chưa điền đầy đủ thông tin',
 	MESSAGE_WRONG_NUMBER_INPUT: 'Số tiền không hợp lệ',
+	MESSAGE_WRONG_DATE: 'Ngày lĩnh lãi phải sau ngày gởi hoặc ngày lĩnh lãi trước đó',
 	MESSAGE_SUCCESS_EDIT: 'Đã cập nhật',	
 	MESSAGE_SUCCESS_PUSHIN: 'Đã nạp. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện còn <br/><span>{1}</span>',
 	MESSAGE_SUCCESS_PUSHOUT: 'Đã rút. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
@@ -48,7 +50,8 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_SUCCESS_CHECKOUT: 'Đã chuyển khoản. Số tiền<br/><span>{0}</span>',
 	MESSAGE_SUCCESS_DELETE: 'Đã đóng xong',
 	MESSAGE_SUCCESS_LINHLAI: 'Đã lĩnh. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
-	MESSAGE_SUCCESS_UOCTINH_LAI: 'Số tiền lãi ước tính từ ngày<br/>{0}, {1}<br/>là <span>{2}</span>',
+	MESSAGE_SUCCESS_THEMTIEN: 'Đã thêm. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
+	MESSAGE_SUCCESS_UOCTINH_LAI: '*** Tiền lãi ước tính từ ngày {0}, {1}',//<br/>là <span>{2}</span>',
 	
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
 	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp,<br/>hiện có <span>{0}</span>',
@@ -56,8 +59,8 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_FAILED_PUSHOUT: 'Tiền trong tài khoản không đủ. Có thể rút tối đa <span>{0}</span>',
 	MESSAGE_FAILED_CHECKOUT: 'Tiền trong tài khoản không đủ. Có thể chuyển tối đa <span>{0}</span>',
 	
-	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank ) {
-		var now = new Date();
+	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate ) {
+		var now = tradedate || new Date();
 		var expenseId = 'expensive_' + now.getTime();
 		var expenseData = {
 			expense_id: expenseId,

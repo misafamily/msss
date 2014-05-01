@@ -37,6 +37,15 @@ body {
 	font-weight: normal;
 }
 
+/*App disclosure*/
+.app-disclosure {
+	background-image: url('../images/ic_disclosure.png');
+	background-size: cover;
+	width: 16px;
+	height: 16px;
+	margin-right: 14px;
+}
+
 /*NAV BUTTONS*/
 .app-nav-back-icon {
 	background-image: url('../images/coloricons/back-icon.png');

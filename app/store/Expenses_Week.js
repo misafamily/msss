@@ -1,4 +1,4 @@
-Ext.define('MyApp.store.Expenses', {
+Ext.define('MyApp.store.Expenses_Week', {
     extend: 'Ext.data.Store',
     config: {
         model: 'MyApp.model.Expense',
@@ -8,9 +8,7 @@ Ext.define('MyApp.store.Expenses', {
     	grouper: {
             groupFn: function(record) {
                //return record.get('dd') + ' - ' + record.get('mm') + ' - ' + record.get('yy');
-               if (record.get('type') == 'thu') return 'Thu nhập';
-               else if (record.get('type') == 'chi') return 'Chi tiêu';
-               return 'Khác';
+               return new Date(record.get('time')).dateShortFormatWithoutTime();
             }
         },
     }

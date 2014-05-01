@@ -3,7 +3,11 @@ Ext.define('MyApp.view.tab.Atm', {
     xtype: 'tab_atm',
     requires: [
 		'MyApp.view.tab.atm.Atm',
-		'MyApp.view.tab.atm.Saving'
+		'MyApp.view.tab.atm.Saving',
+		'MyApp.view.tab.atm.Insurance',
+		'MyApp.view.tab.atm.Fund',
+		'MyApp.view.tab.atm.LendBook',
+		'MyApp.view.tab.atm.PaidBook'
 	],
     config: {      
     	title:'Két sắt',		
@@ -76,10 +80,19 @@ Ext.define('MyApp.view.tab.Atm', {
 												//cls:'atm-tienmat-amount'
 											},	
 											{
-											xtype: 'label',
-											html:'100.000 (đ)',
-											cls:'atm-tienmat-amount'
+												xtype: 'label',
+												html:'100.000 (đ)',
+												cls:'atm-tienmat-amount'
+											},
+											{
+												xtype: 'spacer'
+											},
+											{
+												xtype: 'button',
+												cls: 'button-icon app-disclosure',
+												title: 'moneydetail'
 											}
+												
 										]
 										
 									},
@@ -95,13 +108,16 @@ Ext.define('MyApp.view.tab.Atm', {
 								items: [
 									{
 										text: 'Thẻ ATM,<br/>Sổ tiết kiệm',
-										pressed: true,									
+										pressed: true,		
+										viewIndex: 0							
 									},
 									{
-										text: 'Bảo hiểm,<br/>Quỹ'
+										text: 'Bảo hiểm,<br/>Quỹ',		
+										viewIndex: 1
 									},
 									{
-										text: 'Sổ cho vay,<br/>Sổ nợ'
+										text: 'Sổ cho vay,<br/>Sổ nợ',		
+										viewIndex: 2
 									}
 								],
 								style: {
@@ -149,11 +165,32 @@ Ext.define('MyApp.view.tab.Atm', {
    		}
    		if (!me._atm) me._atm = Ext.create('MyApp.view.tab.atm.Atm');
    		if (!me._saving) me._saving = Ext.create('MyApp.view.tab.atm.Saving');
+   		if (!me._insurance) me._insurance = Ext.create('MyApp.view.tab.atm.Insurance');
+   		if (!me._fund) me._fund = Ext.create('MyApp.view.tab.atm.Fund');
+   		if (!me._lendbook) me._lendbook = Ext.create('MyApp.view.tab.atm.LendBook');
+   		if (!me._paidbook) me._paidbook = Ext.create('MyApp.view.tab.atm.PaidBook');
    		
-   		me._segmentContainer.add(me._atm);
-   		me._segmentContainer.add(me._saving);
-   		
+   		me.showTabAtIndex(0);
    		//me.hideRightButtons();
+   },
+   
+   showTabAtIndex: function(tabIndex) {
+   		var me = this;
+   		me._segmentContainer.removeAll(false);
+   		switch (tabIndex) {
+   			case 0:
+   				me._segmentContainer.add(me._atm);
+   				me._segmentContainer.add(me._saving);
+   				break;
+   			case 1:
+   				me._segmentContainer.add(me._insurance);
+   				me._segmentContainer.add(me._fund);
+   				break;
+   			case 2:
+   				me._segmentContainer.add(me._lendbook);
+   				me._segmentContainer.add(me._paidbook);
+   				break;
+   		}
    },
    
    onCashChanged: function(cash, amount) {

@@ -116,7 +116,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 							'<div class="username">{time:this.formatDate}</div>',  //Ngân hàng: 
 						'</div>',	
 						'<div class="usernameinfo">',
-							'<div class="chiicon {type}"></div>',
+							'<div class="amounticon {type}"></div>',
 							'<div class="username {type}">{amount:this.format}</div>', //Tên: 
 						'</div>',		
 					'</div>',
@@ -189,7 +189,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 			Ext.Array.each(records, function(item, index) {
 				if (item.data.type == 'chi')
 					sumChi += parseInt(item.data.amount);
-				else
+				else if (item.data.type == 'thu')
 					sumThu += parseInt(item.data.amount);
 			});
 			

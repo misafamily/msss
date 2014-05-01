@@ -28,7 +28,7 @@ Ext.define('MyApp.util.offline.Data',{
   				break;
   			case 'AtmHistories_Recent':
   				var atm_id = extra.atm_id;
-  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY id DESC LIMIT 2';
+  				queryStr = 'SELECT * FROM atm_history WHERE atm_id="' + atm_id + '" ORDER BY id DESC LIMIT 3';
   				//console.log(queryStr);
   				break;
   			case 'SavingHistories':
@@ -37,7 +37,15 @@ Ext.define('MyApp.util.offline.Data',{
   				break;
   			case 'SavingHistories_Recent':
   				var saving_id = extra.saving_id;
-  				queryStr = 'SELECT * FROM saving_history WHERE saving_id="' + saving_id + '" ORDER BY id DESC LIMIT 2';
+  				queryStr = 'SELECT * FROM saving_history WHERE saving_id="' + saving_id + '" ORDER BY id DESC LIMIT 3';
+  				//console.log(queryStr);
+  				break;
+  			case 'Cashs':
+  				queryStr = 'SELECT * FROM expense WHERE buyingtype="tien_mat" ORDER BY id DESC';
+  				//console.log(queryStr);
+  				break;
+  			case 'Cashs_Recent':
+  				queryStr = 'SELECT * FROM expense WHERE buyingtype="tien_mat" ORDER BY id DESC LIMIT 3';
   				//console.log(queryStr);
   				break;
   			case 'Expenses_Day':

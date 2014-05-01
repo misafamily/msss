@@ -72,8 +72,7 @@
 .atm-atmlist .info .usernameinfo .usernameicon, 
 .atm-atmlist .info .usernameinfo .shoppingicon,
 .atm-atmlist .info .usernameinfo .dateicon,
-.atm-atmlist .info .usernameinfo .thuicon,
-.atm-atmlist .info .usernameinfo .chiicon,
+.atm-atmlist .info .usernameinfo .amounticon,
 .atm-atmlist .info .usernameinfo .username {
 	display: inline-block;
 	vertical-align:middle;
@@ -94,22 +93,24 @@
     margin-right: 5px;
 }
 
-.atm-atmlist .info .usernameinfo .thuicon {
-	background: url('../images/coloricons/dollar-icon-plus.png') no-repeat 0px 0px;
+.atm-atmlist .info .usernameinfo .amounticon {
+	background: url('../images/coloricons/dollar-icon.png') no-repeat 0px 0px;
     background-size: contain;
     width: 30px;
     height: 30px;
     margin-right: 5px;
 }
 
-.atm-atmlist .info .usernameinfo .chiicon {
+.atm-atmlist .info .usernameinfo .amounticon.chi,
+.atm-atmlist .info .usernameinfo .amounticon.cash.chi,
+.atm-atmlist .info .usernameinfo .amounticon.cash.nap_tien  {
 	background: url('../images/coloricons/dollar-icon-minus.png') no-repeat 0px 0px;
     background-size: contain;
-    width: 30px;
-    height: 30px;
-    margin-right: 5px;
 }
-.atm-atmlist .info .usernameinfo .chiicon.thu {
+.atm-atmlist .info .usernameinfo .amounticon.thu,
+.atm-atmlist .info .usernameinfo .amounticon.cash.thu,
+.atm-atmlist .info .usernameinfo .amounticon.cash.rut_tien,
+.atm-atmlist .info .usernameinfo .amounticon.cash.linh_lai {
 	background: url('../images/coloricons/dollar-icon-plus.png') no-repeat 0px 0px;
 	background-size: contain;
 } 
