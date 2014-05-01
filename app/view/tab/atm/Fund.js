@@ -34,7 +34,7 @@ Ext.define('MyApp.view.tab.atm.Fund', {
 					},
 					{
 						xtype: 'button',								
-						title: 'atmadd',
+						title: 'fundadd',
 						cls: 'button-icon',
 						iconCls: 'button-icon-addnew'
 						//iconCls: 'add2'

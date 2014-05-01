@@ -18,7 +18,9 @@ Ext.application({
     	'AtmHistory',
     	'Saving',
     	'SavingHistory',
-    	'Expense'
+    	'Expense',
+    	'Insurance',
+    	'InsuranceHistory'
     ],
     stores:[
     	'Systems',
@@ -34,7 +36,9 @@ Ext.application({
     	'Expenses_Month',
     	'Expenses_Week',
     	'Cashs',
-    	'Cashs_Recent'
+    	'Cashs_Recent',
+    	'Insurances',
+    	'InsuranceHistories'
 	],
 	startupImage: {
         '320x460': 'resources/startup/Default.png', // Non-retina iPhone, iPod touch, and all Android devices

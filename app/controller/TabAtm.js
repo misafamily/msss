@@ -5,19 +5,19 @@ Ext.define('MyApp.controller.TabAtm', {
 		'MyApp.view.tab.atm.AtmDetail',
 		'MyApp.view.tab.atm.AtmHistory',		
 		'MyApp.view.tab.atm.AtmEdit',
-		'MyApp.view.tab.atm.AtmTrade',
-		
+		'MyApp.view.tab.atm.AtmTrade',	
 		'MyApp.view.tab.atm.SavingAdd',
 		'MyApp.view.tab.atm.SavingDetail',
 		'MyApp.view.tab.atm.SavingEdit',
 		'MyApp.view.tab.atm.SavingHistory',
-		'MyApp.view.tab.atm.SavingTrade',
-		
+		'MyApp.view.tab.atm.SavingTrade',	
 		'MyApp.view.tab.atm.CashAdd',
 		'MyApp.view.tab.atm.CashDetail',
 		'MyApp.view.tab.atm.CashHistory',
-		
-		'MyApp.view.tab.atm.InsuranceAdd'
+		'MyApp.view.tab.atm.InsuranceAdd',
+		'MyApp.view.tab.atm.FundAdd',	
+		'MyApp.view.tab.atm.LendBookAdd',		
+		'MyApp.view.tab.atm.PaidBookAdd'
 	],
     config: {
         refs: {		
@@ -30,7 +30,8 @@ Ext.define('MyApp.controller.TabAtm', {
 			thisSavingAdd: 'tab_atm_savingadd',
 			thisSavingDetail: 'tab_atm_savingdetail',
 			thisSavingList: 'tab_atm_savinglist',
-			thisSavingTrade: 'tab_atm_savingtrade'
+			thisSavingTrade: 'tab_atm_savingtrade',
+			thisInsuranceList: 'tab_atm_insurancelist',
         },//end refs
         control: {
 			thisTab: {
@@ -295,9 +296,10 @@ Ext.define('MyApp.controller.TabAtm', {
 			},
 			//AtmList
 			'tab_atm_atmlist': {
-				itemtap: function(view, index, item, e) {
+				//itemtap: function(view, index, item, e) {
+				disclose: function( view, record, target, index, e, eOpts ) {
 					var me = this;
-					var rec = view.getStore().getAt(index);
+					var rec = record;//view.getStore().getAt(index);
 					var atmDetail = this.getAtmDetailView();
 					//atmDetail.setAtmModel(null);
 					atmDetail.setAtmModel(rec);
@@ -312,9 +314,9 @@ Ext.define('MyApp.controller.TabAtm', {
 			
 			//SavingList
 			'tab_atm_savinglist': {
-				itemtap: function(view, index, item, e) {
+				disclose: function( view, record, target, index, e, eOpts ) {
 					var me = this;
-					var rec = view.getStore().getAt(index);
+					var rec = record;//view.getStore().getAt(index);
 					var savingDetail = this.getSavingDetailView();
 					//atmDetail.setAtmModel(null);
 					savingDetail.setSavingModel(rec);
@@ -455,6 +457,73 @@ Ext.define('MyApp.controller.TabAtm', {
 			},
 			'tab_atm_insuranceadd button[title="insuranceaddsubmitbutton"]': {
 				tap: function() {
+					var me = this;
+					if (me.getInsuranceAddView().addInsurance(
+						function() {
+							me.getThisInsuranceList().updateStore();
+						})
+					) {						
+						me.getThisTab().onBackButtonTap();	
+					}	
+				}
+			},
+			
+			//FUND
+			'tab_atm_fund button[title="fundadd"]': {
+				tap: function() {
+					var addView = this.getFundAddView();
+					addView.resetView();
+					this.getThisTab().push(addView);
+				}
+			},
+			//FUND ADD
+			'tab_atm_fundadd button[title="fundaddcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();
+				}
+			},
+			'tab_atm_fundadd button[title="fundaddsubmitbutton"]': {
+				tap: function() {
+					
+				}
+			},
+			
+			//LENDBOOK
+			'tab_atm_lendbook button[title="lendbookadd"]': {
+				tap: function() {
+					var addView = this.getLendBookAddView();
+					addView.resetView();
+					this.getThisTab().push(addView);
+				}
+			},
+			//LENDBOOK ADD
+			'tab_atm_lendbookadd button[title="lendbookaddcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();
+				}
+			},
+			'tab_atm_lendbookadd button[title="lendbookaddsubmitbutton"]': {
+				tap: function() {
+					
+				}
+			},
+			
+			//PAIDBOOK
+			'tab_atm_paidbook button[title="paidbookadd"]': {
+				tap: function() {
+					var addView = this.getPaidBookAddView();
+					addView.resetView();
+					this.getThisTab().push(addView);
+				}
+			},
+			//PAIDBOOK ADD
+			'tab_atm_paidbookadd button[title="paidbookaddcancelbutton"]': {
+				tap: function() {
+					this.getThisTab().onBackButtonTap();
+				}
+			},
+			'tab_atm_paidbookadd button[title="paidbookaddsubmitbutton"]': {
+				tap: function() {
 					
 				}
 			}
@@ -562,6 +631,27 @@ Ext.define('MyApp.controller.TabAtm', {
 			me._insuranceAddView = Ext.create('MyApp.view.tab.atm.InsuranceAdd');
 		}
 		return me._insuranceAddView;
+	},
+	getFundAddView: function() {
+		var me = this;	
+		if (!me._fundAddView) {
+			me._fundAddView = Ext.create('MyApp.view.tab.atm.FundAdd');
+		}
+		return me._fundAddView;
+	},
+	getLendBookAddView: function() {
+		var me = this;	
+		if (!me._lendbookAddView) {
+			me._lendbookAddView = Ext.create('MyApp.view.tab.atm.LendBookAdd');
+		}
+		return me._lendbookAddView;
+	},
+	getPaidBookAddView: function() {
+		var me = this;	
+		if (!me._paidbookAddView) {
+			me._paidbookAddView = Ext.create('MyApp.view.tab.atm.PaidBookAdd');
+		}
+		return me._paidbookAddView;
 	},
 	getDatePicker: function(date, view, tf) {
 		var me = this;	

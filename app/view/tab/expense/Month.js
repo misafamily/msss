@@ -103,7 +103,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 			{
 				xclass: 'MyApp.view.component.AppList',
 				//store: 'Expenses',
-				cls: 'atm-atmlist',
+				cls: 'atm-atmlist expenseday',
 				itemTpl: new Ext.XTemplate(
        				//'<div class="thumb">{dd}<br/>{monthname}</div>',
        				/*
@@ -132,7 +132,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 						}	
 					}
        			),
-       			//onItemDisclosure: true,
+       			onItemDisclosure: true
        			//grouped: true
 			}
 		]

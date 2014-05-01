@@ -34,7 +34,7 @@ Ext.define('MyApp.view.tab.atm.PaidBook', {
 					},
 					{
 						xtype: 'button',								
-						title: 'atmadd',
+						title: 'paidbookadd',
 						cls: 'button-icon',
 						iconCls: 'button-icon-addnew'
 						//iconCls: 'add2'

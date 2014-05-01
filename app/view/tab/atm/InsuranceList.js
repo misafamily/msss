@@ -1,9 +1,9 @@
-Ext.define('MyApp.view.tab.atm.AtmList', {
+Ext.define('MyApp.view.tab.atm.InsuranceList', {
     extend: 'MyApp.view.component.AppList',
-    xtype: 'tab_atm_atmlist',
+    xtype: 'tab_atm_insurancelist',
     config: { 
     	cls: 'atm-atmlist',
-		store: 'Atms',  	
+		store: 'Insurances',  	
        	itemTpl: new Ext.XTemplate(
        				//'<div class="thumb">{dd}<br/>{monthname}</div>',
 					['<div class="info">',
@@ -18,7 +18,7 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 					'</div>',
 					'<div class="amountinfo">',
 						'<div class="amounticon"></div>',
-						'<div class="amount">{amount:this.format}</div>',
+						'<div class="amount">{insurancetext}</div>',
 					'</div>',					
 					].join(''),
 					{
@@ -43,7 +43,6 @@ Ext.define('MyApp.view.tab.atm.AtmList', {
 	
 	updateStore: function() {
 		var me = this;
-	
 		me.getStore().load(function(records) {
 			//console.log('records.length: ', records.length);
 			me.setHeight(113*records.length);

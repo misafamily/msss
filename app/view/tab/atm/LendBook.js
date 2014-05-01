@@ -34,7 +34,7 @@ Ext.define('MyApp.view.tab.atm.LendBook', {
 					},
 					{
 						xtype: 'button',								
-						title: 'atmadd',
+						title: 'lendbookadd',
 						cls: 'button-icon',
 						iconCls: 'button-icon-addnew'
 						//iconCls: 'add2'

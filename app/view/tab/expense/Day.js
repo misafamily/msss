@@ -213,6 +213,13 @@ Ext.define('MyApp.view.tab.expense.Day', {
 		}
 	},
 	
+	showSelectedDate: function(date) {
+		var me = this;
+		me._currentDate = date;
+		me._todayButton.setText(me._currentDate.dateShortFormatWithoutTime());
+		me.updateStoreData();
+	},
+	
 	showToday: function() {
 		var me = this;
 		me._currentDate = new Date();;

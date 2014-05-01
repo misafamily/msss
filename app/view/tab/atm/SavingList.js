@@ -42,12 +42,7 @@ Ext.define('MyApp.view.tab.atm.SavingList', {
 	
 	updateStore: function() {
 		var me = this;
-		if (!me._savingStore) {
-			me._savingStore = Ext.getStore('Savings');
-		}
-		//var list = this;
-		//list.getScrollable().getScroller().scrollToTop();
-		me._savingStore.load(function(records) {
+		me.getStore().load(function(records) {
 			//console.log('records.length: ', records.length);
 			me.setHeight(113*records.length);
 		});

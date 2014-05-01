@@ -1,7 +1,8 @@
 Ext.define('MyApp.controller.TabExpense', {
     extend: 'Ext.app.Controller',
 	requires:[		
-		'MyApp.view.tab.expense.ExpenseAdd'
+		'MyApp.view.tab.expense.ExpenseAdd',
+		'MyApp.view.tab.expense.ExpenseDetail'
 	],
     config: {
         refs: {		
@@ -9,6 +10,7 @@ Ext.define('MyApp.controller.TabExpense', {
 			thisSegmentContainer: 'tab_expense container[cls = "segment-container"]',
 			thisMenuButton: 'tab_expense button[iconCls = "toolbar-icon-menu"]',
 			thisAddButton: 'tab_expense button[title = "toolbar_tabexpense_add_button"]',
+			thisSegmentButtons: 'tab_expense segmentedbutton',
 			thisExpenseDay: 'tab_expense_day',
 			thisExpenseWeek: 'tab_expense_week',
 			thisExpenseMonth: 'tab_expense_month'
@@ -70,6 +72,15 @@ Ext.define('MyApp.controller.TabExpense', {
 				}
 			},
 			
+			'tab_expense_day list': {
+				disclose: function( view, record, target, index, e, eOpts ) {
+					var me = this;
+					var dAdd = me.getExpenseDetailView();
+					dAdd.setExpenseModel(record);
+					me.getThisTab().push(dAdd);
+				}
+			},
+			
 			//WEEK
 			'tab_expense_week button[title = "expenseweekpreviousbutton"]': {
 				tap: function() {
@@ -87,6 +98,15 @@ Ext.define('MyApp.controller.TabExpense', {
 				tap: function() {
 					var me = this;
 					me.getThisExpenseWeek().showNextWeek();
+				}
+			},
+			
+			'tab_expense_week list': {
+				disclose: function( view, record, target, index, e, eOpts ) {
+					var me = this;
+					var dAdd = me.getExpenseDetailView();
+					dAdd.setExpenseModel(record);
+					me.getThisTab().push(dAdd);
 				}
 			},
 			
@@ -110,6 +130,14 @@ Ext.define('MyApp.controller.TabExpense', {
 				}
 			},
 			
+			'tab_expense_month list': {
+				disclose: function( view, record, target, index, e, eOpts ) {
+					var me = this;
+					var dAdd = me.getExpenseDetailView();
+					dAdd.setExpenseModel(record);
+					me.getThisTab().push(dAdd);
+				}
+			},
 			//ExpenseAdd
 			'tab_expense_expenseadd button[title = "expenseaddcancelbutton"]': {
 				tap: function() {
@@ -121,7 +149,11 @@ Ext.define('MyApp.controller.TabExpense', {
 					var me = this;
 					if (me.getExpenseAddView().addExpense(
 						function(date) {
-							me.getThisExpenseDay().updateStoreData(date);
+							var activeBtn = me.getThisSegmentButtons().getPressedButtons()[0];
+							if (activeBtn.config.viewIndex == 0 && !me.getThisExpenseDay().getCurrentDate().sameDateWith(date)) {
+									me.getThisExpenseDay().showSelectedDate(date);
+							} else
+								me.getThisExpenseDay().updateStoreData(date);
 							me.getThisExpenseWeek().updateStoreDataWithDate(date);
 							me.getThisExpenseMonth().updateStoreDataWithDate(date);
 						})
@@ -130,6 +162,16 @@ Ext.define('MyApp.controller.TabExpense', {
 					}						
 				}				
 			},
+			
+			'tab_expense_expenseadd textfield[name = "todaydate"]' : {
+				focus: function(tf) {
+					//console.log('xxxx');
+					var addView = this.getExpenseAddView();
+					var dp = this.getDatePicker(addView.getSelectedDate(), addView, tf);
+					Ext.Viewport.add(dp);
+					dp.show();
+				}
+			}
 		}
     },
 	
@@ -141,5 +183,35 @@ Ext.define('MyApp.controller.TabExpense', {
 		var me = this;
 		if (!me._expenseAddView) me._expenseAddView = Ext.create('MyApp.view.tab.expense.ExpenseAdd');
 		return me._expenseAddView;
+	},
+	
+	getExpenseDetailView: function() {
+		var me = this;
+		if (!me._expenseDetailView) me._expenseDetailView = Ext.create('MyApp.view.tab.expense.ExpenseDetail');
+		return me._expenseDetailView;
+	},
+	
+	getDatePicker: function(date, view, tf) {
+		var me = this;	
+		if (!me._datepicker) {
+			me._datepicker = Ext.create('Ext.picker.Date', {
+				 //doneButton: 'Xong',
+	       		 //cancelButton: 'Hủy' 
+			});			
+		}
+		me._datepicker.setValue(date);
+		me._datepicker.un('change', me.onDatePickerDone, me);
+		me._datepicker.on('change', me.onDatePickerDone, me, {view: view, tf: tf});
+		return me._datepicker;
+	},
+	onDatePickerDone: function(dp, date, opts) {
+		//console.log('onDatePickerDone: ' + date.format('dd/mm/yyyy'));
+		if (opts) {
+			//opts.tf.setValue(date.format('dd/mm/yyyy'));
+			var now = new Date();
+			date.setMinutes(now.getMinutes());
+			date.setHours(now.getHours());
+			opts.view.updateSelectedDate(Ext.Date.clone(date));
+		}
 	}
 });

@@ -1,11 +1,12 @@
-Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
+Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
     extend: 'Ext.Container',
-    xtype: 'tab_expense_expenseadd',
+    xtype: 'tab_expense_expensedetail',
     requires: [
     	    
     ],
     config: {
-    	title: 'Thêm chi tiêu',
+    	expenseModel: null,
+    	title: 'Chi tiết',
     	cls:'atm-form-container',
         layout:{
 			type:'vbox'
@@ -15,7 +16,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 				xtype:'container',
 				//cls:'atm-title-container',
 				defaults: {
-                    //required: true,
+                    readOnly: true,
                     autoComplete: false,
                     autoCorrect: false
                 },
@@ -31,48 +32,29 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
                         clearIcon:false
                     },
                     {
-                        xtype: 'selectfield',
+                        xtype: 'textfield',
                         name: 'buyingtype',
                         //label: 'Ngân hàng ',
-                        cls:'expenseadd-buyingtype',    
-	                    options: [													
-							{text: 'Đi chợ hàng ngày',  value: 'di_cho'},
-	                        {text: 'Thực phẩm từ Sữa',  value: 'thuc_pham_sua'},
-							{text: 'Y tế, chăm sóc sức khỏe',  value: 'y_te'},
-							{text: 'Điện, nước, gas',  value: 'dien_nuoc_ga'},
-							{text: 'Giao dịch ngân hàng, cước phí',  value: 'giao_dich'},
-							{text: 'Xe cộ, taxi, xăng',  value: 'xe_xang'},
-							{text: 'Nhà ở, sinh hoạt dân cư',  value: 'thue_nha'},
-							{text: 'Đồ  sinh hoạt: gia vị, chất tẩy rửa',  value: 'sinh_hoat'},
-							{text: 'Đồ nội - ngoại thất',  value: 'noi_ngoai_that'},
-							{text: 'Quần áo, giày dép, mỹ phẩm',  value: 'quanao_giaydep'},	//minute
-							{text: 'Ăn uống, giải trí, tiêu vặt',  value: 'an_uong'},	//minute
-							//{text: 'Cá nhân: thể thao, làm tóc, cước đt',  value: 'ca_nhan'},	//minute
-							{text: 'Du lịch, dã ngoại',  value: 'du_lich'},	//minute
-							{text: 'Học hành, sách vở, báo chí',  value: 'hoc_hanh'},	//minute
-							{text: 'Đãi tiệc, đám cưới',  value: 'tiec_cuoi'},	//minute
-							{text: 'Đồ em bé: tã, khăn, đồ chơi',  value: 'do_em_be'},	//minute
-							{text: 'Khác',  value: 'khac'}
-						]
+                        cls:'expenseadd-buyingtype'
                     },
                      {
-                        xtype: 'numberfield',
+                        xtype: 'textfield',
                         name: 'amount',
-                        placeHolder:'Số tiền chi (đ) (vd: 100000)',
+                        //placeHolder:'Số tiền chi (đ) (vd: 100000)',
                         cls:'atmadd-amount',
                         //label: 'Số tiền hiện có  '
                     },
                     {
 	                    xtype: 'textareafield',
 						label: '',
-	                    placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
+	                    //placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
 	                },
 				]
 			},
-			 {
+			 /*{
 				xtype:'container',
 				layout:'hbox',
 				style: {
@@ -95,7 +77,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 					}
 					
 				]	
-			}
+			}*/
 		]
     },
 	initialize: function() {
@@ -108,36 +90,35 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 	assignFields: function() {
 		var me = this;
 		if (!me._dateTF) me._dateTF = me.down('textfield[name = "todaydate"]');
-		if (!me._buyingtypeTF) me._buyingtypeTF = me.down('selectfield[name = "buyingtype"]');
-		if (!me._amountTF) me._amountTF = me.down('numberfield[name = "amount"]');
+		if (!me._buyingtypeTF) me._buyingtypeTF = me.down('textfield[name = "buyingtype"]');
+		if (!me._amountTF) me._amountTF = me.down('textfield[name = "amount"]');
 		if (!me._noteTF) me._noteTF = me.down('textareafield[name = "note"]');
 		
 		//me.showToday();
 	},
 	
-	showToday: function() {
+	updateExpenseModel: function() {
 		var me = this;
-		//me._selectedDate = new Date();
-		me.updateSelectedDate(new Date());
+		var m = me.getExpenseModel();
+		
+		me._buyingtypeTF.setValue(m.data.buyingwhat);
+		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(m.data.amount));
+		if (m.data.type == 'chi' && m.data.buyingtype == 'tien_mat') {
+			me._noteTF.setValue(m.data.note);
+		} else {
+			me._noteTF.setValue(m.data.frombank);
+		}
+		me.updateSelectedDate(new Date(m.data.time));
 	},
 	
 	updateSelectedDate: function(date) {		
 		var me = this;
-		me._selectedDate = new Date(date.getTime());
+		me._selectedDate = date;//new Date(date.getTime());
 		me._dateTF.setValue(me._selectedDate.dateShortFormatWithoutTime());
 	},
 	
 	getSelectedDate: function() {
 		return this._selectedDate;
-	},
-	
-	resetView: function(date){
-		var me = this;
-		me._dateTF.setValue('');
-		me._buyingtypeTF.setValue('di_cho');
-		me._amountTF.reset();
-		me._noteTF.reset();
-		me.updateSelectedDate(date);
 	},
 	
 	addExpense: function(callback) {
@@ -170,8 +151,8 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 			amount: amount,
 			type: 'chi',
 			buyingwhat: what,
-			buyingtype: 'tien_mat',
-			frombank: type,
+			buyingtype: type,
+			frombank: 'tien_mat',
 			note: note,
 			time: now.getTime(),
 			week: Ext.Date.getWeekOfYear(now),

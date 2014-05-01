@@ -2,7 +2,7 @@ Ext.define('MyApp.view.tab.atm.Insurance', {
     extend: 'MyApp.view.component.AppContainer',
     xtype: 'tab_atm_insurance',
     requires: [
-    	//'MyApp.view.tab.atm.AtmList'		     
+    	'MyApp.view.tab.atm.InsuranceList'		     
     ],
     config: {
     	cls: 'atm-segment-item-container',
@@ -41,10 +41,10 @@ Ext.define('MyApp.view.tab.atm.Insurance', {
 					}
 				]
 			},
-			/*{
-				xtype:'tab_atm_atmlist',
+			{
+				xtype:'tab_atm_insurancelist',
 				scrollable: false,
-			}*/
+			}
 		]
     }
  });   
