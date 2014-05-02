@@ -103,7 +103,6 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
                         name: 'created_date',
                         //label: 'Ngân hàng ',
                         cls:'savingadd-createddate',
-                        readOnly: true,
                         //placeHolder:'Chu kỳ (vd: 7 ngày, 3 tháng)',
                         autoCapitalize: false,
                         clearIcon:false
@@ -114,7 +113,8 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 	                    //placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
 	                    cls:'savingadd-note',
 						name: 'note',
-						maxRows: 3			                    
+						maxRows: 3,
+						disabled: true			                    
 	                }
 	                
                 ]    

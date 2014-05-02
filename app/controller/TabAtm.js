@@ -45,6 +45,12 @@ Ext.define('MyApp.controller.TabAtm', {
 					} else {
 						mee.hideRightButtons();
 					}
+					
+					if (view.getId().indexOf('tab_atm_cashadd') > -1 || 
+						view.getId().indexOf('tab_atm_atmadd') > -1 ||
+						view.getId().indexOf('tab_atm_savingadd') > -1) {
+						mee.showDoneButton();
+					}
 					if (!me._viewIdStack) me._viewIdStack = [];
 					me._viewIdStack.push(view.getId());
 					
@@ -82,6 +88,41 @@ Ext.define('MyApp.controller.TabAtm', {
 			},
 			
 			//bar buttons
+			'tab_atm button[title="done"]': {
+				tap: function() {
+					var me = this;
+					if (me._viewIdStack) {
+						if (me._viewIdStack.length > 0) {
+							var currentViewId = me._viewIdStack[me._viewIdStack.length-1];
+							//AppUtil.log('trade tapped view id: ' + currentViewId);
+							if (currentViewId.indexOf('tab_atm_cashadd') > -1) {
+								var cashAddView = me.getCashAddView();
+								if (cashAddView.addCash()) {
+									me.getThisTab().onBackButtonTap();
+								}	
+							} else if (currentViewId.indexOf('tab_atm_atmadd') > -1) {
+							
+								if (me.getThisAtmAdd().addAtm(
+									function() {
+										me.getThisAtmList().updateStore();
+									})
+								) {						
+									me.getThisTab().onBackButtonTap();	
+								}		
+								
+							} else if (currentViewId.indexOf('tab_atm_savingadd') > -1) {
+								if (me.getThisSavingAdd().addSaving(
+									function() {
+										me.getThisSavingList().updateStore();
+									})
+								) {						
+									me.getThisTab().onBackButtonTap();	
+								}	
+							} 
+						}						
+					}
+				}
+			},
 			'tab_atm button[title="trade"]': {
 				tap: function() {
 					var me = this;
@@ -176,21 +217,6 @@ Ext.define('MyApp.controller.TabAtm', {
 				}
 			},
 			
-			//CashAdd
-			'tab_atm_cashadd button[title = "cashaddcancelbutton"]': {
-				tap: function() {
-					this.getThisTab().onBackButtonTap();	
-				}				
-			},
-			'tab_atm_cashadd button[title = "cashaddsubmitbutton"]': {
-				tap: function() {
-					var me = this;
-					var cashAddView = me.getCashAddView();
-					if (cashAddView.addCash()) {
-						me.getThisTab().onBackButtonTap();
-					}	
-				}				
-			},
 			//CashDetail
 			'tab_atm_cashdetail button[title = "cashdetailhistorybutton"]': {
 				tap: function() {
@@ -279,19 +305,23 @@ Ext.define('MyApp.controller.TabAtm', {
 			},
 			//Atm
 			'tab_atm_atm button[title = "atmadd"]': {
-				tap: function() {
+				tap: function(btn, e) {
 					//console.log('tap tap');
 					var atmAddView = this.getAtmAddView();
 					atmAddView.resetView();
 					this.getThisTab().push(atmAddView);
+					e.preventDefault();
+					return false;
 				}
 			},
 			'tab_atm_saving button[title = "savingadd"]': {
-				tap: function() {
+				tap: function(btn, e) {
 					//console.log('tap tap');
 					var atmAddView = this.getSavingAddView();
 					atmAddView.resetView();
 					this.getThisTab().push(atmAddView);
+					e.preventDefault();
+					return false;
 				}
 			},
 			//AtmList
@@ -373,43 +403,19 @@ Ext.define('MyApp.controller.TabAtm', {
 				}
 			},
 			//end SavingEdit
-			//AtmAdd
-			'tab_atm_atmadd button[title = "atmaddcancelbutton"]': {
-				tap: function() {
-					this.getThisTab().onBackButtonTap();	
-				}				
+			
+			//CASH ADD
+			'tab_atm_cashadd textfield[name = "todaydate"]' : {
+				focus: function(tf) {
+					//console.log('xxxx');
+					var addView = this.getCashAddView();
+					var dp = this.getDatePicker(addView.getSelectedDate(), addView, tf);
+					Ext.Viewport.add(dp);
+					dp.show();
+				}
 			},
-			'tab_atm_atmadd button[title = "atmaddsubmitbutton"]': {
-				tap: function() {
-					var me = this;
-					if (me.getThisAtmAdd().addAtm(
-						function() {
-							me.getThisAtmList().updateStore();
-						})
-					) {						
-						me.getThisTab().onBackButtonTap();	
-					}						
-				}				
-			},
-			//end AtmAdd
+			
 			//SavingAdd
-			'tab_atm_savingadd button[title = "savingaddcancelbutton"]': {
-				tap: function() {
-					this.getThisTab().onBackButtonTap();	
-				}				
-			},
-			'tab_atm_savingadd button[title = "savingaddsubmitbutton"]': {
-				tap: function() {
-					var me = this;
-					if (me.getThisSavingAdd().addSaving(
-						function() {
-							me.getThisSavingList().updateStore();
-						})
-					) {						
-						me.getThisTab().onBackButtonTap();	
-					}						
-				}				
-			},
 			'tab_atm_savingadd textfield[name = "created_date"]' : {
 				focus: function(tf) {
 					var savingAddView = this.getThisSavingAdd();

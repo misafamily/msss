@@ -115,31 +115,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 	                }
 	                
                 ]    
-           },
-           {
-				xtype:'container',
-				layout:'hbox',
-				style: {
-					'margin-top': '10px'
-				},
-				items:[
-					{
-						xtype: 'button',
-						text: 'Thêm',
-						cls:'button-submit',
-						flex: 1,
-						title: 'savingaddsubmitbutton'
-					},
-					{
-						xtype: 'button',
-						text: 'Hủy',
-						cls:'button-cancel',
-						flex: 1,
-						title: 'savingaddcancelbutton'
-					}
-					
-				]	
-			}
+           }
 		]
     },
 	initialize: function() {

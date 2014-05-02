@@ -239,7 +239,7 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 			
 			atmHis.save();
 
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_LINHLAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_LINHLAI, AppUtil.formatMoneyWithUnit(money), AppUtil.getCashFormat()));			
+			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_LINHLAI, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_LINHLAI, AppUtil.formatMoneyWithUnit(money), AppUtil.getCashFormat()));			
 		});
 		
 		return true;
@@ -285,7 +285,7 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 			
 			atmHis.save();
 
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
+			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
 		});
 		return true;
 	},
@@ -325,7 +325,7 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 				});
 				atmHis.save();
 				
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));
+				//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));
 				
 							
 			});	

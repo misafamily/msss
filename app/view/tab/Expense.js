@@ -27,28 +27,28 @@ Ext.define('MyApp.view.tab.Expense', {
         		{
 					iconCls:'toolbar-icon-menu',
 					align: 'left',
-					hideAnimation:{
-                        type: 'fadeOut',
-                        duration: 100
-                    },
-                    showAnimation:{
-                        type: 'fadeIn',
-                        duration: 100
-                    },
+					hideAnimation:null,
+                    showAnimation:null,
                     title: 'toolbar_tabexpense_menu_button'
 				},
 				{
 					iconCls:'toolbar-icon-add',
 					align: 'right',
-					hideAnimation:{
-                        type: 'fadeOut',
-                        duration: 100
-                    },
-                    showAnimation:{
-                        type: 'fadeIn',
-                        duration: 100
-                    },
+					hideAnimation:null,
+                    showAnimation:null,
 					title: 'toolbar_tabexpense_add_button'
+				},
+				{
+					iconCls:'toolbar-icon-done',
+					style: {
+						'padding-right': '8px',
+						'padding-left': '0px'
+					},
+					align: 'right',
+					hideAnimation:null,
+                    showAnimation:null,
+                    title: 'done',
+                    hidden: true
 				}
 			]
        },

@@ -22,12 +22,18 @@ Ext.define('MyApp.controller.TabExpense', {
 					var mee = this;
 					mee.getThisMenuButton().hide();
 					mee.getThisAddButton().hide();
+					
+					if (view.getId().indexOf('tab_expense_expenseadd') > -1 ) {
+						me.showDoneButton();
+					} 
+					
 				},
 				pop: function(me, view, level) {
 					var mee = this;
 					if (level < 3) {
 						mee.getThisMenuButton().show();
 						mee.getThisAddButton().show();
+						me.hideDoneButton();
 					}
 				}
 			},
@@ -139,12 +145,7 @@ Ext.define('MyApp.controller.TabExpense', {
 				}
 			},
 			//ExpenseAdd
-			'tab_expense_expenseadd button[title = "expenseaddcancelbutton"]': {
-				tap: function() {
-					this.getThisTab().onBackButtonTap();	
-				}				
-			},
-			'tab_expense_expenseadd button[title = "expenseaddsubmitbutton"]': {
+			'tab_expense button[title = "done"]': {
 				tap: function() {
 					var me = this;
 					if (me.getExpenseAddView().addExpense(

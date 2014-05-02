@@ -40,10 +40,13 @@ body {
 /*App disclosure*/
 .app-disclosure {
 	background-image: url('../images/ic_disclosure.png');
-	background-size: cover;
-	width: 16px;
-	height: 16px;
-	margin-right: 14px;
+	background-repeat: no-repeat;
+	width: 36px;
+	height: 36px;
+	margin-right: 1px;
+	/* border: 1px solid; */
+	/* margin-top: 1px; */
+	background-position: 5px;
 }
 
 /*NAV BUTTONS*/
@@ -73,6 +76,7 @@ body {
 	color: white;
 	font-family: 'ROBOTO-LIGHT';
 }
+
 /*
 .x-input-el {	
 	background: none;
@@ -168,6 +172,10 @@ body {
 }
 .toolbar-icon-trade {
   background-image: url('../images/ic_buy.png');
+  background-size: cover;
+}
+.toolbar-icon-done {
+  background-image: url('../images/ic_done.png');
   background-size: cover;
 }
 

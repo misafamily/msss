@@ -22,7 +22,8 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
 			type:'vbox',
 			pack: 'center',
 			align:'center'
-		}
+		},
+		model: true
    },
    initialize: function() {
    		var me = this;

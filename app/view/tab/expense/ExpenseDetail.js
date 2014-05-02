@@ -26,7 +26,6 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
                         name: 'todaydate',
                         //label: 'Ngân hàng ',
                         cls:'savingadd-createddate',
-                        readOnly: true,
                         //placeHolder:'Chu kỳ (vd: 7 ngày, 3 tháng)',
                         autoCapitalize: false,
                         clearIcon:false
@@ -50,7 +49,8 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 	                    //placeHolder:'Ghi chú thêm',//Note on required pre-tests	                  
 	                    cls:'savingadd-note',
 						name: 'note',
-						maxRows: 3			                    
+						maxRows: 3,
+						disabled: true			                    
 	                }
 				]
 			}
@@ -103,7 +103,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 		
 		me._buyingtypeTF.setValue(m.data.buyingwhat);
 		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(m.data.amount));
-		if (m.data.type == 'chi' && m.data.buyingtype == 'tien_mat') {
+		if ((m.data.type == 'chi' || m.data.type == 'thu') && m.data.buyingtype == 'tien_mat') {
 			me._noteTF.setValue(m.data.note);
 		} else {
 			me._noteTF.setValue(m.data.frombank);

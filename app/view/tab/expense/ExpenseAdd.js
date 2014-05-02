@@ -71,7 +71,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 						maxRows: 3			                    
 	                }
 				]
-			},
+			}/*,
 			 {
 				xtype:'container',
 				layout:'hbox',
@@ -95,7 +95,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 					}
 					
 				]	
-			}
+			}*/
 		]
     },
 	initialize: function() {

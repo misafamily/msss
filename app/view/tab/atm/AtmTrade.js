@@ -240,7 +240,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 				//f();
 			//me.updateRecentStore();
 			//me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
+			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHIN, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
 		});
 		return true;
 	},
@@ -285,7 +285,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 				//f();
 				//me.updateRecentStore();
 				//me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
+				//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));			
 			});	
 			return true;
 		} else {
@@ -331,7 +331,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			//f();
 			//me.updateRecentStore();
 			//me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKIN, AppUtil.formatMoneyWithUnit(m)));			
+			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKIN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKIN, AppUtil.formatMoneyWithUnit(m)));			
 		});
 		return true;
 	},
@@ -374,7 +374,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 				//f();
 				//me.updateRecentStore();
 				//me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKOUT, AppUtil.formatMoneyWithUnit(m)));			
+				//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_CHECKOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_CHECKOUT, AppUtil.formatMoneyWithUnit(m)));			
 			});	
 			return true;
 		} else {

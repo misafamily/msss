@@ -45,31 +45,7 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                         //label: 'Số tiền hiện có  '
                     }
                 ]    
-           },
-           {
-				xtype:'container',
-				layout:'hbox',
-				style: {
-					'margin-top': '10px'
-				},
-				items:[
-					{
-						xtype: 'button',
-						text: 'Thêm',
-						cls:'button-submit',
-						flex: 1,
-						title: 'atmaddsubmitbutton'
-					},
-					{
-						xtype: 'button',
-						text: 'Hủy',
-						cls:'button-cancel',
-						flex: 1,
-						title: 'atmaddcancelbutton'
-					}
-					
-				]	
-			}
+           }
 		]
     },
 	initialize: function() {

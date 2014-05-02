@@ -100,6 +100,32 @@ Ext.application({
 	        });
 
     	});
+    	/*var a = new Ext.Container({
+    		layout: 'vbox',
+		    //fullscreen : true,
+		    items      : [
+		        {
+		            xtype   : 'button',
+		            text    : 'Test',
+		            handler : function() {
+		                alert('Tap');
+		            },
+		            cls: 'button-submit'
+		        },
+		        {
+		            xtype   : 'button',
+		            text    : 'Test',
+		            listeners : {
+		            	tap: function() {
+			                alert('Tap');
+			            }
+		            },
+		            cls: 'button-submit'
+		        }
+		    ]
+		});
+		
+		 Ext.Viewport.add(a);*/
     }
 
 });

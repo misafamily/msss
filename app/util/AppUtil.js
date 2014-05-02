@@ -72,8 +72,9 @@ Ext.define('MyApp.util.AppUtil',{
 		return me.dbConnection;
 	},
 	
-	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate ) {
+	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate, note ) {
 		var now = tradedate || new Date();
+		note = note || '';
 		var expenseId = 'expensive_' + now.getTime();
 		var expenseData = {
 			expense_id: expenseId,
@@ -82,7 +83,7 @@ Ext.define('MyApp.util.AppUtil',{
 			buyingwhat: buyingwhat,
 			buyingtype: buyingtype,
 			frombank: frombank,
-			//note: note,
+			note: note,
 			time: now.getTime(),
 			week: Ext.Date.getWeekOfYear(now),
 			dd: now.getDate(),

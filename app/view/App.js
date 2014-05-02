@@ -7,8 +7,7 @@ Ext.define('MyApp.view.App', {
     ],
     config: {
         layout:{
-			type:'card',
-			animation:{type:'fade'}
+			type:'card'
 		},
 		items:[
 			{

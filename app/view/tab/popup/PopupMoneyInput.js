@@ -22,7 +22,8 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
 			type:'vbox',
 			pack: 'center',
 			align: 'center'
-		}
+		},
+		model: true
    },
    initialize: function() {
    		this.callParent(arguments);

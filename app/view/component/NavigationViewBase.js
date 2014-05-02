@@ -7,10 +7,7 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 		defaultBackButtonText:'',
         autoDestroy: false,
         layout:{
-			type:'card',
-			animation:{
-				type: 'slide'
-			}
+			 animation: null//{duration: 150, type: 'slide'}
 		},
 		navigationBar:{
 			 backButton: {
@@ -28,14 +25,9 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
         		{
 					iconCls:'toolbar-icon-menu',
 					align: 'left',
-					hideAnimation:{
-                        type: 'fadeOut',
-                        duration: 60
-                    },
-                    showAnimation:{
-                        type: 'fadeIn',
-                        duration: 60
-                    }
+					hideAnimation:null,
+                    showAnimation:null,
+                    title: 'menubtn'
 				},
 				{
 					iconCls:'toolbar-icon-trade',
@@ -44,14 +36,8 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 						'padding-right': '0px',
 						'padding-left': '0px'
 					},
-					hideAnimation:{
-                        type: 'fadeOut',
-                        duration: 60
-                    },
-                    showAnimation:{
-                        type: 'fadeIn',
-                        duration: 60
-                    },
+					hideAnimation:null,
+                    showAnimation:null,
                     title: 'trade',
                     hidden: true
 				},
@@ -62,14 +48,8 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 						'padding-right': '0px',
 						'padding-left': '0px'
 					},
-					hideAnimation:{
-                        type: 'fadeOut',
-                        duration: 60
-                    },
-                    showAnimation:{
-                        type: 'fadeIn',
-                        duration: 60
-                    },
+					hideAnimation:null,
+                    showAnimation:null,
                     title: 'edit',
                     hidden: true
 				},
@@ -80,21 +60,31 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 						'padding-left': '0px'
 					},
 					align: 'right',
-					hideAnimation:{
-                        type: 'fadeOut',
-                        duration: 60
-                    },
-                    showAnimation:{
-                        type: 'fadeIn',
-                        duration: 60
-                    },
+					hideAnimation:null,
+                    showAnimation:null,
                     title: 'delete',
+                    hidden: true
+				},
+				{
+					iconCls:'toolbar-icon-done',
+					style: {
+						'padding-right': '8px',
+						'padding-left': '0px'
+					},
+					align: 'right',
+					hideAnimation:null,
+                    showAnimation:null,
+                    title: 'done',
                     hidden: true
 				}
 			]
        }
    },
-
+   
+   initialize: function() {
+   		var me = this;
+   		me.callParent(arguments);
+   },
    
    hideRightButtons: function() {
    		var me = this;
@@ -104,6 +94,7 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
    		me._tradeBtn.hide();
    		me._editBtn.hide();
    		me._delBtn.hide();
+   		me.hideDoneButton();
    },
    
     showRightButtons: function() {
@@ -114,5 +105,16 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
    		me._tradeBtn.show();
    		me._editBtn.show();
    		me._delBtn.show();
+   },
+   
+   showDoneButton: function() {
+   		var me = this;
+   		if (!me._doneBtn) me._doneBtn = me.down('button[title="done"]');
+   		me._doneBtn.show();
+   },
+    hideDoneButton: function() {
+   		var me = this;
+   		if (!me._doneBtn) me._doneBtn = me.down('button[title="done"]');
+   		me._doneBtn.hide();
    }
 });
