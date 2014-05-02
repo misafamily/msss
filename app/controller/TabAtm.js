@@ -31,7 +31,7 @@ Ext.define('MyApp.controller.TabAtm', {
 			thisSavingDetail: 'tab_atm_savingdetail',
 			thisSavingList: 'tab_atm_savinglist',
 			thisSavingTrade: 'tab_atm_savingtrade',
-			thisInsuranceList: 'tab_atm_insurancelist',
+			thisInsuranceList: 'tab_atm_insurancelist'
         },//end refs
         control: {
 			thisTab: {
@@ -301,7 +301,7 @@ Ext.define('MyApp.controller.TabAtm', {
 					var me = this;
 					var rec = record;//view.getStore().getAt(index);
 					var atmDetail = this.getAtmDetailView();
-					//atmDetail.setAtmModel(null);
+					//atmDetail.setAtmModel(null);					
 					atmDetail.setAtmModel(rec);
 					atmDetail.setCallbackFunc(function() {
 							//console.log('callback delete');

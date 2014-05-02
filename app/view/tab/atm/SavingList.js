@@ -19,7 +19,7 @@ Ext.define('MyApp.view.tab.atm.SavingList', {
 							'<div class="amounticon"></div>',
 							'<div class="amount">{amount:this.format}</div>',
 						'</div>',
-					'</div>',										
+					'</div>'									
 					].join(''),
 					{
 						upper:function(s) {

@@ -59,6 +59,19 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_FAILED_PUSHOUT: 'Tiền trong tài khoản không đủ. Có thể rút tối đa <span>{0}</span>',
 	MESSAGE_FAILED_CHECKOUT: 'Tiền trong tài khoản không đủ. Có thể chuyển tối đa <span>{0}</span>',
 	
+	getDbConnection: function() {
+		var me = this;
+		if (!me.dbConnection) {
+			var dbconnval = {
+		        dbName: "moneysss",
+		        dbDescription: "moneysss database"
+		    };
+	    	me.dbConnection = Ext.create('MyApp.util.offline.Connection', dbconnval);
+	    	me.offline = Ext.create('MyApp.util.offline.Data',{});	
+		}
+		return me.dbConnection;
+	},
+	
 	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate ) {
 		var now = tradedate || new Date();
 		var expenseId = 'expensive_' + now.getTime();

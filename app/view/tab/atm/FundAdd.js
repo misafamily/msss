@@ -34,14 +34,14 @@ Ext.define('MyApp.view.tab.atm.FundAdd', {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền đã có (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền muốn đạt (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                      {
@@ -61,7 +61,7 @@ Ext.define('MyApp.view.tab.atm.FundAdd', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 	                
                 ]    
            },

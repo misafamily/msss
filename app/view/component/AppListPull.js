@@ -1,7 +1,7 @@
 Ext.define('MyApp.view.component.AppListPull', {
     extend: 'MyApp.view.component.AppList',
     requires:[
-    	'Ext.plugin.ListPaging',
+    	'Ext.plugin.ListPaging'
         //'Ext.plugin.PullRefresh'
     ],
     config: {    	
@@ -9,15 +9,15 @@ Ext.define('MyApp.view.component.AppListPull', {
 		plugins: [
             { 
             	xclass: 'Ext.plugin.ListPaging',
-            	loadMoreText: 'Xem tiếp ...',
-            	noMoreRecordsText : 'Hết dữ liệu',
-            	//autoPaging: true 
+            	loadMoreText: 'Xem tiếp ...',//Xem tiếp ...
+            	noMoreRecordsText : '',//Hết dữ liệu
+            	autoPaging: false 
             }/*,
             { 
             	xclass: 'Ext.plugin.PullRefresh', 
             	pullRefreshText: 'Kéo xuống để lấy dữ liệu mới',
             	releaseRefreshText: 'Thả ra để lấy dữ liệu mới'  
             }*/
-        ],		
+        ]		
     }
 });

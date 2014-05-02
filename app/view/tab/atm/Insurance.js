@@ -43,7 +43,7 @@ Ext.define('MyApp.view.tab.atm.Insurance', {
 			},
 			{
 				xtype:'tab_atm_insurancelist',
-				scrollable: false,
+				scrollable: false
 			}
 		]
     }

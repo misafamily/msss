@@ -45,30 +45,42 @@ Ext.define('MyApp.controller.App', {
 		Ext.Viewport.toggleMenu("left");		
 	},
 	
-	onClosePopup: function() {
+	onClosePopup: function(btn, e, eOpts) {
 		var me = this;	
 		var message = me.getPopupMessageView();
 		message.hide();		
+		e.preventDefault();
+		return false;
 	},
 	
-	onCloseAlert: function() {
+	onCloseAlert: function(btn, e, eOpts) {
+		//btn.doTap(btn, e);
 		var me = this;	
 		var message = me.getPopupAlertView();
-		message.hide();		
+		 setTimeout(function() {
+	        message.hide();
+	    }, 0);
+		
+				
+		e.preventDefault();
+		return false;
 	},
-	onConfirmCancel: function() {
+	onConfirmCancel: function(btn, e, eOpts) {
 		var me = this;	
 		var message = me.getPopupConfirmView();
 		message.hide();
-	
+		e.preventDefault();
+		return false;
 	},
 	
-	onPopupMoneyCancel:function() {
+	onPopupMoneyCancel:function(btn, e, eOpts) {
 		var me = this;	
 		var message = me.getPopupMoneyInputView();
 		message.hide();
+		e.preventDefault();
+		return false;
 	},
-	onPopupMoneyOk: function() {
+	onPopupMoneyOk: function(btn, e, eOpts) {
 		var me = this;	
 		var view = me.getPopupMoneyInputView();
 		var money = view.getInputValue();
@@ -78,16 +90,20 @@ Ext.define('MyApp.controller.App', {
 			
 			me._confirmCallbackFunc = null;
 		}
+		e.preventDefault();
+		return false;
 	},
 	
-	onConfirmOK: function() {
+	onConfirmOK: function(btn, e, eOpts) {
 		var me = this;	
 		if (me._confirmCallbackFunc) {
 			me._confirmCallbackFunc();
 			
 			me._confirmCallbackFunc = null;
 		}
-		me.onConfirmCancel();
+		me.onConfirmCancel(btn, e, eOpts);
+		//e.preventDefault();
+		return false;
 	},
 	
 	showPopup:function(title, msg){	
@@ -169,5 +185,5 @@ Ext.define('MyApp.controller.App', {
 		//},200);
 		
 		me._confirmCallbackFunc = callback;
-	},
+	}
 });

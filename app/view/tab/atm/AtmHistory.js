@@ -36,7 +36,7 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 							'<div class="moneycardinfo">',
 								'<div class="moneycardicon"></div>',
 								'<div class="moneycard">{moneycard:this.format}</div>',
-							'</div>',			
+							'</div>'		
 							].join(''),
 							{
 								formatDateTime:function(time) {
@@ -54,15 +54,16 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 
 	loadData: function(atmModel) {
 		var me = this;
-		me.setAtmModel(atmModel);
+		//me.setAtmModel(atmModel);
 		
-		if (!me._list) me._list = me.down('list');
+		if (!me._list) me._list = me.down('list');		
+		//me._list.getScrollable().getScroller().scrollToTop();
 		
-		me._list.getScrollable().getScroller().scrollToTop();
 		var store = me._list.getStore();
+		//store.removeAll();
 		
-		AppUtil.offline.updateStoreQuery(store, 'AtmHistories', {atm_id: me.getAtmModel().data.atm_id});
-		store.load();
+		AppUtil.offline.updateStoreQuery(store, 'AtmHistories', {atm_id: atmModel.data.atm_id});
+		store.loadPage(1);
 	}
 	
 	

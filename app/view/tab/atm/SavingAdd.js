@@ -42,14 +42,14 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền gởi (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
                         xtype: 'numberfield',
                         name: 'rate',
                         placeHolder:'Lãi suất (%/năm) (vd: 7)',
-                        cls:'savingadd-interestrate',
+                        cls:'savingadd-interestrate'
                         //label: 'Số tiền hiện có  '
                     },
                     {
@@ -71,8 +71,8 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 							{text: 'Kỳ hạn 2 ngày',  value: '2'},	//minute
 							{text: 'Kỳ hạn 3 ngày',  value: '3'},	//minute
 							{text: 'Kỳ hạn 6 ngày',  value: '6'},	//minute
-							{text: 'Kỳ hạn 7 ngày',  value: '7'},	//minute
-						],	
+							{text: 'Kỳ hạn 7 ngày',  value: '7'}	//minute
+						]	
                     },
                     {
 						xtype: 'selectfield',
@@ -86,7 +86,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 	                        {text: 'Lĩnh lãi 6 tháng/lần',  value: '6'},
 							{text: 'Lĩnh lãi 9 tháng/lần',  value: '9'},
 							{text: 'Lĩnh lãi 12 tháng/lần',  value: '12'},
-							{text: 'Lĩnh lãi theo ngày',  value: '0'},
+							{text: 'Lĩnh lãi theo ngày',  value: '0'}
 						],	
 						style: {
 							//'margin-top': '100px',
@@ -112,7 +112,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 	                
                 ]    
            },

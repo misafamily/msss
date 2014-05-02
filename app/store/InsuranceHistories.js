@@ -4,6 +4,6 @@ Ext.define('MyApp.store.InsuranceHistories', {
         model: 'MyApp.model.InsuranceHistory',
         autoLoad:false,
         autoSync:false,
-        pageSize: 6,
+        pageSize: 6
     }
 });

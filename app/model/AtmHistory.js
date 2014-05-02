@@ -1,4 +1,4 @@
-Ext.define('MyApp.model.AtmHistory', {
+Ext.define('MyApp.model.AtmHistory', {	
     extend: 'Ext.data.Model',
     config: {
         fields: [
@@ -65,7 +65,7 @@ Ext.define('MyApp.model.AtmHistory', {
             }
         ],
         proxy:{
-    		type:'sqlitestorage',
+    		type:'sqlitestorage',//localstoragepaging
     		dbConfig: {
 	    		tablename:'atm_history',    			
     			dbQuery:'SELECT * from atm_history'

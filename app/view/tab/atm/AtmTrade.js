@@ -61,9 +61,9 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			                        xtype: 'textfield',
 			                        name: 'amount',
 			                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
-			                        cls:'atmadd-amount',
+			                        cls:'atmadd-amount'
 			                        //label: 'Số tiền hiện có  '
-			                    },
+			                    }
 			                ]    
 			           },
 						{
@@ -107,16 +107,16 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 				                    	{text: 'Nhận tiền chuyển khoản (lương)',  value: 'nhan_luong'},											
 										{text: 'Chuyển khoản, mua sắm qua thẻ',  value: 'chuyen_khoan'},
 										{text: 'Nạp tiền',  value: 'nap_tien'}
-									],	
+									]
 			                    },
 			                     
 			                     {
 			                        xtype: 'numberfield',
 			                        name: 'amounttrade',
 			                        placeHolder:'Số tiền (đ) (vd: 1000000)',
-			                        cls:'atmadd-amount',
+			                        cls:'atmadd-amount'
 			                        //label: 'Số tiền hiện có  '
-			                    },
+			                    }
 			                ]    
 			           },
 			          

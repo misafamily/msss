@@ -4,6 +4,17 @@ Ext.define('MyApp.store.Cashs', {
         model: 'MyApp.model.Expense',
         autoLoad:false,
         autoSync:false,
-        pageSize: 6
+         pageSize: 8,
+        
+         proxy:{
+    		type:'localstoragepaging',//sqlitestorage
+    		dbConfig: {
+	    		tablename:'expense',    			
+    			dbQuery:'SELECT * from expense ORDER BY time DESC'
+    		},
+    		reader: {
+               type: 'array'
+            }
+       }
     }
 });

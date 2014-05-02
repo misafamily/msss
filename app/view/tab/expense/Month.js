@@ -42,7 +42,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 						cls: 'button-icon',	
 						iconCls:'button-icon-next',
 						title: 'expensemonthnextbutton'
-					},
+					}
 				]
 			},
 			{
@@ -61,7 +61,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 				items:[
 					{
 						xtype: 'label',
-						html:'Tổng thu:',
+						html:'Tổng thu:'
 						//cls:'atm-tienmat-amount'
 					},	
 					{
@@ -119,7 +119,7 @@ Ext.define('MyApp.view.tab.expense.Month', {
 							'<div class="amounticon {type}"></div>',
 							'<div class="username {type}">{amount:this.format}</div>', //Tên: 
 						'</div>',		
-					'</div>',
+					'</div>'
 								
 					].join(''),
 					{

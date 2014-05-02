@@ -41,9 +41,9 @@ Ext.define('MyApp.view.tab.atm.AtmAdd', {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Tiền hiện có (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
-                    },
+                    }
                 ]    
            },
            {

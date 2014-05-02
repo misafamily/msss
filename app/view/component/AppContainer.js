@@ -19,6 +19,7 @@ Ext.define('MyApp.view.component.AppContainer', {
 			me._list.hide();
 			
 			if (me.getEmptyListOnHide()) {
+				me._list.getScrollable().getScroller().scrollToTop();
 				var store = me._list.getStore();
 				if (store) 
 					store.removeAll();

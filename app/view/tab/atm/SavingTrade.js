@@ -53,14 +53,14 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
                         xtype: 'textfield',
                         name: 'amount',
                         placeHolder:'Số tiền gởi (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
                         xtype: 'textfield',
                         name: 'rate',
                         placeHolder:'Lãi suất (%/năm) (vd: 7)',
-                        cls:'savingadd-interestrate',
+                        cls:'savingadd-interestrate'
                         //label: 'Số tiền hiện có  '
                     },
                    
@@ -120,16 +120,16 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 	                    	{text: 'Rút tiền',  value: 'rut_tien'},									
 							{text: 'Nạp tiền',  value: 'nap_tien'}
 	                    	
-						],	
+						]
                     },
                      
                      {
                         xtype: 'numberfield',
                         name: 'amounttrade',
                         placeHolder:'Số tiền (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
-                    },
+                    }
                 ]    
            },
           
@@ -327,12 +327,14 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 				
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_PUSHOUT, AppUtil.formatMoneyWithUnit(m), AppUtil.getCashFormat()));
 				
-				return true;			
+							
 			});	
+			return true;
 		} else {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_PUSHOUT, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_PUSHOUT,AppUtil.formatMoneyWithUnit(amount + m)));
+			return false;
 		}
-		return false;
+		
 	},
 	
 	resetView: function(){

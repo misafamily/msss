@@ -27,7 +27,7 @@ Ext.define('MyApp.view.tab.popup.PopupAlert', {
    initialize: function() {
    		var me = this;
    		me.callParent(arguments);
-		me.createView();
+		me.createView();		
    },
    
    updateData: function() {

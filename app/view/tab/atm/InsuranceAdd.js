@@ -49,8 +49,8 @@ Ext.define('MyApp.view.tab.atm.InsuranceAdd', {
 	                       {text: 'Bảo hiểm sức khỏe',  value: 'suc_khoe'},
 	                       {text: 'Bảo hiểm ô tô',  value: 'o_to'},
 	                       {text: 'Bảo hiểm du lịch quốc tế',  value: 'du_lich'},
-	                       {text: 'Khác',  value: 'khac'},
-						],	
+	                       {text: 'Khác',  value: 'khac'}
+						]
                     },
                     {
 						xtype: 'selectfield',
@@ -74,26 +74,21 @@ Ext.define('MyApp.view.tab.atm.InsuranceAdd', {
 							{text: 'Thời hạn 14 năm',  value: '14'},	//name
 							{text: 'Thời hạn 15 năm',  value: '15'},	//name
 							{text: 'Khác',  value: '16'}
-						],	
-						style: {
-							//'margin-top': '100px',
-							//'font-size': '14px',
-							//'margin-left': '-12px'
-						},
+						],						
 						name: 'period'
 					},
 					 {
                         xtype: 'numberfield',
                         name: 'amountpaid',
                         placeHolder:'Số tiền đã đóng (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền đóng mỗi lần (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                      {
@@ -113,7 +108,7 @@ Ext.define('MyApp.view.tab.atm.InsuranceAdd', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 	                
                 ]    
            },

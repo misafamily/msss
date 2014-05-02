@@ -41,7 +41,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
                         xtype: 'textfield',
                         name: 'amount',
                         //placeHolder:'Số tiền chi (đ) (vd: 100000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
@@ -51,9 +51,9 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 				]
-			},
+			}
 			 /*{
 				xtype:'container',
 				layout:'hbox',

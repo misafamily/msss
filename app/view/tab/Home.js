@@ -12,7 +12,7 @@ Ext.define('MyApp.view.tab.Home', {
 			{
 				xtype:'container',
 				title: 'Trang chủ',
-				html: 'This is Home Roboto',
+				html: 'This is Home Roboto'
 			}
 		]			
    },

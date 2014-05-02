@@ -29,7 +29,7 @@ Ext.define('MyApp.controller.TabExpense', {
 						mee.getThisMenuButton().show();
 						mee.getThisAddButton().show();
 					}
-				},
+				}
 			},
 			
 			//TAB

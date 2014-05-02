@@ -76,7 +76,7 @@ Ext.define('MyApp.view.tab.Atm', {
 										items:[
 											{
 												xtype: 'label',
-												html:'Tổng cộng:',
+												html:'Tổng cộng:'
 												//cls:'atm-tienmat-amount'
 											},	
 											{
@@ -95,7 +95,7 @@ Ext.define('MyApp.view.tab.Atm', {
 												
 										]
 										
-									},
+									}
 								]
 							},
 							
@@ -119,10 +119,7 @@ Ext.define('MyApp.view.tab.Atm', {
 										text: 'Sổ cho vay,<br/>Sổ nợ',		
 										viewIndex: 2
 									}
-								],
-								style: {
-									//'margin-bottom': '1px'
-								}
+								]
 							},
 							{
 								xtype:'container',

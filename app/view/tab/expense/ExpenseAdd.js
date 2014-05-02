@@ -59,7 +59,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền chi (đ) (vd: 100000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
@@ -69,7 +69,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 				]
 			},
 			 {
@@ -161,6 +161,8 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EXPENSE, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EXPENSE,AppUtil.getCashFormat()));
 			return;
 		}
+		
+		AppUtil.cashMinus(amount);
 		amount = parseInt(amount).toString();
 		
 		var now = me._selectedDate;

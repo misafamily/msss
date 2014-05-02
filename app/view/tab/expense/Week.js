@@ -42,7 +42,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 						cls: 'button-icon',	
 						iconCls:'button-icon-next',
 						title: 'expenseweeknextbutton'
-					},
+					}
 				]
 			},
 			{
@@ -61,7 +61,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 				items:[
 					{
 						xtype: 'label',
-						html:'Tổng thu:',
+						html:'Tổng thu:'
 						//cls:'atm-tienmat-amount'
 					},	
 					{
@@ -135,7 +135,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 						}	
 					}
        			),
-       			onItemDisclosure: true,
+       			onItemDisclosure: true
        			//grouped: true
 			}
 		]

@@ -39,7 +39,7 @@ Ext.define('MyApp.view.tab.atm.CashHistory', {
 												'<div class="amounticon cash {type}"></div>',
 												'<div class="username {type}">{amount:this.format}</div>', //Tên: 
 											'</div>',		
-										'</div>',
+										'</div>'
 										].join(''),
 										{
 											formatDateTime:function(time) {
@@ -62,11 +62,11 @@ Ext.define('MyApp.view.tab.atm.CashHistory', {
 		
 		if (!me._list) me._list = me.down('list');
 		
-		me._list.getScrollable().getScroller().scrollToTop();
+		//me._list.getScrollable().getScroller().scrollToTop();
 		var store = me._list.getStore();
-		store.removeAll();
+		//store.removeAll();
 		
 		AppUtil.offline.updateStoreQuery(store, 'Cashs');
-		store.load();
+		store.loadPage(1);
 	}
  });   

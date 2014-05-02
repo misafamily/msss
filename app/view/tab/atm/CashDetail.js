@@ -44,16 +44,16 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 			                        xtype: 'textfield',
 			                        name: 'amount',
 			                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
-			                        cls:'atmadd-amount',
+			                        cls:'atmadd-amount'
 			                        //label: 'Số tiền hiện có  '
-			                    },
+			                    }
 			                ]    
 			          },
 						{
 							xtype: 'container',
 							style: {
 								'margin-left': '10px',
-								'margin-top': '10px',
+								'margin-top': '10px'
 							},
 							layout: {
 								type: 'hbox',
@@ -64,7 +64,7 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 								{
 									xtype: 'label',
 									html: 'THU CHI GẦN NHẤT',
-									flex: 1,
+									flex: 1
 								},
 								
 								{
@@ -96,7 +96,7 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 												'<div class="amounticon cash {type}"></div>',
 												'<div class="username {type}">{amount:this.format}</div>', //Tên: 
 											'</div>',		
-										'</div>',
+										'</div>'
 										].join(''),
 										{
 											formatDateTime:function(time) {

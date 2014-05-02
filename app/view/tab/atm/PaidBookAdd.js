@@ -34,14 +34,14 @@ Ext.define('MyApp.view.tab.atm.PaidBookAdd', {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
                     },
                     {
                         xtype: 'numberfield',
                         name: 'rate',
                         placeHolder:'Lãi suất (%/năm) (vd: 7)',
-                        cls:'savingadd-interestrate',
+                        cls:'savingadd-interestrate'
                         //label: 'Số tiền hiện có  '
                     },
                      {
@@ -62,7 +62,7 @@ Ext.define('MyApp.view.tab.atm.PaidBookAdd', {
 	                    cls:'savingadd-note',
 						name: 'note',
 						maxRows: 3			                    
-	                },
+	                }
 	                
                 ]    
            },

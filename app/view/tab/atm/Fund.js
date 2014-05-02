@@ -40,7 +40,7 @@ Ext.define('MyApp.view.tab.atm.Fund', {
 						//iconCls: 'add2'
 					}
 				]
-			},
+			}
 			/*{
 				xtype:'tab_atm_atmlist',
 				scrollable: false,

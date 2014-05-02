@@ -40,8 +40,8 @@ Ext.define('MyApp.view.tab.atm.LendBook', {
 						//iconCls: 'add2'
 					}
 				]
-			},
-			/*{
+			}/*,
+			{
 				xtype:'tab_atm_atmlist',
 				scrollable: false,
 			}*/

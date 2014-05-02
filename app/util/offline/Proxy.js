@@ -13,8 +13,8 @@ Ext.define('MyApp.util.offline.Proxy', {
         //ensures that the reader has been instantiated properly
        this.setReader(this.reader);
         var me = this;
-        me.callParent([this]);
-        me.dbConn = AppUtil.dbConnection.dbConn;
+        me.callParent([this]);       
+        //me.dbConn = AppUtil.getDbConnection().dbConn;
         me.createTable();
         
     },
@@ -112,7 +112,7 @@ Ext.define('MyApp.util.offline.Proxy', {
      */
     getDb : function(){
         //return Ext.DbConnection.dbConn || this.config.dbConfig.dbConn;
-        return this.dbConn;
+        return AppUtil.getDbConnection().dbConn;//this.dbConn;
     },
     /**
      *@private

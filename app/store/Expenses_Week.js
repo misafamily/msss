@@ -10,6 +10,6 @@ Ext.define('MyApp.store.Expenses_Week', {
                //return record.get('dd') + ' - ' + record.get('mm') + ' - ' + record.get('yy');
                return new Date(record.get('time')).dateShortFormatWithoutTime();
             }
-        },
+        }
     }
 });

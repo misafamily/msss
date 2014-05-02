@@ -42,7 +42,7 @@ Ext.define('MyApp.view.tab.atm.Saving', {
 			},
 			{
 				xtype:'tab_atm_savinglist',
-				scrollable: false,
+				scrollable: false
 			}
 		]
     },

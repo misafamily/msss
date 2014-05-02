@@ -14,6 +14,6 @@ Ext.define('MyApp.store.Expenses_Month', {
                //	else 
                return record.get('buyingwhat');
             }
-        },
+        }
     }
 });

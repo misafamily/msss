@@ -31,15 +31,15 @@ Ext.define('MyApp.view.tab.atm.CashAdd', {
 	                    	{text: 'Lương',  value: 'nhan_luong'},									
 							{text: 'Bảo hiểm',  value: 'bao_hiem'},
 	                    	{text: 'Khác',  value: 'khac'}
-						],	
+						]
                     },
                      {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền (đ) (vd: 1000000)',
-                        cls:'atmadd-amount',
+                        cls:'atmadd-amount'
                         //label: 'Số tiền hiện có  '
-                    },
+                    }
                 ]    
            },
            {

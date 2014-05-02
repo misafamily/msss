@@ -645,15 +645,23 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.Atm": [],
   "MyApp.model.AtmHistory": [],
   "MyApp.model.Expense": [],
+  "MyApp.model.Insurance": [],
+  "MyApp.model.InsuranceHistory": [],
   "MyApp.model.Saving": [],
   "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
   "MyApp.override.picker.Date": [],
+  "MyApp.profile.DefaultProfile": [],
   "MyApp.store.AtmHistories": [],
   "MyApp.store.AtmHistories_Recent": [],
   "MyApp.store.Atms": [],
+  "MyApp.store.Cashs": [],
+  "MyApp.store.Cashs_Recent": [],
   "MyApp.store.Expenses": [],
   "MyApp.store.Expenses_Month": [],
+  "MyApp.store.Expenses_Week": [],
+  "MyApp.store.InsuranceHistories": [],
+  "MyApp.store.Insurances": [],
   "MyApp.store.SavingHistories": [],
   "MyApp.store.SavingHistories_Recent": [],
   "MyApp.store.Savings": [],
@@ -670,7 +678,6 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.AppMain": [],
   "MyApp.view.AppMenu": [],
   "MyApp.view.AppTab": [],
-  "MyApp.view.Main": [],
   "MyApp.view.component.AppContainer": [],
   "MyApp.view.component.AppList": [],
   "MyApp.view.component.AppListPull": [],
@@ -686,14 +693,29 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.tab.atm.AtmEdit": [],
   "MyApp.view.tab.atm.AtmHistory": [],
   "MyApp.view.tab.atm.AtmList": [],
+  "MyApp.view.tab.atm.AtmTrade": [],
+  "MyApp.view.tab.atm.CashAdd": [],
+  "MyApp.view.tab.atm.CashDetail": [],
+  "MyApp.view.tab.atm.CashHistory": [],
+  "MyApp.view.tab.atm.Fund": [],
+  "MyApp.view.tab.atm.FundAdd": [],
+  "MyApp.view.tab.atm.Insurance": [],
+  "MyApp.view.tab.atm.InsuranceAdd": [],
+  "MyApp.view.tab.atm.InsuranceList": [],
+  "MyApp.view.tab.atm.LendBook": [],
+  "MyApp.view.tab.atm.LendBookAdd": [],
+  "MyApp.view.tab.atm.PaidBook": [],
+  "MyApp.view.tab.atm.PaidBookAdd": [],
   "MyApp.view.tab.atm.Saving": [],
   "MyApp.view.tab.atm.SavingAdd": [],
   "MyApp.view.tab.atm.SavingDetail": [],
   "MyApp.view.tab.atm.SavingEdit": [],
   "MyApp.view.tab.atm.SavingHistory": [],
   "MyApp.view.tab.atm.SavingList": [],
+  "MyApp.view.tab.atm.SavingTrade": [],
   "MyApp.view.tab.expense.Day": [],
   "MyApp.view.tab.expense.ExpenseAdd": [],
+  "MyApp.view.tab.expense.ExpenseDetail": [],
   "MyApp.view.tab.expense.Month": [],
   "MyApp.view.tab.expense.Week": [],
   "MyApp.view.tab.popup.PopupAlert": [],
@@ -1425,15 +1447,23 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.Atm": [],
   "MyApp.model.AtmHistory": [],
   "MyApp.model.Expense": [],
+  "MyApp.model.Insurance": [],
+  "MyApp.model.InsuranceHistory": [],
   "MyApp.model.Saving": [],
   "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
   "MyApp.override.picker.Date": [],
+  "MyApp.profile.DefaultProfile": [],
   "MyApp.store.AtmHistories": [],
   "MyApp.store.AtmHistories_Recent": [],
   "MyApp.store.Atms": [],
+  "MyApp.store.Cashs": [],
+  "MyApp.store.Cashs_Recent": [],
   "MyApp.store.Expenses": [],
   "MyApp.store.Expenses_Month": [],
+  "MyApp.store.Expenses_Week": [],
+  "MyApp.store.InsuranceHistories": [],
+  "MyApp.store.Insurances": [],
   "MyApp.store.SavingHistories": [],
   "MyApp.store.SavingHistories_Recent": [],
   "MyApp.store.Savings": [],
@@ -1457,9 +1487,6 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.AppTab": [
     "widget.apptab"
-  ],
-  "MyApp.view.Main": [
-    "widget.main"
   ],
   "MyApp.view.component.AppContainer": [],
   "MyApp.view.component.AppList": [],
@@ -1500,6 +1527,45 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.tab.atm.AtmList": [
     "widget.tab_atm_atmlist"
   ],
+  "MyApp.view.tab.atm.AtmTrade": [
+    "widget.tab_atm_atmtrade"
+  ],
+  "MyApp.view.tab.atm.CashAdd": [
+    "widget.tab_atm_cashadd"
+  ],
+  "MyApp.view.tab.atm.CashDetail": [
+    "widget.tab_atm_cashdetail"
+  ],
+  "MyApp.view.tab.atm.CashHistory": [
+    "widget.tab_atm_cashhistory"
+  ],
+  "MyApp.view.tab.atm.Fund": [
+    "widget.tab_atm_fund"
+  ],
+  "MyApp.view.tab.atm.FundAdd": [
+    "widget.tab_atm_fundadd"
+  ],
+  "MyApp.view.tab.atm.Insurance": [
+    "widget.tab_atm_insurance"
+  ],
+  "MyApp.view.tab.atm.InsuranceAdd": [
+    "widget.tab_atm_insuranceadd"
+  ],
+  "MyApp.view.tab.atm.InsuranceList": [
+    "widget.tab_atm_insurancelist"
+  ],
+  "MyApp.view.tab.atm.LendBook": [
+    "widget.tab_atm_lendbook"
+  ],
+  "MyApp.view.tab.atm.LendBookAdd": [
+    "widget.tab_atm_lendbookadd"
+  ],
+  "MyApp.view.tab.atm.PaidBook": [
+    "widget.tab_atm_paidbook"
+  ],
+  "MyApp.view.tab.atm.PaidBookAdd": [
+    "widget.tab_atm_paidbookadd"
+  ],
   "MyApp.view.tab.atm.Saving": [
     "widget.tab_atm_saving"
   ],
@@ -1518,11 +1584,17 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.tab.atm.SavingList": [
     "widget.tab_atm_savinglist"
   ],
+  "MyApp.view.tab.atm.SavingTrade": [
+    "widget.tab_atm_savingtrade"
+  ],
   "MyApp.view.tab.expense.Day": [
     "widget.tab_expense_day"
   ],
   "MyApp.view.tab.expense.ExpenseAdd": [
     "widget.tab_expense_expenseadd"
+  ],
+  "MyApp.view.tab.expense.ExpenseDetail": [
+    "widget.tab_expense_expensedetail"
   ],
   "MyApp.view.tab.expense.Month": [
     "widget.tab_expense_month"

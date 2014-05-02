@@ -7,7 +7,7 @@ Ext.define('MyApp.view.component.AppList', {
         allowDeselect: false,  
 		flex: 1,
 		//height: '100%',
-		emptyText:'',//Chưa có dữ liệu
+		emptyText:''//Chưa có dữ liệu
 		/*localize:true,
 		locales : {
 	         //weekTitle: 'WEEK_TEXT',

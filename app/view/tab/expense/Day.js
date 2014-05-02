@@ -42,7 +42,7 @@ Ext.define('MyApp.view.tab.expense.Day', {
 						cls: 'button-icon',	
 						iconCls:'button-icon-next',
 						title: 'expensedaynextbutton'
-					},
+					}
 				]
 			},
 			{
@@ -83,7 +83,7 @@ Ext.define('MyApp.view.tab.expense.Day', {
 				style: {
 					'height': '40px',
 					//'margin-top': '9px',
-					'margin-left': '15px',
+					'margin-left': '15px'
 					//'border-bottom': '1px solid gray'
 					//'margin-right': '20px'
 				},							

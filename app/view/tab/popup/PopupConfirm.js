@@ -75,7 +75,7 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
 								text: 'Không',	
 								flex: 1,							
 								title: 'confirmcancelbutton'
-							},
+							}
 						]
 					}
 				]

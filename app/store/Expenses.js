@@ -12,6 +12,6 @@ Ext.define('MyApp.store.Expenses', {
                else if (record.get('type') == 'chi') return 'Chi tiêu';
                return 'Khác';
             }
-        },
+        }
     }
 });

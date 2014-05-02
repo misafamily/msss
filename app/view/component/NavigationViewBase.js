@@ -9,7 +9,7 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
         layout:{
 			type:'card',
 			animation:{
-				type:'fade'
+				type: 'slide'
 			}
 		},
 		navigationBar:{
@@ -42,7 +42,7 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 					align: 'right',
 					style: {
 						'padding-right': '0px',
-						'padding-left': '0px',
+						'padding-left': '0px'
 					},
 					hideAnimation:{
                         type: 'fadeOut',
@@ -60,7 +60,7 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 					align: 'right',
 					style: {
 						'padding-right': '0px',
-						'padding-left': '0px',
+						'padding-left': '0px'
 					},
 					hideAnimation:{
                         type: 'fadeOut',
@@ -77,7 +77,7 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
 					iconCls:'toolbar-icon-delete',
 					style: {
 						'padding-right': '8px',
-						'padding-left': '0px',
+						'padding-left': '0px'
 					},
 					align: 'right',
 					hideAnimation:{
@@ -114,5 +114,5 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
    		me._tradeBtn.show();
    		me._editBtn.show();
    		me._delBtn.show();
-   },
+   }
 });

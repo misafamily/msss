@@ -3,7 +3,7 @@ Ext.define('MyApp.view.App', {
     xtype: 'app',
     requires: [
     	//'MyApp.view.AppLogin',	
-    	'MyApp.view.AppMain'	     
+    	'MyApp.view.AppTab'	     
     ],
     config: {
         layout:{
@@ -12,8 +12,17 @@ Ext.define('MyApp.view.App', {
 		},
 		items:[
 			{
-				xtype:'appmain'
-			}
+				xtype:'apptab'
+			}/*,
+			{
+				xtype: 'tab_menu_about'
+			},
+			{
+				xtype: 'tab_menu_settings'
+			},
+			{
+				xtype: 'tab_menu_terms'
+			}*/
 		]
     }
  });   

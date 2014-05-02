@@ -19,7 +19,7 @@ Ext.define('MyApp.view.tab.atm.InsuranceList', {
 					'<div class="amountinfo">',
 						'<div class="amounticon"></div>',
 						'<div class="amount">{insurancetext}</div>',
-					'</div>',					
+					'</div>'					
 					].join(''),
 					{
 						upper:function(s) {

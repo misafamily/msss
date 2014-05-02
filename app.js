@@ -9,9 +9,10 @@ Ext.application({
 	 	'MyApp.util.AppUtil',
 	 	'MyApp.util.offline.Connection',		
 		'MyApp.util.offline.Proxy',
+		'MyApp.util.offline.PagingLocalStorageProxy',
 		'MyApp.util.offline.Data'
     ],   
-    profiles: ['DefaultProfile'],
+    profiles: [],//'DefaultProfile'
     models:[
     	'System',
     	'Atm',
@@ -55,13 +56,14 @@ Ext.application({
     },
 	views: ['App','AppMenu'],
     controllers: ['App', 'TabHome', 'TabExpense','TabAtm'],
+   
     launch: function() {
     	//if(!AppUtil.runningDevice()){
     		this.onDeviceReady();
     	//}else{
     		//document.addEventListener("deviceready", this.onDeviceReady, false);
     	//}
-    	
+    	 
     },
     onDeviceReady:function(){
     	//PatientDiary.util.CommonUtil.preferredLanguage();
