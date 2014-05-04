@@ -7,7 +7,7 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
     config: {
     	atmModel: null,
     	callbackFunc: null,
-    	title: 'Chi tiết',
+    	title: 'Tiền mặt',
 		scrollable: {
 			direction: 'vertical'
 		},
@@ -29,7 +29,7 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 			                    //autoComplete: false,
 			                    //autoCorrect: false
 			                    readOnly: true,
-			                    clearIcon: false
+			                    clearIcon: true
 			                },
 			                items: [
 			                    {
@@ -41,11 +41,19 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 									}	
 			                	},
 			                     {
-			                        xtype: 'textfield',
+			                        xtype: 'numberfield',
 			                        name: 'amount',
 			                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
-			                        cls:'atmadd-amount'
+			                        cls:'atmadd-amount',
+			                        readOnly: false,
+			                        hidden: true
 			                        //label: 'Số tiền hiện có  '
+			                    },
+			                    {
+			                        xtype: 'textfield',
+			                        name: 'amounttf',
+			                        placeHolder:'Số tiền (đ) (vd: 1000000)',
+			                        cls:'atmadd-amount'
 			                    }
 			                ]    
 			          },
@@ -106,7 +114,8 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 												return AppUtil.formatMoneyWithUnit(amount);
 											}	
 										}
-					       	)
+					       ),
+					       onItemDisclosure: true
 						}
 					]
 			}
@@ -116,14 +125,29 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 		var me = this;
 		me.callParent(arguments);
 		me.assignFields();
+		
+		MyApp.app.on('cash_changed', me.resetView, me);
+		MyApp.app.on('chi_changed', me.resetView, me);
 	},
 	
-	/*hide: function() {
-		var recentHisStore = me._list.getStore();
-		if (recentHisStore) {
-			recentHisStore.removeAll();
+	editCash: function() {
+		var me = this;
+		var amount = me._amountTF.getValue();
+	
+		if (amount == null) {
+			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR_INPUT, AppUtil.MESSAGE_WRONG_NUMBER_INPUT);
+			return -1;
 		}
-	},*/
+
+		amount = parseInt(amount);
+		var prevAmount = AppUtil.CASH;
+		if (amount != prevAmount) {
+			AppUtil.cashEdit(amount);
+			return 1;
+		} else return 0;
+		
+		
+	},
 	
 	updateRecentStore: function() {
 		var me = this;
@@ -138,94 +162,36 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 		}
 	},
 	//call from Controller
-	editAtm: function(name, bank, amount) {		
+	
+	enterEditMode: function() {
 		var me = this;
-		
-		me._nameTF.setValue(name);
-		me._bankTF.setValue(bank);
-		me._amountTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-		
-		var atmModel = me.getAtmModel();
-		
-		var now = new Date();
-		
-		if (atmModel.data.username != name || atmModel.data.bank != bank || atmModel.data.amount != amount) {
-			
-			var atmHis = Ext.create('MyApp.model.AtmHistory', {
-					atm_id: atmModel.data.atm_id,
-					description: 'Cập nhật thông tin thẻ ATM',
-					type: AppUtil.TYPE_ATM_SUA_THONG_TIN,
-					amount: amount,
-					moneycard:amount,
-					time: now.getTime(),
-					dd: now.getDate(),
-					mm: now.getMonth(),
-					yy: now.getFullYear()
-			});				
-			//if (atmModel.data.amount != amount) {
-				atmHis.save();	
-			//}			
-			
-			
-			atmModel.data.username = name;
-			atmModel.data.bank = bank;
-			atmModel.data.amount = amount;
-			atmModel.data.time = now.getTime();
-			
-			
-			
-			atmModel.save(function(){
-				//var f = me.getCallbackFunc();
-				//f();
-				me.updateRecentStore();
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_SUCCESS_EDIT);			
-			});
-		} else {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_FAILED_EDIT);
-		}
-		
+		me._amountTF.show();
+		me._amountEditTF.hide();
 	},
 	
-	deleteAtm: function() {
+	exitEditMode: function() {
 		var me = this;
-		//var amount = me._amountTF.getValue();
-		var atmModel = me.getAtmModel();
-		var now = new Date();
-		atmModel.data.status = AppUtil.STATUS_CLOSED;
-		atmModel.save(function(){
-	
-				var atmHis = Ext.create('MyApp.model.AtmHistory', {
-					atm_id: atmModel.data.atm_id,
-					description: 'Đóng tài khoản ATM',
-					type: AppUtil.TYPE_ATM_DONG,
-					amount: 0,
-					moneycard:atmModel.data.amount,
-					time: now.getTime(),
-					dd: now.getDate(),
-					mm: now.getMonth(),
-					yy: now.getFullYear()
-				});
-				atmHis.save();
-				
-			
-				var f = me.getCallbackFunc();
-				f();
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ATM_DELETE, AppUtil.MESSAGE_SUCCESS_DELETE);
-			}
-		);
+		me._amountTF.hide();
+		me._amountEditTF.show();
 	},
+	
 	resetView: function(){
 		var me = this;
+		me.exitEditMode();
 		//me._nameTF.setValue('');
 		//me._bankTF.setValue('');
-		me._amountTF.setValue(AppUtil.getCashFormat());
+		me._amountTF.setValue(AppUtil.CASH);
+		me._amountEditTF.setValue(AppUtil.getCashFormat());
 		me.updateRecentStore();
 	},
 	
 	assignFields: function() {
 		var me = this;
 		if (!me._amountTF) {
-			me._amountTF = me.down('textfield[name = "amount"]');
+			me._amountTF = me.down('numberfield[name = "amount"]');
+		}
+		if (!me._amountEditTF) {
+			me._amountEditTF = me.down('textfield[name = "amounttf"]');
 		}
 		if (!me._list) {
 			me._list = me.down('list');

@@ -421,6 +421,40 @@ Ext.define('MyApp.util.offline.Proxy', {
         return true;
     },
     
+    findRecord: function(field, value, callback, opts) { //opts: [ ['key', 'value]]
+   	    var me = this,
+            values = [],
+            Model = me.getModel(),
+     		primarykey = Model.getIdProperty();
+            onSuccess = function(tx, rs) {
+            	//AppUtil.log(rs);
+            	var storedatas = [];
+            	var records = me.parseData(tx, rs);
+            	if (rs.rows && records.length) {
+		            for (var i = 0; i < rs.rows.length; i++) {
+		            	var data = new Model(records[i],records[i][primarykey]);
+		            	storedatas.push(data);
+		            }
+		        }
+              if (callback) callback(storedatas);
+            },
+            onError = function(tx, err) {
+                me.throwDbError(tx, err);
+            };
+        var sql = 'SELECT * FROM ' + me.config.dbConfig.tablename + ' WHERE ' + field + ' = ?';
+        values.push(value);
+		
+		if (opts) {
+			Ext.Array.each(opts, function(value, index){
+				sql += ' AND ' + value[0] + ' = ?';
+				 values.push(value[1]);
+			});
+		}
+		//AppUtil.log(sql);
+        me.queryDB(me.getDb(), sql, onSuccess, onError, values);
+        return true;
+    },
+    
     /**
      * Destroys all records stored in the proxy 
      */

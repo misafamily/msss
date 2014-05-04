@@ -9,6 +9,11 @@ Ext.define('MyApp.util.AppUtil',{
 	//TYPE
 	//chuyen_tien, rut_tien, nap_tien, tao_moi, nhan_luong, sua_thong_tin
 	//TYPE_ATM_CHUYEN_TIEN: 'chuyen_tien',
+	TYPE_INSURANCE: 'insurance',
+	TYPE_SAVING: 'saving',
+	TYPE_ATM: 'atm',
+	TYPE_ATM_CHI: 'chi',
+	TYPE_ATM_THU: 'thu',
 	TYPE_ATM_RUT_TIEN: 'rut_tien',
 	TYPE_ATM_CHUYEN_KHOAN: 'chuyen_khoan',
 	TYPE_ATM_TAO_MOI: 'tao_moi',
@@ -26,7 +31,12 @@ Ext.define('MyApp.util.AppUtil',{
 	//CONFIRM
 	CONFIRM_ATM_DELETE: 'Tài khoản ATM sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
 	CONFIRM_SAVING_DELETE: 'Sổ sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
+	CONFIRM_CASH_DETAIL_DELETE_THU: 'Số tiền mặt sẽ tự động trừ đi tương ứng với số tiền đã nhận nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_CHI: 'Số tiền mặt sẽ tự động cộng vào tương ứng với số tiền đã chi nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_RUT: 'Số tiền mặt sẽ tự động trừ đi và tài khoản sẽ tự động cộng lại tiền nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_NAP: 'Số tiền mặt sẽ tự động cộng lại và tài khoản sẽ tự động trừ đi tiền nếu xóa mục này',
 	//TITLE
+	TITLE_ERROR: 'Lỗi',
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
 	TITLE_EDIT: 'Thay đổi thông tin',
 	TITLE_PUSHIN: 'Nạp tiền',
@@ -53,11 +63,14 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_SUCCESS_THEMTIEN: 'Đã thêm. Số tiền<br/><span>{0}</span><br/>Tiền mặt hiện có <br/><span>{1}</span>',
 	MESSAGE_SUCCESS_UOCTINH_LAI: '*** Tiền lãi ước tính từ ngày {0}, {1}',//<br/>là <span>{2}</span>',
 	
+	MESSAGE_FAILED_EDIT_CASH: 'Tiền mặt không đủ để bù vào,<br/>hiện có <span>{0}</span> ',
+	MESSAGE_FAILED_EDIT_CASH_ATM: 'Tiền trong ATM không đủ để rút,<br/>hiện có <span>{0}</span>',
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
 	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp,<br/>hiện có <span>{0}</span>',
 	MESSAGE_FAILED_EXPENSE: 'Tiền mặt không đủ để chi tiêu,<br/>hiện có <span>{0}</span>',
 	MESSAGE_FAILED_PUSHOUT: 'Tiền trong tài khoản không đủ. Có thể rút tối đa <span>{0}</span>',
 	MESSAGE_FAILED_CHECKOUT: 'Tiền trong tài khoản không đủ. Có thể chuyển tối đa <span>{0}</span>',
+	MESSAGE_FAILED_ATM_NOT_FOUND: 'Không tìm thấy thẻ ATM',
 	
 	getDbConnection: function() {
 		var me = this;
@@ -82,6 +95,7 @@ Ext.define('MyApp.util.AppUtil',{
 			type: expensetype,
 			buyingwhat: buyingwhat,
 			buyingtype: buyingtype,
+			external_id:externalid,
 			frombank: frombank,
 			note: note,
 			time: now.getTime(),
@@ -130,7 +144,14 @@ Ext.define('MyApp.util.AppUtil',{
 		var me = this;
 		me.CASH -= amount;
 		me.saveCashModel();
-		MyApp.app.fireEvent('cash_changed', this.CASH, -amount);
+		MyApp.app.fireEvent('cash_changed', me.CASH, -amount);
+	},
+	
+	cashEdit: function(amount) {
+		var me = this;
+		me.CASH = amount;
+		me.saveCashModel();
+		MyApp.app.fireEvent('cash_changed', me.CASH, amount);
 	},
 	
 	formatDateTime: function(date) {

@@ -6,7 +6,7 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
 	],
     config: {	
 		hidden: true,
-        showAnimation: {
+        /*showAnimation: {
             type: "fadeIn",
            //direction: "down",
             duration: 100
@@ -15,15 +15,14 @@ Ext.define('MyApp.view.tab.popup.PopupMoneyInput', {
             type: "fadeOut",
             //direction: "up",
             duration: 100
-        },
+        },*/
 		data: null,	
 		cls: 'popup-alert-container',
 		layout: {
 			type:'vbox',
 			pack: 'center',
 			align: 'center'
-		},
-		model: true
+		}
    },
    initialize: function() {
    		this.callParent(arguments);

@@ -40,6 +40,7 @@ Ext.define('MyApp.view.tab.atm.CashAdd', {
 	                    options: [			
 	                    	{text: 'Lương',  value: 'nhan_luong'},									
 							{text: 'Bảo hiểm',  value: 'bao_hiem'},
+							{text: 'Cho thuê nhà, mặt bằng',  value: 'cho_thue_nha'},
 	                    	{text: 'Khác',  value: 'khac'}
 						]
                     },
@@ -86,7 +87,7 @@ Ext.define('MyApp.view.tab.atm.CashAdd', {
 		amount = parseInt(amount);
 		
 		AppUtil.cashPlus(amount);
-		AppUtil.saveExpenseModel('thu', amount, '', typeText, 'tien_mat', 'Lĩnh tiền mặt', me._selectedDate,  note);
+		AppUtil.saveExpenseModel('thu', amount, '', typeText, 'tien_mat', type, me._selectedDate,  note);
 		//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_THEMTIEN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_THEMTIEN, AppUtil.formatMoneyWithUnit(amount), AppUtil.getCashFormat()));	
 		
 		return true;

@@ -6,24 +6,13 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
 	],
     config: {	
 		hidden: true,
-        showAnimation: {
-            type: "fadeIn",
-           //direction: "down",
-            duration: 200
-        },
-        hideAnimation: {
-            type: "fadeOut",
-            //direction: "up",
-            duration: 200
-        },
 		data: null,	
 		cls: 'popup-message-container',
 		layout: {
 			type:'vbox',
 			pack: 'center',
 			align:'center'
-		},
-		model: true
+		}
    },
    initialize: function() {
    		var me = this;
@@ -66,14 +55,14 @@ Ext.define('MyApp.view.tab.popup.PopupConfirm', {
 							{
 								xtype: 'button',
 								cls: 'button-submit',
-								text: 'Đúng',
+								text: 'Xác nhận',
 								flex: 1,
 								title: 'confirmokbutton'
 							},
 							{
 								xtype: 'button',
 								cls: 'button-cancel',
-								text: 'Không',	
+								text: 'Trở lại',	
 								flex: 1,							
 								title: 'confirmcancelbutton'
 							}

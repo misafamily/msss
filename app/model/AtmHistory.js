@@ -36,15 +36,15 @@ Ext.define('MyApp.model.AtmHistory', {
 	       },
            {
             	name:'dd',
-            	type:'string'
+            	type:'number'
             },
             {
             	name:'mm',
-            	type:'string'
+            	type:'number'
             },
 			{
             	name:'yy',
-            	type:'string'
+            	type:'number'
            },
            {
             	name:'extra1',

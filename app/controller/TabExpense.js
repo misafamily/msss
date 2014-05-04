@@ -79,10 +79,11 @@ Ext.define('MyApp.controller.TabExpense', {
 			},
 			
 			'tab_expense_day list': {
-				disclose: function( view, record, target, index, e, eOpts ) {
+				itemtap: function(view, index, item, e) {
+				//disclose: function( view, record, target, index, e, eOpts ) {
 					var me = this;
 					var dAdd = me.getExpenseDetailView();
-					dAdd.setExpenseModel(record);
+					dAdd.setExpenseModel(view.getStore().getAt(index));
 					me.getThisTab().push(dAdd);
 				}
 			},
@@ -108,10 +109,11 @@ Ext.define('MyApp.controller.TabExpense', {
 			},
 			
 			'tab_expense_week list': {
-				disclose: function( view, record, target, index, e, eOpts ) {
+				//disclose: function( view, record, target, index, e, eOpts ) {
+				itemtap: function(view, index, item, e) {
 					var me = this;
 					var dAdd = me.getExpenseDetailView();
-					dAdd.setExpenseModel(record);
+					dAdd.setExpenseModel(view.getStore().getAt(index));
 					me.getThisTab().push(dAdd);
 				}
 			},
@@ -137,10 +139,11 @@ Ext.define('MyApp.controller.TabExpense', {
 			},
 			
 			'tab_expense_month list': {
-				disclose: function( view, record, target, index, e, eOpts ) {
+				//disclose: function( view, record, target, index, e, eOpts ) {
+				itemtap: function(view, index, item, e) {
 					var me = this;
 					var dAdd = me.getExpenseDetailView();
-					dAdd.setExpenseModel(record);
+					dAdd.setExpenseModel(view.getStore().getAt(index));
 					me.getThisTab().push(dAdd);
 				}
 			},

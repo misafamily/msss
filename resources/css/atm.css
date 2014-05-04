@@ -112,13 +112,13 @@
 
 .atm-atmlist .info .usernameinfo .amounticon.chi,
 .atm-atmlist .info .usernameinfo .amounticon.cash.chi,
-.atm-atmlist .info .usernameinfo .amounticon.cash.nap_tien  {
+.atm-atmlist .info .usernameinfo .amounticon.cash.nap  {
 	background: url('../images/coloricons/dollar-icon-minus.png') no-repeat 0px 0px;
     background-size: contain;
 }
 .atm-atmlist .info .usernameinfo .amounticon.thu,
 .atm-atmlist .info .usernameinfo .amounticon.cash.thu,
-.atm-atmlist .info .usernameinfo .amounticon.cash.rut_tien,
+.atm-atmlist .info .usernameinfo .amounticon.cash.rut,
 .atm-atmlist .info .usernameinfo .amounticon.cash.linh_lai {
 	background: url('../images/coloricons/dollar-icon-plus.png') no-repeat 0px 0px;
 	background-size: contain;
@@ -234,7 +234,7 @@
 	vertical-align:middle;
 }
 .atm-atmhistory .amountinfo .amounticon {
-	background: url('../images/coloricons/money-icon (3).png') no-repeat 0px 0px;
+	background: url('../images/coloricons/dollar-icon.png') no-repeat 0px 0px;
     background-size: contain;
     width: 30px;
     height: 30px;
@@ -243,12 +243,12 @@
 
 .atm-atmhistory .amountinfo .amounticon.nhan_luong, .atm-atmhistory .amountinfo .amounticon.nap_tien, 
 .atm-atmhistory .amountinfo .amounticon.tao_moi {
-	background: url('../images/coloricons/money-add-icon.png') no-repeat 0px 0px;
+	background: url('../images/coloricons/dollar-icon-plus.png') no-repeat 0px 0px;
     background-size: contain;
 }
 
 .atm-atmhistory .amountinfo .amounticon.rut_tien, .atm-atmhistory .amountinfo .amounticon.chuyen_khoan {
-	background: url('../images/coloricons/money-delete-icon.png') no-repeat 0px 0px;
+	background: url('../images/coloricons/dollar-icon-minus.png') no-repeat 0px 0px;
 	 background-size: contain;
 }
 

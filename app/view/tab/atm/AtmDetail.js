@@ -176,11 +176,11 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 										'<div class="amountinfo">',
 											'<div class="amounticon {type}"></div>',
 											'<div class="amount {type}">{amount:this.format}</div>',
-										'</div>',		
+										'</div>'/*,		
 										'<div class="moneycardinfo">',
 											'<div class="moneycardicon"></div>',
 											'<div class="moneycard">{moneycard:this.format}</div>',
-										'</div>'		
+										'</div>'	*/	
 										].join(''),
 										{
 											formatDateTime:function(time) {
@@ -200,6 +200,15 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 		var me = this;
 		me.callParent(arguments);
 		me.assignFields();
+		MyApp.app.on('atm_changed', me.onAtmChanged, me);
+	},
+	
+	onAtmChanged: function(atmId) {
+		var me = this;
+		if (!me.getAtmModel()) return;
+		if (me.getAtmModel().data.atm_id == atmId) {
+			me.updateAtmModel();
+		}
 	},
 	
 	/*hide: function() {
@@ -278,7 +287,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_SUCCESS_EDIT);			
 			});
 		} else {
-			MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_FAILED_EDIT);
+			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_EDIT, AppUtil.MESSAGE_FAILED_EDIT);
 		}
 		
 	},

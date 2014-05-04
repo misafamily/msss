@@ -86,6 +86,16 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
    		me.callParent(arguments);
    },
    
+    showRightButtons: function() {
+   		var me = this;
+   		if (!me._tradeBtn) me._tradeBtn = me.down('button[title="trade"]');
+   		if (!me._editBtn) me._editBtn = me.down('button[title="edit"]');
+   		if (!me._delBtn) me._delBtn = me.down('button[title="delete"]');
+   		me._tradeBtn.show();
+   		me._editBtn.show();
+   		me._delBtn.show();
+   },
+   
    hideRightButtons: function() {
    		var me = this;
    		if (!me._tradeBtn) me._tradeBtn = me.down('button[title="trade"]');
@@ -95,9 +105,10 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
    		me._editBtn.hide();
    		me._delBtn.hide();
    		me.hideDoneButton();
+   		me._editBtn.setStyle({'padding-right': '0px'});
    },
    
-    showRightButtons: function() {
+    showTradeEditDeleteButtons: function() {
    		var me = this;
    		if (!me._tradeBtn) me._tradeBtn = me.down('button[title="trade"]');
    		if (!me._editBtn) me._editBtn = me.down('button[title="edit"]');
@@ -112,9 +123,25 @@ Ext.define('MyApp.view.component.NavigationViewBase', {
    		if (!me._doneBtn) me._doneBtn = me.down('button[title="done"]');
    		me._doneBtn.show();
    },
-    hideDoneButton: function() {
+   
+    showEditButton: function() {
+   		var me = this;
+   		if (!me._editBtn) me._editBtn = me.down('button[title="edit"]');
+   		me._editBtn.setStyle({'padding-right': '8px'});
+   		me._editBtn.show();
+   },
+   
+   hideDoneButton: function() {
    		var me = this;
    		if (!me._doneBtn) me._doneBtn = me.down('button[title="done"]');
    		me._doneBtn.hide();
-   }
+   },
+
+   showEditDeleteButtons: function() {
+   		var me = this;
+   		if (!me._editBtn) me._editBtn = me.down('button[title="edit"]');
+   		if (!me._delBtn) me._delBtn = me.down('button[title="delete"]');
+   		me._editBtn.show();
+   		me._delBtn.show();
+   },
 });

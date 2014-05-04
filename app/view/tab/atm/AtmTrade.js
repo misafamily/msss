@@ -22,52 +22,6 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 				items:[
 						{
 			                xtype: 'container',
-			               
-			                //title: 'Thông tin tài khoản:',
-			                //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
-			                defaults: {
-			                    //required: true,
-			                    //autoComplete: false,
-			                    //autoCorrect: false
-			                    readOnly: true,
-			                    clearIcon: false
-			                },
-			                items: [
-			                	{
-			                		xtype: 'label',
-			                		html: 'Thông tin thẻ',
-			                		style: {
-										'margin-left': '15px',
-										'margin-bottom': '5px'
-									}	
-			                	},
-			                    {
-			                        xtype: 'textfield',
-			                        name: 'name',
-			                        //label: 'Tên tài khoản ',
-			                        cls:'atmadd-accountname',
-			                        //placeHolder:'Tên chủ thẻ (vd: NGUYEN VAN A)',
-			                        autoCapitalize: false
-			                    },
-			                     {
-			                        xtype: 'textfield',
-			                        name: 'bank',
-			                        //label: 'Ngân hàng ',
-			                        cls:'atmadd-bank',
-			                        //placeHolder:'Ngân hàng (vd: VCB, HSBC, ACB ...)',
-			                        autoCapitalize: false
-			                    },
-			                     {
-			                        xtype: 'textfield',
-			                        name: 'amount',
-			                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
-			                        cls:'atmadd-amount'
-			                        //label: 'Số tiền hiện có  '
-			                    }
-			                ]    
-			           },
-						{
-			                xtype: 'container',
 			                 
 			                //title: 'Thông tin tài khoản:',
 			                //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
@@ -119,6 +73,53 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			                    }
 			                ]    
 			           },
+						{
+			                xtype: 'container',
+			               
+			                //title: 'Thông tin tài khoản:',
+			                //instructions: '(Vui lòng điền đầy đủ thông tin phía trên)',
+			                defaults: {
+			                    //required: true,
+			                    //autoComplete: false,
+			                    //autoCorrect: false
+			                    readOnly: true,
+			                    clearIcon: false
+			                },
+			                items: [
+			                	{
+			                		xtype: 'label',
+			                		html: 'Thông tin thẻ',
+			                		style: {
+										'margin-left': '15px',
+										'margin-bottom': '5px'
+									}	
+			                	},
+			                    {
+			                        xtype: 'textfield',
+			                        name: 'name',
+			                        //label: 'Tên tài khoản ',
+			                        cls:'atmadd-accountname',
+			                        //placeHolder:'Tên chủ thẻ (vd: NGUYEN VAN A)',
+			                        autoCapitalize: false
+			                    },
+			                     {
+			                        xtype: 'textfield',
+			                        name: 'bank',
+			                        //label: 'Ngân hàng ',
+			                        cls:'atmadd-bank',
+			                        //placeHolder:'Ngân hàng (vd: VCB, HSBC, ACB ...)',
+			                        autoCapitalize: false
+			                    },
+			                     {
+			                        xtype: 'textfield',
+			                        name: 'amount',
+			                        //placeHolder:'Số tiền (đ) (vd: 1000000)',
+			                        cls:'atmadd-amount'
+			                        //label: 'Số tiền hiện có  '
+			                    }
+			                ]    
+			           }
+						/*,
 			          
 			           {
 							xtype:'container',
@@ -142,7 +143,7 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 									title: 'atmtradecancelbutton'
 								}
 							]	
-						}
+						}*/
 						
 					]
 			}
@@ -215,15 +216,19 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		atmModel.data.amount = amount;
 		atmModel.data.time = now.getTime();
 		
+		var hisId = 'history_' + Ext.Date.now();
+		
 		atmModel.save(function(){
 			//minus cash
 			AppUtil.cashMinus(m);
-			AppUtil.saveExpenseModel('nap_tien', m, atmModel.data.atm_id, 'Tiền nạp', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
-			AppUtil.saveExpenseModel('nap', m, atmModel.data.atm_id, 'Nạp tiền', 'atm', atmModel.data.bank + '-' + atmModel.data.username, now  );
+			//AppUtil.saveExpenseModel('nap_tien', m, atmModel.data.atm_id, 'Tiền nạp', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
+			AppUtil.saveExpenseModel('nap', m, hisId, 'Nạp tiền', 'atm', atmModel.data.atm_id , now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase()  );
 			
 			//
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
+				history_id: hisId,
 				description: me._tradeTypeTF._value.data.text,//'Nạp tiền',
 				type: AppUtil.TYPE_ATM_NAP_TIEN,
 				amount: m,
@@ -261,14 +266,18 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			atmModel.data.amount = amount;
 			atmModel.data.time = now.getTime();
 			
+			var hisId = 'history_' + Ext.Date.now();
 			atmModel.save(function(){
 				//plus cash
 				AppUtil.cashPlus(m);
-				AppUtil.saveExpenseModel('rut_tien', m, atmModel.data.atm_id, 'Tiền rút', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
-				AppUtil.saveExpenseModel('rut', m, atmModel.data.atm_id, me._tradeTypeTF._value.data.text, 'atm', atmModel.data.bank + '-' + atmModel.data.username, now  );
+				//AppUtil.saveExpenseModel('rut_tien', m, atmModel.data.atm_id, 'Tiền rút', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
+				AppUtil.saveExpenseModel('rut', m, hisId, me._tradeTypeTF._value.data.text, 'atm', 
+								atmModel.data.atm_id, now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase());
 				
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
+					history_id: hisId,
 					description: me._tradeTypeTF._value.data.text,//'Rút tiền',
 					type: AppUtil.TYPE_ATM_RUT_TIEN,
 					amount: m,
@@ -308,13 +317,15 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 		var atmModel = me.getAtmModel();
 		atmModel.data.amount = amount;
 		atmModel.data.time = now.getTime();
-		
+		var hisId = 'history_' + Ext.Date.now();
 		atmModel.save(function(){
 			
-			AppUtil.saveExpenseModel('thu', m, atmModel.data.atm_id, 'Nhận tiền chuyển khoản', 'atm', atmModel.data.bank + '-' + atmModel.data.username, now  );
+			AppUtil.saveExpenseModel('thu', m, hisId, 'Nhận tiền chuyển khoản', 'atm', atmModel.data.atm_id, now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase()  );
 			
 			var atmHis = Ext.create('MyApp.model.AtmHistory', {
 				atm_id: atmModel.data.atm_id,
+				history_id: hisId,
 				description: me._tradeTypeTF._value.data.text,//'Nhận tiền chuyển khoản, lương',
 				type: AppUtil.TYPE_ATM_NHAN_LUONG,
 				amount: m,
@@ -351,13 +362,15 @@ Ext.define('MyApp.view.tab.atm.AtmTrade', {
 			var atmModel = me.getAtmModel();
 			atmModel.data.amount = amount;
 			atmModel.data.time = now.getTime();
-			
+			var hisId = 'history_' + Ext.Date.now();
 			atmModel.save(function(){
 				
-				AppUtil.saveExpenseModel('chi', m, atmModel.data.atm_id, 'Chuyển khoản, mua sắm bằng thẻ', 'atm', atmModel.data.bank + '-' + atmModel.data.username, now );
+				AppUtil.saveExpenseModel('chi', m, hisId, 'Chuyển khoản, mua sắm bằng thẻ', 'atm', atmModel.data.atm_id, now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase() );
 				
 				var atmHis = Ext.create('MyApp.model.AtmHistory', {
 					atm_id: atmModel.data.atm_id,
+					history_id: hisId,
 					description: me._tradeTypeTF._value.data.text,//'Chuyển khoản, mua sắm bằng thẻ',
 					type: AppUtil.TYPE_ATM_CHUYEN_KHOAN,
 					amount: m,

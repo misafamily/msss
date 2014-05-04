@@ -37,20 +37,20 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
                         cls:'expenseadd-buyingtype',    
 	                    options: [													
 							{text: 'Đi chợ hàng ngày',  value: 'di_cho'},
-	                        {text: 'Thực phẩm từ Sữa',  value: 'thuc_pham_sua'},
+	                        {text: 'Thực phẩm sữa, bánh kẹo, rượu beer',  value: 'thuc_pham_sua'},
 							{text: 'Y tế, chăm sóc sức khỏe',  value: 'y_te'},
 							{text: 'Điện, nước, gas',  value: 'dien_nuoc_ga'},
 							{text: 'Giao dịch ngân hàng, cước phí',  value: 'giao_dich'},
-							{text: 'Xe cộ, taxi, xăng',  value: 'xe_xang'},
-							{text: 'Nhà ở, sinh hoạt dân cư',  value: 'thue_nha'},
-							{text: 'Đồ  sinh hoạt: gia vị, chất tẩy rửa',  value: 'sinh_hoat'},
+							{text: 'Xe cộ, di chuyển, xăng',  value: 'xe_xang'},
+							{text: 'Phí nhà ở, thuê người',  value: 'thue_nha'},
+							{text: 'Đồ dùng  sinh hoạt gia đình',  value: 'sinh_hoat'},
 							{text: 'Đồ nội - ngoại thất',  value: 'noi_ngoai_that'},
 							{text: 'Quần áo, giày dép, mỹ phẩm',  value: 'quanao_giaydep'},	//minute
 							{text: 'Ăn uống, giải trí, tiêu vặt',  value: 'an_uong'},	//minute
 							//{text: 'Cá nhân: thể thao, làm tóc, cước đt',  value: 'ca_nhan'},	//minute
 							{text: 'Du lịch, dã ngoại',  value: 'du_lich'},	//minute
 							{text: 'Học hành, sách vở, báo chí',  value: 'hoc_hanh'},	//minute
-							{text: 'Đãi tiệc, đám cưới',  value: 'tiec_cuoi'},	//minute
+							{text: 'Tiệc tùng',  value: 'tiec_tung'},	//minute
 							{text: 'Đồ em bé: tã, khăn, đồ chơi',  value: 'do_em_be'},	//minute
 							{text: 'Khác',  value: 'khac'}
 						]
@@ -184,6 +184,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 		
 		var model = Ext.create('MyApp.model.Expense', expenseData);
 		model.save(function(){
+			MyApp.app.fireEvent('chi_changed');
 			callback(now);
 		});
 		

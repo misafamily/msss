@@ -195,7 +195,7 @@ Ext.define('MyApp.view.tab.Atm', {
    		if (!me._amountLabel) {
    			me._amountLabel = me.down('label[cls = "atm-tienmat-amount"]');
    		}
-   		
+ 
    		me._amountLabel.setHtml(AppUtil.getCashFormat());
    }
 });

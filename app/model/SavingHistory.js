@@ -40,15 +40,15 @@ Ext.define('MyApp.model.SavingHistory', {
 	       },
            {
             	name:'dd',
-            	type:'string'
+            	type:'number'
             },
             {
             	name:'mm',
-            	type:'string'
+            	type:'number'
             },
 			{
             	name:'yy',
-            	type:'string'
+            	type:'number'
            },
            {
             	name:'extra1',

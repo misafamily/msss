@@ -5,7 +5,7 @@ Ext.define('MyApp.view.tab.atm.CashHistory', {
     	 'MyApp.view.component.AppListPull'
     ],
     config: {
-    	emptyListOnHide: true,
+    	//emptyListOnHide: true,
     	title: 'Lịch sử thu chi',
     	layout:{
 			type:'vbox'
@@ -49,11 +49,26 @@ Ext.define('MyApp.view.tab.atm.CashHistory', {
 												return AppUtil.formatMoneyWithUnit(amount);
 											}	
 										}
-					       	)
+					       ),
+					       onItemDisclosure: true
 						}
 					]
 			}
 		]
+    },
+    initialize: function() {
+    	var me = this;
+    	me.callParent(arguments);
+    	MyApp.app.on('chi_changed', me.onChiChanged, me);
+    },
+    
+    onChiChanged: function() {
+    	var me = this;
+		if (!me._list) me._list = me.down('list');
+		me._list.getScrollable().getScroller().scrollToTop();
+		var store = me._list.getStore();
+		store.removeAll();
+		me.loadData();
     },
 
 	loadData: function() {

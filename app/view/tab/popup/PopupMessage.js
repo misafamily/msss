@@ -6,24 +6,13 @@ Ext.define('MyApp.view.tab.popup.PopupMessage', {
 	],
     config: {	
 		hidden: true,
-        showAnimation: {
-            type: "fadeIn",
-           //direction: "down",
-            duration: 100
-        },
-        hideAnimation: {
-            type: "fadeOut",
-            //direction: "up",
-            duration: 100
-        },
 		data: null,	
 		cls: 'popup-message-container',
 		layout: {
 			type:'vbox',
 			pack: 'center',
 			align: 'center'
-		},
-		model: true
+		}
    },
    initialize: function() {
    		var me = this;

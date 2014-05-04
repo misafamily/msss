@@ -46,7 +46,7 @@ Ext.define('MyApp.view.tab.atm.AtmEdit', {
                         //label: 'Số tiền hiện có  '
                     }
                 ]    
-           },
+           }/*,
            {
 				xtype:'container',
 				layout:'hbox',
@@ -70,7 +70,7 @@ Ext.define('MyApp.view.tab.atm.AtmEdit', {
 					}
 					
 				]	
-			}
+			}*/
 		]
     },
 	initialize: function() {

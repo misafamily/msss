@@ -116,7 +116,7 @@ Ext.define('MyApp.view.tab.atm.SavingEdit', {
 	                }
 	                
                 ]    
-           },
+           }/*,
            {
 				xtype:'container',
 				layout:'hbox',
@@ -140,7 +140,7 @@ Ext.define('MyApp.view.tab.atm.SavingEdit', {
 					}
 					
 				]	
-			}
+			}*/
 		]
     },
 	initialize: function() {
