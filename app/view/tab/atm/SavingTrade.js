@@ -223,8 +223,8 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 			//minus cash
 			AppUtil.cashPlus(money);
 			
-			AppUtil.saveExpenseModel('thu', money, hisId, 'Lĩnh lãi', 'saving', atmModel.data.saving_id, now, 
-								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase() );
+			AppUtil.saveExpenseModel('thu', money, hisId, 'Lĩnh lãi', 'tien_mat', atmModel.data.saving_id, now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase(), 'saving' );
 			//
 			var atmHis = Ext.create('MyApp.model.SavingHistory', {
 				saving_id: atmModel.data.saving_id,
@@ -271,8 +271,8 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 			//minus cash
 			AppUtil.cashMinus(m);
 			//AppUtil.saveExpenseModel('nap_tien', m, atmModel.data.saving_id, 'Tiền nạp', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
-			AppUtil.saveExpenseModel('nap', m, hisId, 'Nạp tiền', 'saving', atmModel.data.saving_id, now, 
-								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase()  );
+			AppUtil.saveExpenseModel('nap', m, hisId, 'Nạp tiền', 'tien_mat', atmModel.data.saving_id, now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase(), 'saving'  );
 			
 			//
 			var atmHis = Ext.create('MyApp.model.SavingHistory', {
@@ -315,8 +315,8 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 				//plus cash
 				AppUtil.cashPlus(m);
 				//AppUtil.saveExpenseModel('rut_tien', m, atmModel.data.saving_id, 'Tiền rút', 'tien_mat', atmModel.data.bank + '-' + atmModel.data.username, now  );
-				AppUtil.saveExpenseModel('rut', m, hisId, me._tradeTypeTF._value.data.text, 'saving', atmModel.data.saving_id, now, 
-								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase()  );
+				AppUtil.saveExpenseModel('rut', m, hisId, me._tradeTypeTF._value.data.text, 'tien_mat', atmModel.data.saving_id, now, 
+								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase() , 'saving' );
 				
 				var atmHis = Ext.create('MyApp.model.SavingHistory', {
 					saving_id: atmModel.data.saving_id,

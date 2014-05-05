@@ -15,7 +15,7 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 			
            {
 				xclass:'MyApp.view.component.AppListPull',
-				cls: 'atm-atmhistory',
+				cls: 'atm-atmhistory atm-list3',
 				store: 'AtmHistories',  	
 		       	itemTpl: new Ext.XTemplate(
 		       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
@@ -32,11 +32,11 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 							'<div class="amountinfo">',
 								'<div class="amounticon {type}"></div>',
 								'<div class="amount {type}">{amount:this.format}</div>',
-							'</div>',		
+							'</div>'/*,		
 							'<div class="moneycardinfo">',
 								'<div class="moneycardicon"></div>',
 								'<div class="moneycard">{moneycard:this.format}</div>',
-							'</div>'		
+							'</div>'*/		
 							].join(''),
 							{
 								formatDateTime:function(time) {
@@ -46,7 +46,8 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 									return AppUtil.formatMoneyWithUnit(amount);
 								}	
 							}
-		       		)
+		       	),
+		       	onItemDisclosure: true
 			}
            
 		]

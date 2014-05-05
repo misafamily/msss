@@ -28,6 +28,11 @@ Ext.define('MyApp.model.Expense', {
             	fieldOption:''
             },
             {
+            	name:'source',
+            	type:'string',
+            	defaultValue:'tien_mat'
+            },
+            {
             	name:'note',
             	type:'string',
             	fieldOption:''
@@ -84,7 +89,7 @@ Ext.define('MyApp.model.Expense', {
     		type:'sqlitestorage',
     		dbConfig: {
 	    		tablename:'expense',    			
-    			dbQuery:'SELECT * from expense ORDER BY time DESC'
+    			dbQuery:'SELECT * from expense WHERE buyingtype = "tien_mat" ORDER BY time DESC'
     		},
     		reader: {
                type: 'array'

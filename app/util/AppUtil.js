@@ -31,10 +31,10 @@ Ext.define('MyApp.util.AppUtil',{
 	//CONFIRM
 	CONFIRM_ATM_DELETE: 'Tài khoản ATM sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
 	CONFIRM_SAVING_DELETE: 'Sổ sẽ được đóng ?<br/>(Có thể khôi phục lại sau)',
-	CONFIRM_CASH_DETAIL_DELETE_THU: 'Số tiền mặt sẽ tự động trừ đi tương ứng với số tiền đã nhận nếu xóa mục này',
-	CONFIRM_CASH_DETAIL_DELETE_CHI: 'Số tiền mặt sẽ tự động cộng vào tương ứng với số tiền đã chi nếu xóa mục này',
-	CONFIRM_CASH_DETAIL_DELETE_RUT: 'Số tiền mặt sẽ tự động trừ đi và tài khoản sẽ tự động cộng lại tiền nếu xóa mục này',
-	CONFIRM_CASH_DETAIL_DELETE_NAP: 'Số tiền mặt sẽ tự động cộng lại và tài khoản sẽ tự động trừ đi tiền nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_THU: 'Tiền mặt sẽ tự động trừ đi tương ứng với số tiền đã nhận nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_CHI: 'Tiền mặt sẽ tự động cộng vào tương ứng với số tiền đã chi nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_RUT: 'Tiền mặt sẽ tự động trừ đi và tài khoản sẽ tự động cộng lại tiền nếu xóa mục này',
+	CONFIRM_CASH_DETAIL_DELETE_NAP: 'Tiền mặt sẽ tự động cộng lại và tài khoản sẽ tự động trừ đi tiền nếu xóa mục này',
 	//TITLE
 	TITLE_ERROR: 'Lỗi',
 	TITLE_ERROR_INPUT: 'Lỗi nhập',
@@ -85,9 +85,10 @@ Ext.define('MyApp.util.AppUtil',{
 		return me.dbConnection;
 	},
 	
-	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate, note ) {
+	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate, note, source ) {
 		var now = tradedate || new Date();
 		note = note || '';
+		source = source || 'tien_mat';
 		var expenseId = 'expensive_' + now.getTime();
 		var expenseData = {
 			expense_id: expenseId,
@@ -95,6 +96,7 @@ Ext.define('MyApp.util.AppUtil',{
 			type: expensetype,
 			buyingwhat: buyingwhat,
 			buyingtype: buyingtype,
+			source: source,
 			external_id:externalid,
 			frombank: frombank,
 			note: note,

@@ -50,7 +50,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 							//{text: 'Cá nhân: thể thao, làm tóc, cước đt',  value: 'ca_nhan'},	//minute
 							{text: 'Du lịch, dã ngoại',  value: 'du_lich'},	//minute
 							{text: 'Học hành, sách vở, báo chí',  value: 'hoc_hanh'},	//minute
-							{text: 'Tiệc tùng',  value: 'tiec_tung'},	//minute
+							{text: 'Đám, tiệc, biếu xén, thăm nom',  value: 'tiec_tung'},	//minute
 							{text: 'Đồ em bé: tã, khăn, đồ chơi',  value: 'do_em_be'},	//minute
 							{text: 'Khác',  value: 'khac'}
 						]

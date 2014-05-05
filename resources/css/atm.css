@@ -61,11 +61,13 @@
 	width: 35px;
 	height: 40px;
 }
-.atm-atmlist .x-list-item-tpl .x-list-disclosure {
+.atm-atmlist .x-list-item-tpl .x-list-disclosure,
+.atm-list3 .x-list-item-tpl .x-list-disclosure {
 	top: 32px;
 }
 
-.atm-atmlist.expenseday .x-list-item-tpl .x-list-disclosure {
+.atm-atmlist.expenseday .x-list-item-tpl .x-list-disclosure,
+.atm-list2 .x-list-item-tpl .x-list-disclosure {
 	top: 18px;
 }
 

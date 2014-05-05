@@ -1,6 +1,6 @@
-Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
+Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
     extend: 'Ext.Container',
-    xtype: 'tab_expense_expensedetail',
+    xtype: 'tab_atm_atmexpensedetail',
     requires: [
     	 
     ],
@@ -34,46 +34,6 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
                         clearIcon:false
                     },
                      {
-                        xtype: 'selectfield',
-                        name: 'tradetype',
-                        //label: 'Ngân hàng ',
-                        cls:'savingadd-period',
-     
-	                    options: [			
-	                    	{text: 'Lương',  value: 'nhan_luong'},									
-							{text: 'Bảo hiểm',  value: 'bao_hiem'},
-							{text: 'Cho thuê nhà, mặt bằng',  value: 'cho_thue_nha'},
-	                    	{text: 'Khác',  value: 'khac'}
-						],
-						hidden: true
-                    },
-                     {
-                        xtype: 'selectfield',
-                        name: 'buyingtype',
-                        //label: 'Ngân hàng ',
-                        cls:'expenseadd-buyingtype',    
-	                    options: [													
-							{text: 'Đi chợ hàng ngày',  value: 'di_cho'},
-	                        {text: 'Thực phẩm sữa, bánh kẹo, rượu beer',  value: 'thuc_pham_sua'},
-							{text: 'Y tế, chăm sóc sức khỏe',  value: 'y_te'},
-							{text: 'Điện, nước, gas',  value: 'dien_nuoc_ga'},
-							{text: 'Giao dịch ngân hàng, cước phí',  value: 'giao_dich'},
-							{text: 'Xe cộ, di chuyển, xăng',  value: 'xe_xang'},
-							{text: 'Phí nhà ở, thuê người',  value: 'thue_nha'},
-							{text: 'Đồ dùng  sinh hoạt gia đình',  value: 'sinh_hoat'},
-							{text: 'Đồ nội - ngoại thất',  value: 'noi_ngoai_that'},
-							{text: 'Quần áo, giày dép, mỹ phẩm',  value: 'quanao_giaydep'},	//minute
-							{text: 'Ăn uống, giải trí, tiêu vặt',  value: 'an_uong'},	//minute
-							//{text: 'Cá nhân: thể thao, làm tóc, cước đt',  value: 'ca_nhan'},	//minute
-							{text: 'Du lịch, dã ngoại',  value: 'du_lich'},	//minute
-							{text: 'Học hành, sách vở, báo chí',  value: 'hoc_hanh'},	//minute
-							{text: 'Đám, tiệc, biếu xén, thăm nom',  value: 'tiec_tung'},	//minute
-							{text: 'Đồ em bé: tã, khăn, đồ chơi',  value: 'do_em_be'},	//minute
-							{text: 'Khác',  value: 'khac'}
-						],
-						hidden: true
-                    },
-                     {
                         xtype: 'numberfield',
                         name: 'amount',
                         placeHolder:'Số tiền (đ) (vd: 1000000)',
@@ -87,7 +47,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
                         name: 'amounttf',
                         placeHolder:'Số tiền (đ) (vd: 1000000)',
                         cls:'atmadd-amount'
-                    },
+                    }/*,
                     {
 	                    xtype: 'textareafield',
 						label: '',
@@ -96,7 +56,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 						name: 'note',
 						maxRows: 3,
 						disabled: true			                    
-	                }
+	                }*/
                 ]    
            }
 		]
@@ -110,10 +70,10 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 	//call from Controller
 	editCash: function() {
 		var me = this;
-		var typebuying = me._typeTF.getValue();
+		//var typebuying = me._typeTF.getValue();
 		var amount = me._amountTF.getValue();
-		var typeText = me._typeTF._value.data.text;
-		var note = me._noteTF.getValue();
+		//var typeText = me._typeTF._value.data.text;
+		//var note = me._noteTF.getValue();
 		//console.log(amount);
 		//if (amount == '' || amount == null) amount = 0;		
 
@@ -126,11 +86,11 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 		var m = me.getExpenseModel();
 		var prevAmount = parseInt(m.data.amount);
 		var prevDate = new Date(m.data.time);
-		if (amount != prevAmount || typebuying != m.data.frombank || note != m.data.note || !prevDate.sameDateWith(me._selectedDate)) {
+		if (amount != prevAmount || !prevDate.sameDateWith(me._selectedDate)) {
 			var amount_change = amount - prevAmount;
 			var type = m.data.type;
 			
-			if (type == 'thu') {//from expense
+			/*if (type == 'thu') {//from expense
 				if (amount_change < 0) {
 					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
 						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
@@ -158,7 +118,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 
 				var targetModel;
 				var hisModel;
-				if (m.data.source == 'atm') {
+				if (m.data.frombank.indexOf('atm') > -1) {
 					//update atm 1st
 					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
 					if (!targetModel) {
@@ -204,7 +164,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 	
 				var targetModel;
 				var hisModel;
-				if (m.data.source == 'atm') {
+				if (m.data.frombank.indexOf('atm') > -1) {
 					//update atm 1st
 					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
 					if (!targetModel) {
@@ -245,30 +205,76 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 				}
 				
 				
-			}  else {
+			} else */
+			if (type == 'rut_tien') { //from atm history
+				if (amount_change < 0) {
+					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+						return -1;
+					}
+				}
+				
+	
+				var targetModel;
+				var hisModel;
+				if (m.data.atm_id) { // is ATM
+					//update atm 1st
+					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					if (!targetModel) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						return -1;
+					}
+					var currentamount = parseInt(targetModel.data.amount);
+					var newamount = currentamount - amount_change;
+					if (newamount < 0) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount)));
+						return -1;
+					}
+					
+					targetModel.data.amount = newamount.toString();
+					targetModel.save();
+					//update expense 2nd			
+					hisModel = new MyApp.model.Expense();
+					//AppUtil.log('find record ' +  m.data.external_id);
+					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+						//AppUtil.log('found records');					
+						//AppUtil.log(records);
+						if (records.length > 0) {
+							var foundModel = records[0];
+							//var moneycard = parseInt(foundModel.data.moneycard) + parseInt(foundModel.data.amount) - amount;
+							
+							//foundModel.data.moneycard = moneycard.toString();
+							foundModel.data.amount = amount.toString();
+							foundModel.data.time = me._selectedDate.getTime();
+							foundModel.data.dd = me._selectedDate.getDate();
+							foundModel.data.mm = me._selectedDate.getMonth();
+							foundModel.data.yy = me._selectedDate.getFullYear();
+							
+							foundModel.save(function() {
+								MyApp.app.fireEvent('expense_changed', me._selectedDate);
+							});
+						}
+					});
+						
+				}
+				
+				
+			} else {
 				alert(type + ' does not support');
 				return 0;
 			}
 			
 			me._amountEditTF.setValue(AppUtil.formatMoneyWithUnit(amount));
 			
-			//m.data.buyingtype = buyingtype;
-			if (type == 'thu' || type == 'chi') {
-				m.data.buyingwhat = typeText;
-				m.data.frombank = typebuying;
-				m.data.note = note;
-			}
-			
 			m.data.amount = amount.toString();
 			m.data.time = me._selectedDate.getTime();
 			m.data.dd = me._selectedDate.getDate();
 			m.data.mm = me._selectedDate.getMonth();
 			m.data.yy = me._selectedDate.getFullYear();
-			if (m.data.week) m.data.week = Ext.Date.getWeekOfYear(me._selectedDate);
 			
 			m.save(function() {
 				AppUtil.cashPlus(amount_change);
-				MyApp.app.fireEvent('expense_changed', me._selectedDate);
+				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
 			});
 			//AppUtil.saveExpenseModel('thu', amount, '', typeText, 'tien_mat', 'Lĩnh tiền mặt', me._selectedDate,  note);
 			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_THEMTIEN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_THEMTIEN, AppUtil.formatMoneyWithUnit(amount), AppUtil.getCashFormat()));	
@@ -312,7 +318,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 			
 			var targetModel;
 			var hisModel;
-			if (m.data.source == 'atm') {
+			if (m.data.frombank.indexOf('atm') > -1) {
 				//return money to ATM
 				targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
 				if (!targetModel) {
@@ -343,7 +349,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 
 			var targetModel;
 			var hisModel;
-			if (m.data.source == 'atm') {
+			if (m.data.frombank.indexOf('atm') > -1) {
 				//return money to ATM
 				targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
 				if (!targetModel) {
@@ -398,24 +404,13 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 		me.exitEditMode();
 		var m = me.getExpenseModel();
 		var type = m.data.type;
-		me._typeTF.hide();
-		me._buyingtypeTF.hide();
-		if (type == 'thu') {			
-			me._typeTF.setValue(m.data.frombank);
-			me._typeTF.show();
-		} else if (type == 'chi') {
-			me._buyingtypeTF.setValue(m.data.frombank);
-			me._buyingtypeTF.show();
-		}
 		var amount = parseInt(m.data.amount);
 		me._amountTF.setValue(amount);
 		me._amountEditTF.setValue(AppUtil.formatMoneyWithUnit(amount));
-		me._noteTF.setValue(m.data.note);
+		//me._noteTF.setValue(m.data.note);
 		me.updateSelectedDate(new Date(m.data.time));
 		//setup title
-		if (type == 'rut' || type == 'nap') {
-			me.setTitle(m.data.buyingwhat);
-		} else me.setTitle('Chi tiết');
+		me.setTitle(m.data.description);
 	},
 	
 	enterEditMode: function() {
@@ -424,13 +419,8 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 		me.setEditMode(true);
 		me._amountTF.show();
 		me._amountEditTF.hide();
-		me._typeTF.setReadOnly(false);
-		me._buyingtypeTF.setReadOnly(false);
-		
-		if (m.data.type == 'thu' || m.data.type == 'chi') {
-			me._noteTF.setReadOnly(false);
-			me._noteTF.setDisabled(false);
-		}	
+		//me._noteTF.setReadOnly(false);
+		//me._noteTF.setDisabled(false);
 	},
 	
 	exitEditMode: function() {
@@ -438,22 +428,17 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 		me.setEditMode(false);
 		me._amountTF.hide();
 		me._amountEditTF.show();
-		me._typeTF.setReadOnly(true);
-		me._buyingtypeTF.setReadOnly(true);
-		me._noteTF.setReadOnly(true);
-		me._noteTF.setDisabled(true);
+		//me._noteTF.setReadOnly(true);
+		//me._noteTF.setDisabled(true);
 	},
 
 
 	assignFields: function() {
 		var me = this;
-		if (!me._typeTF) {
-			me._typeTF = me.down('selectfield[name = "tradetype"]');
-		}
 		if (!me._dateTF) me._dateTF = me.down('textfield[name = "todaydate"]');
-		if (!me._buyingtypeTF) me._buyingtypeTF = me.down('selectfield[name = "buyingtype"]');
+		//if (!me._buyingtypeTF) me._buyingtypeTF = me.down('selectfield[name = "buyingtype"]');
 		if (!me._amountTF) me._amountTF = me.down('numberfield[name = "amount"]');
 		if (!me._amountEditTF) me._amountEditTF = me.down('textfield[name = "amounttf"]');
-		if (!me._noteTF) me._noteTF = me.down('textareafield[name = "note"]');
+		//if (!me._noteTF) me._noteTF = me.down('textareafield[name = "note"]');
 	}
  });   

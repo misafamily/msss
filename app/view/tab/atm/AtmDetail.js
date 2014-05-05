@@ -159,7 +159,7 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 						{
 							xclass: 'MyApp.view.component.AppList',
 							store: 'AtmHistories_Recent',
-							cls: 'atm-atmhistory',
+							cls: 'atm-atmhistory atm-list3',
 							scrollable: false,
 							itemTpl: new Ext.XTemplate(
 					       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
@@ -190,7 +190,8 @@ Ext.define('MyApp.view.tab.atm.AtmDetail', {
 												return AppUtil.formatMoneyWithUnit(amount);
 											}	
 										}
-					       		)
+					       	),
+					       	onItemDisclosure: true
 						}
 					]
 			}
