@@ -103,7 +103,7 @@ Ext.define('MyApp.view.tab.expense.Week', {
 			{
 				xclass: 'MyApp.view.component.AppList',
 				store: 'Expenses_Week',
-				cls: 'atm-atmlist atm-list3',
+				cls: 'atm-atmlist atm-list2',
 				itemTpl: new Ext.XTemplate(
        				//'<div class="thumb">{dd}<br/>{monthname}</div>',
        				/*

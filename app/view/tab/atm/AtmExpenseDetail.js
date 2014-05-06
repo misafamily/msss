@@ -89,127 +89,11 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 		if (amount != prevAmount || !prevDate.sameDateWith(me._selectedDate)) {
 			var amount_change = amount - prevAmount;
 			var type = m.data.type;
-			
-			/*if (type == 'thu') {//from expense
-				if (amount_change < 0) {
-					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
-						return -1;
-					}
-				}
-			} else if (type == 'chi') {//from expense
-				if (amount_change > 0) {
-					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
-						return -1;
-					}	
-				}
-				amount_change = -amount_change;
-				typebuying = me._buyingtypeTF.getValue();
-				typeText = me._buyingtypeTF._value.data.text;
-				
-			} else if (type == 'nap') {//from expense
-				if (amount_change > 0) {
-					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
-						return -1;
-					}			
-				}
-
-				var targetModel;
-				var hisModel;
-				if (m.data.frombank.indexOf('atm') > -1) {
-					//update atm 1st
-					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
-					if (!targetModel) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
-						return -1;
-					}
-					targetModel.data.amount = (parseInt(targetModel.data.amount) + amount_change).toString();
-					targetModel.save();
-					//update atm history 2nd			
-					hisModel = new MyApp.model.AtmHistory();
-					//AppUtil.log('find record ' +  m.data.external_id);
-					hisModel.getProxy().findRecord('history_id', m.data.external_id, function(records) {	
-						//AppUtil.log('found records');					
-						//AppUtil.log(records);
-						if (records.length > 0) {
-							var foundModel = records[0];
-							//var moneycard = parseInt(foundModel.data.moneycard) - parseInt(foundModel.data.amount) + amount;
-							
-							//foundModel.data.moneycard = moneycard.toString();
-							foundModel.data.amount = amount.toString();
-							foundModel.data.time = me._selectedDate.getTime();
-							foundModel.data.dd = me._selectedDate.getDate();
-							foundModel.data.mm = me._selectedDate.getMonth();
-							foundModel.data.yy = me._selectedDate.getFullYear();
-							
-							foundModel.save(function() {
-								MyApp.app.fireEvent('atm_changed', foundModel.data.atm_id);
-							});
-						}
-					});
-				}
-				//invert amount_change
-				amount_change = -amount_change;
-				
-			} else if (type == 'rut') { //from expense
-				if (amount_change < 0) {
-					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
-						return -1;
-					}
-				}
-				
-	
-				var targetModel;
-				var hisModel;
-				if (m.data.frombank.indexOf('atm') > -1) {
-					//update atm 1st
-					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
-					if (!targetModel) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
-						return -1;
-					}
-					var currentamount = parseInt(targetModel.data.amount);
-					var newamount = currentamount - amount_change;
-					if (newamount < 0) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount)));
-						return -1;
-					}
-					
-					targetModel.data.amount = newamount.toString();
-					targetModel.save();
-					//update atm history 2nd			
-					hisModel = new MyApp.model.AtmHistory();
-					//AppUtil.log('find record ' +  m.data.external_id);
-					hisModel.getProxy().findRecord('history_id', m.data.external_id, function(records) {	
-						//AppUtil.log('found records');					
-						//AppUtil.log(records);
-						if (records.length > 0) {
-							var foundModel = records[0];
-							//var moneycard = parseInt(foundModel.data.moneycard) + parseInt(foundModel.data.amount) - amount;
-							
-							//foundModel.data.moneycard = moneycard.toString();
-							foundModel.data.amount = amount.toString();
-							foundModel.data.time = me._selectedDate.getTime();
-							foundModel.data.dd = me._selectedDate.getDate();
-							foundModel.data.mm = me._selectedDate.getMonth();
-							foundModel.data.yy = me._selectedDate.getFullYear();
-							
-							foundModel.save(function() {
-								MyApp.app.fireEvent('atm_changed', foundModel.data.atm_id);
-							});
-						}
-					});
-				}
-				
-				
-			} else */
+		
 			if (type == 'rut_tien') { //from atm history
 				if (amount_change < 0) {
 					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(-amount_change)));
 						return -1;
 					}
 				}
@@ -227,7 +111,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 					var currentamount = parseInt(targetModel.data.amount);
 					var newamount = currentamount - amount_change;
 					if (newamount < 0) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount)));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
 						return -1;
 					}
 					
@@ -235,15 +119,9 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 					targetModel.save();
 					//update expense 2nd			
 					hisModel = new MyApp.model.Expense();
-					//AppUtil.log('find record ' +  m.data.external_id);
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
-						//AppUtil.log('found records');					
-						//AppUtil.log(records);
 						if (records.length > 0) {
 							var foundModel = records[0];
-							//var moneycard = parseInt(foundModel.data.moneycard) + parseInt(foundModel.data.amount) - amount;
-							
-							//foundModel.data.moneycard = moneycard.toString();
 							foundModel.data.amount = amount.toString();
 							foundModel.data.time = me._selectedDate.getTime();
 							foundModel.data.dd = me._selectedDate.getDate();
@@ -259,6 +137,137 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 				}
 				
 				
+			} else if (type == 'chuyen_khoan' || type == 'nhan_luong') { //from atm history
+
+				var targetModel;
+				var hisModel;
+				if (m.data.atm_id) { // is ATM
+					//update atm 1st
+					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					if (!targetModel) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						return -1;
+					}
+					var currentamount = parseInt(targetModel.data.amount);
+					var newamount = currentamount - amount_change;
+					if (type == 'nhan_luong') newamount = currentamount + amount_change;
+					
+					if (newamount < 0) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+						return -1;
+					}
+					
+					targetModel.data.amount = newamount.toString();
+					targetModel.save();
+					//update expense 2nd			
+					hisModel = new MyApp.model.Expense();
+					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+						if (records.length > 0) {
+							var foundModel = records[0];
+							foundModel.data.amount = amount.toString();
+							foundModel.data.time = me._selectedDate.getTime();
+							foundModel.data.dd = me._selectedDate.getDate();
+							foundModel.data.mm = me._selectedDate.getMonth();
+							foundModel.data.yy = me._selectedDate.getFullYear();
+							
+							foundModel.save(function() {
+								MyApp.app.fireEvent('expense_changed', me._selectedDate);
+							});
+						}
+					});
+						
+				}
+				
+				
+			} else if (type == 'nap_tien') { //from atm history
+				
+				if (amount_change > 0) {
+					if (!AppUtil.canGetCash(amount_change)) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount_change)));
+						return -1;
+					}
+				}
+
+				var targetModel;
+				var hisModel;
+				if (m.data.atm_id) { // is ATM
+					//update atm 1st
+					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					if (!targetModel) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						return -1;
+					}
+					var currentamount = parseInt(targetModel.data.amount);
+					var newamount = currentamount + amount_change;
+					if (newamount < 0) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+						return -1;
+					}
+					
+					targetModel.data.amount = newamount.toString();
+					targetModel.save();
+					//update expense 2nd			
+					hisModel = new MyApp.model.Expense();
+					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+						if (records.length > 0) {
+							var foundModel = records[0];
+							foundModel.data.amount = amount.toString();
+							foundModel.data.time = me._selectedDate.getTime();
+							foundModel.data.dd = me._selectedDate.getDate();
+							foundModel.data.mm = me._selectedDate.getMonth();
+							foundModel.data.yy = me._selectedDate.getFullYear();
+							
+							foundModel.save(function() {
+								MyApp.app.fireEvent('expense_changed', me._selectedDate);
+							});
+						}
+					});
+						
+				}
+				//invert amount_change
+				amount_change = -amount_change;
+				
+			} else if (type == 'tao_moi') { //from atm history
+				
+				var targetModel;
+				var hisModel;
+				if (m.data.atm_id) { // is ATM
+					//update atm 1st
+					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					if (!targetModel) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						return -1;
+					}
+					var currentamount = parseInt(targetModel.data.amount);
+					var newamount = currentamount + amount_change;
+					if (newamount < 0) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+						return -1;
+					}
+					
+					targetModel.data.amount = newamount.toString();
+					targetModel.save();
+					//update expense 2nd			
+					hisModel = new MyApp.model.Expense();
+					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+						if (records.length > 0) {
+							var foundModel = records[0];
+							foundModel.data.amount = amount.toString();
+							foundModel.data.time = me._selectedDate.getTime();
+							foundModel.data.dd = me._selectedDate.getDate();
+							foundModel.data.mm = me._selectedDate.getMonth();
+							foundModel.data.yy = me._selectedDate.getFullYear();
+							
+							foundModel.save(function() {
+								MyApp.app.fireEvent('expense_changed', me._selectedDate);
+							});
+						}
+					});
+						
+				}
+				//invert amount_change
+				//amount_change = -amount_change;
+				
 			} else {
 				alert(type + ' does not support');
 				return 0;
@@ -273,11 +282,11 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 			m.data.yy = me._selectedDate.getFullYear();
 			
 			m.save(function() {
-				AppUtil.cashPlus(amount_change);
+				if (type == 'rut_tien' || type == 'nap_tien') {
+					AppUtil.cashPlus(amount_change);				
+				}
 				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
 			});
-			//AppUtil.saveExpenseModel('thu', amount, '', typeText, 'tien_mat', 'Lĩnh tiền mặt', me._selectedDate,  note);
-			//MyApp.app.fireEvent('show_alert', AppUtil.TITLE_THEMTIEN, Ext.util.Format.format(AppUtil.MESSAGE_SUCCESS_THEMTIEN, AppUtil.formatMoneyWithUnit(amount), AppUtil.getCashFormat()));	
 			
 			return 1;
 			
@@ -294,91 +303,133 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 		var m = me.getExpenseModel();
 		var amount = parseInt(m.data.amount);
 		var type = m.data.type;
-		if (type == 'thu') {
-			if (!AppUtil.canGetCash(amount)) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+		if (type == 'nhan_luong') {
+			var targetModel;
+			var hisModel;
+			//return money to ATM
+			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			if (!targetModel) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
 				return false;
 			}
+			var currentamount = parseInt(targetModel.data.amount);
+			var newamount = currentamount - amount;
+			if (newamount < 0) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+				return -1;
+			}
+			targetModel.data.amount = newamount.toString();
+			targetModel.save();
+			//remove expense history
+			hisModel = new MyApp.model.Expense();
+			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+				if (records.length > 0) {
+					var foundModel = records[0];
+					foundModel.erase(function() {
+						MyApp.app.fireEvent('expense_changed', me._selectedDate);
+					});
+				}
+			});
+			
 			m.erase(function() {
-				MyApp.app.fireEvent('expense_changed', me._selectedDate);
-				AppUtil.cashMinus(amount);
+				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
 				callback();
 			});
-		} else if (type == 'chi') {
+		} else if (type == 'chuyen_khoan') {
+			var targetModel;
+			var hisModel;
+			//return money to ATM
+			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			if (!targetModel) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+				return false;
+			}
+			var currentamount = parseInt(targetModel.data.amount);
+			var newamount = currentamount + amount;
+			targetModel.data.amount = newamount.toString();
+			targetModel.save();
+			//remove expense history
+			hisModel = new MyApp.model.Expense();
+			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+				if (records.length > 0) {
+					var foundModel = records[0];
+					foundModel.erase(function() {
+						MyApp.app.fireEvent('expense_changed', me._selectedDate);
+					});
+				}
+			});
+			
 			m.erase(function() {
-				MyApp.app.fireEvent('expense_changed', me._selectedDate);
-				AppUtil.cashPlus(amount);
+				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
 				callback();
 			});
-		} else if (type == 'rut') {
+		} else if (type == 'rut_tien') {
 			if (!AppUtil.canGetCash(amount)) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount)));
 				return false;
 			}
 			
 			var targetModel;
 			var hisModel;
-			if (m.data.frombank.indexOf('atm') > -1) {
-				//return money to ATM
-				targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
-				if (!targetModel) {
-					MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
-					return false;
-				}
-				var currentamount = parseInt(targetModel.data.amount);
-				var newamount = currentamount + amount;
-				targetModel.data.amount = newamount.toString();
-				targetModel.save();
-				//remove atm history
-				hisModel = new MyApp.model.AtmHistory();
-				hisModel.getProxy().findRecord('history_id', m.data.external_id, function(records) {	
-					if (records.length > 0) {
-						var foundModel = records[0];
-						foundModel.erase(function() {
-							MyApp.app.fireEvent('atm_changed', foundModel.data.atm_id);
-						});
-					}
-				});
+			//return money to ATM
+			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			if (!targetModel) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+				return false;
 			}
+			var currentamount = parseInt(targetModel.data.amount);
+			var newamount = currentamount + amount;
+			targetModel.data.amount = newamount.toString();
+			targetModel.save();
+			//remove expense history
+			hisModel = new MyApp.model.Expense();
+			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+				if (records.length > 0) {
+					var foundModel = records[0];
+					foundModel.erase(function() {
+						MyApp.app.fireEvent('expense_changed', me._selectedDate);
+					});
+				}
+			});
+			
 			m.erase(function() {
-				MyApp.app.fireEvent('expense_changed', me._selectedDate);
+				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
 				AppUtil.cashMinus(amount);
 				callback();
 			});
-		} else if (type == 'nap') {
+		} else if (type == 'nap_tien') {
 
 			var targetModel;
 			var hisModel;
-			if (m.data.frombank.indexOf('atm') > -1) {
 				//return money to ATM
-				targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.frombank);
-				if (!targetModel) {
-					MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
-					return false;
-				}
-				var currentamount = parseInt(targetModel.data.amount);
-				var newamount = currentamount - amount;
-				
-				if (newamount < 0) {
-					MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount)));
-					return -1;
-				}
-					
-				targetModel.data.amount = newamount.toString();
-				targetModel.save();
-				//remove atm history
-				hisModel = new MyApp.model.AtmHistory();
-				hisModel.getProxy().findRecord('history_id', m.data.external_id, function(records) {	
-					if (records.length > 0) {
-						var foundModel = records[0];
-						foundModel.erase(function() {
-							MyApp.app.fireEvent('atm_changed', foundModel.data.atm_id);
-						});
-					}
-				});
+			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			if (!targetModel) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+				return false;
 			}
+			var currentamount = parseInt(targetModel.data.amount);
+			var newamount = currentamount - amount;
+			
+			if (newamount < 0) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+				return -1;
+			}
+				
+			targetModel.data.amount = newamount.toString();
+			targetModel.save();
+			//remove expense history
+			hisModel = new MyApp.model.Expense();
+			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+				if (records.length > 0) {
+					var foundModel = records[0];
+					foundModel.erase(function() {
+						MyApp.app.fireEvent('expense_changed', me._selectedDate);
+					});
+				}
+			});
+			
 			m.erase(function() {
-				MyApp.app.fireEvent('expense_changed', me._selectedDate);
+				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
 				AppUtil.cashPlus(amount);
 				callback();
 			});

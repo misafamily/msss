@@ -67,7 +67,7 @@
 }
 
 .atm-list3 .x-list-item.x-list-item-tpl .x-innerhtml {
-	height: 82px;
+	/*height: 113px;*/
 }
 
 .atm-atmlist.expenseday .x-list-item-tpl .x-list-disclosure,
@@ -75,6 +75,9 @@
 	top: 18px;
 }
 
+.atm-list2 .x-list-item.x-list-item-tpl .x-innerhtml {
+	height: 82px;
+}
 
 
 .atm-atmlist .info, .atm-atmlist .amountinfo {

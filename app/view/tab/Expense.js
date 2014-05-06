@@ -90,7 +90,7 @@ Ext.define('MyApp.view.tab.Expense', {
 						layout: {
 							type: 'card'
 						},
-						height: '100%',
+						height: '90%',
 						items:[
 							{
 								xtype: 'tab_expense_day'

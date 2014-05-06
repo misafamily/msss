@@ -133,14 +133,14 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 			if (type == 'thu') {//from expense
 				if (amount_change < 0) {
 					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(-amount_change)));
 						return -1;
 					}
 				}
 			} else if (type == 'chi') {//from expense
 				if (amount_change > 0) {
 					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount_change)));
 						return -1;
 					}	
 				}
@@ -151,7 +151,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 			} else if (type == 'nap') {//from expense
 				if (amount_change > 0) {
 					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount_change)));
 						return -1;
 					}			
 				}
@@ -196,7 +196,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 			} else if (type == 'rut') { //from expense
 				if (amount_change < 0) {
 					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(-amount_change)));
 						return -1;
 					}
 				}
@@ -214,7 +214,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 					var currentamount = parseInt(targetModel.data.amount);
 					var newamount = currentamount - amount_change;
 					if (newamount < 0) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount)));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
 						return -1;
 					}
 					
@@ -290,7 +290,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 		var type = m.data.type;
 		if (type == 'thu') {
 			if (!AppUtil.canGetCash(amount)) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount)));
 				return false;
 			}
 			m.erase(function() {
@@ -306,7 +306,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 			});
 		} else if (type == 'rut') {
 			if (!AppUtil.canGetCash(amount)) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat()));
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount)));
 				return false;
 			}
 			
@@ -354,7 +354,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 				var newamount = currentamount - amount;
 				
 				if (newamount < 0) {
-					MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount)));
+					MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
 					return -1;
 				}
 					

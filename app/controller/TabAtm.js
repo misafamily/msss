@@ -293,7 +293,7 @@ Ext.define('MyApp.controller.TabAtm', {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_RUT;
 								} else if (view.getExpenseModel().data.type == 'nap' || view.getExpenseModel().data.type == 'nap_tien') {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_NAP;
-								}
+								} 
 								this.getApplication().fireEvent('show_confirm', title, function(){
 									view.erase(function() {
 										me.getThisTab().onBackButtonTap();
@@ -308,6 +308,16 @@ Ext.define('MyApp.controller.TabAtm', {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_RUT;
 								} else if (view.getExpenseModel().data.type == 'nap_tien') {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_NAP;
+								} else if (view.getExpenseModel().data.type == 'nhan_luong') {
+									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_NHAN_LUONG;
+								} else if (view.getExpenseModel().data.type == 'chuyen_khoan') {
+									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_CHUYEN_KHOAN;
+								} else if (view.getExpenseModel().data.type == 'tao_moi') {
+									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_CHUYEN_KHOAN;
+									
+									this.getApplication().fireEvent('show_alert', AppUtil.TITLE_DELETE_DENY, AppUtil.MESSAGE_CAN_NOT_DELETE);
+									return;
+								
 								}
 								this.getApplication().fireEvent('show_confirm', title, function(){
 									view.erase(function() {
