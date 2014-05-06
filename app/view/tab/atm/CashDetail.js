@@ -97,7 +97,7 @@ Ext.define('MyApp.view.tab.atm.CashDetail', {
 												'<div class="username">{time:this.formatDateTime}</div>',  //Ngân hàng: 
 											'</div>',	
 											'<div class="usernameinfo">',
-												'<div class="shoppingicon {buyingtype}"></div>',
+												'<div class="shoppingicon {source}"></div>',
 												'<div class="username">{buyingwhat}</div>', //Tên: 
 											'</div>',
 											'<div class="usernameinfo">',

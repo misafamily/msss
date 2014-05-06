@@ -129,7 +129,8 @@ Ext.define('MyApp.view.tab.expense.Day', {
 						}	
 					}
        			),
-       			onItemDisclosure: true
+       			onItemDisclosure: true,
+       			itemHeight: 82
 			}
 		]
     },

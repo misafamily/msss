@@ -132,7 +132,8 @@ Ext.define('MyApp.view.tab.expense.Month', {
 						}	
 					}
        			),
-       			onItemDisclosure: true
+       			onItemDisclosure: true,
+       			itemHeight: 82
        			//grouped: true
 			}
 		]
