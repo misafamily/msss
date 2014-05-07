@@ -12,6 +12,7 @@ Ext.define('MyApp.controller.TabAtm', {
 		'MyApp.view.tab.atm.SavingEdit',
 		'MyApp.view.tab.atm.SavingHistory',
 		'MyApp.view.tab.atm.SavingTrade',	
+		'MyApp.view.tab.atm.SavingExpenseDetail',
 		'MyApp.view.tab.atm.CashAdd',
 		'MyApp.view.tab.atm.CashDetail',
 		'MyApp.view.tab.atm.CashHistory',
@@ -57,7 +58,8 @@ Ext.define('MyApp.controller.TabAtm', {
 						mee.showDoneButton();
 						
 					} else if (view.getId().indexOf('tab_expense_expensedetail') > -1 ||
-								view.getId().indexOf('tab_atm_atmexpensedetail') > -1) {
+								view.getId().indexOf('tab_atm_atmexpensedetail') > -1||
+								view.getId().indexOf('tab_atm_savingexpensedetail') > -1) {
 						mee.showEditDeleteButtons();
 					} else if (view.getId().indexOf('tab_atm_cashdetail') > -1) {
 						mee.showEditButton();
@@ -181,6 +183,14 @@ Ext.define('MyApp.controller.TabAtm', {
 									me.getThisTab().hideRightButtons();
 									me.getThisTab().showEditDeleteButtons();
 								}	
+							} else if (currentViewId.indexOf('tab_atm_savingexpensedetail') > -1) {
+								var view = me.getSavingExpenseDetailView();
+								var r = view.editCash();
+								if (r >= 0) {
+									view.exitEditMode();
+									me.getThisTab().hideRightButtons();
+									me.getThisTab().showEditDeleteButtons();
+								}	
 							} else if (currentViewId.indexOf('tab_atm_cashdetail') > -1) {
 								var view = me.getCashDetailView();
 								var r = view.editCash();
@@ -244,6 +254,11 @@ Ext.define('MyApp.controller.TabAtm', {
 								me.getThisTab().showDoneButton();
 							} else if (currentViewId.indexOf('tab_atm_atmexpensedetail') > -1) {
 								var view = this.getAtmExpenseDetailView();
+								view.enterEditMode();
+								me.getThisTab().hideRightButtons();
+								me.getThisTab().showDoneButton();
+							} else if (currentViewId.indexOf('tab_atm_savingexpensedetail') > -1) {
+								var view = this.getSavingExpenseDetailView();
 								view.enterEditMode();
 								me.getThisTab().hideRightButtons();
 								me.getThisTab().showDoneButton();
@@ -488,6 +503,16 @@ Ext.define('MyApp.controller.TabAtm', {
 					}			
 				}
 			},
+			'tab_atm_savingexpensedetail textfield[name = "todaydate"]' : {
+				focus: function(tf) {
+					var view = this.getSavingExpenseDetailView();
+					if (view.getEditMode()) {
+						var dp = this.getDatePicker(view.getSelectedDate(), view, tf);
+						Ext.Viewport.add(dp);
+						dp.show();
+					}			
+				}
+			},
 			//CASH HISTORY
 			'tab_atm_cashhistory list': {
 				itemtap: function(view, index, item, e) {
@@ -540,6 +565,17 @@ Ext.define('MyApp.controller.TabAtm', {
 					atmHistory.loadData(atmDetail.getSavingModel());
 					this.getThisTab().push(atmHistory);
 				}				
+			},
+			'tab_atm_savingdetail list': {
+				itemtap: function(view, index, item, e) {
+				//disclose: function( view, record, target, index, e, eOpts ) {
+					var me = this;
+					var rec = view.getStore().getAt(index);
+					var cHisDetail = this.getSavingExpenseDetailView();				
+					cHisDetail.setExpenseModel(rec);
+					cHisDetail.resetView();
+					me.getThisTab().push(cHisDetail);
+				}			
 			},
 			//end SavingDetail
 			
@@ -740,6 +776,13 @@ Ext.define('MyApp.controller.TabAtm', {
 			me._atmHisDetailView = Ext.create('MyApp.view.tab.atm.AtmExpenseDetail');
 		}
 		return me._atmHisDetailView;
+	},
+	getSavingExpenseDetailView: function() {
+		var me = this;	
+		if (!me._savingHisDetailView) {
+			me._savingHisDetailView = Ext.create('MyApp.view.tab.atm.SavingExpenseDetail');
+		}
+		return me._savingHisDetailView;
 	},
 	getInsuranceAddView: function() {
 		var me = this;	

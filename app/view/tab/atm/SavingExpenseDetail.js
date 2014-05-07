@@ -1,6 +1,6 @@
-Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
+Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
     extend: 'Ext.Container',
-    xtype: 'tab_atm_atmexpensedetail',
+    xtype: 'tab_atm_savingexpensedetail',
     requires: [
     	 
     ],
@@ -190,11 +190,11 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 
 				var targetModel;
 				var hisModel;
-				if (m.data.atm_id) { // is ATM
+				if (m.data.saving_id) { // is ATM
 					//update atm 1st
-					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 					if (!targetModel) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
 						return -1;
 					}
 					var currentamount = parseInt(targetModel.data.amount);
@@ -208,7 +208,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 					targetModel.save();
 					//update expense 2nd			
 					hisModel = new MyApp.model.Expense();
-					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
+					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {
 						if (records.length > 0) {
 							var foundModel = records[0];
 							foundModel.data.amount = amount.toString();
@@ -231,39 +231,28 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 				
 				var targetModel;
 				var hisModel;
-				if (m.data.atm_id) { // is ATM
+				if (m.data.saving_id) { // is ATM
 					//update atm 1st
-					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 					if (!targetModel) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
 						return -1;
 					}
 					var currentamount = parseInt(targetModel.data.amount);
 					var newamount = currentamount + amount_change;
 					if (newamount < 0) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_SAVING, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
 						return -1;
 					}
 					
 					targetModel.data.amount = newamount.toString();
 					targetModel.data.time = me._selectedDate.getTime();
+					targetModel.data.created_date = 'Gởi ngày ' + me._selectedDate.shortDateFormat();
+					var interest_paid_index = parseInt(targetModel.data.interest_paid_index);
+					if (interest_paid_index < 1) {
+						targetModel.data.last_paid_time = targetModel.data.time;
+					}
 					targetModel.save();
-					//update expense 2nd			
-					/*hisModel = new MyApp.model.Expense();
-					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
-						if (records.length > 0) {
-							var foundModel = records[0];
-							foundModel.data.amount = amount.toString();
-							foundModel.data.time = me._selectedDate.getTime();
-							foundModel.data.dd = me._selectedDate.getDate();
-							foundModel.data.mm = me._selectedDate.getMonth();
-							foundModel.data.yy = me._selectedDate.getFullYear();
-							
-							foundModel.save(function() {
-								MyApp.app.fireEvent('expense_changed', me._selectedDate);
-							});
-						}
-					});*/
 						
 				}
 				//invert amount_change
@@ -286,7 +275,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 				if (type == 'rut_tien' || type == 'nap_tien') {
 					AppUtil.cashPlus(amount_change);				
 				}
-				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
+				MyApp.app.fireEvent('saving_changed', m.data.saving_id);
 			});
 			
 			return 1;

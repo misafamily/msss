@@ -238,7 +238,7 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 			{
 				xclass: 'MyApp.view.component.AppList',
 				store: 'SavingHistories_Recent',
-				cls: 'atm-atmhistory',
+				cls: 'atm-atmhistory atm-list3',
 				scrollable: false,
 				itemTpl: new Ext.XTemplate(
 		       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
@@ -255,11 +255,11 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 							'<div class="amountinfo">',
 								'<div class="amounticon {type}"></div>',
 								'<div class="amount {type}">{amount:this.format}</div>',
-							'</div>',		
-							'<div class="moneycardinfo">',
+							'</div>'	
+							/*'<div class="moneycardinfo">',
 								'<div class="moneycardicon"></div>',
 								'<div class="moneycard">{moneycard:this.format}</div>',
-							'</div>'			
+							'</div>'	*/		
 							].join(''),
 							{
 								formatDateTime:function(time) {
@@ -269,13 +269,24 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 									return AppUtil.formatMoneyWithUnit(amount);
 								}	
 							}
-		       		)
+		       	),
+		       	onItemDisclosure: true
 			}
 		]
     },
 	initialize: function() {
-		this.callParent(arguments);
-		this.assignFields();
+		var me = this;
+		me.callParent(arguments);
+		me.assignFields();
+		MyApp.app.on('saving_changed', me.onSavingChanged, me);
+	},
+	
+	onSavingChanged: function(savingId) {
+		var me = this;
+		if (!me.getSavingModel()) return;
+		if (me.getSavingModel().data.saving_id == savingId) {
+			me.updateSavingModel();
+		}
 	},
 	
 	updateSavingModel: function() {

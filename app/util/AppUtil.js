@@ -69,12 +69,14 @@ Ext.define('MyApp.util.AppUtil',{
 	
 	MESSAGE_FAILED_EDIT_CASH: 'Tiền mặt không đủ để bù vào, hiện có <span>{0}</span>. Cần tối thiểu <span>{1}</span> để thực hiện',
 	MESSAGE_FAILED_EDIT_CASH_ATM: 'Tiền trong ATM không đủ để giao dịch, hiện có <span>{0}</span>. Cần tối thiểu <span>{1}</span> để thực hiện',
+	MESSAGE_FAILED_EDIT_CASH_SAVING: 'Tiền trong sổ không đủ để giao dịch, hiện có <span>{0}</span>. Cần tối thiểu <span>{1}</span> để thực hiện',
 	MESSAGE_FAILED_EDIT: 'Chưa điền thông tin mới',
 	MESSAGE_FAILED_PUSHIN: 'Tiền mặt không đủ để nạp, hiện có <span>{0}</span>',
 	MESSAGE_FAILED_EXPENSE: 'Tiền mặt không đủ để chi, hiện có <span>{0}</span>',
 	MESSAGE_FAILED_PUSHOUT: 'Tiền trong tài khoản không đủ. Có thể rút tối đa <span>{0}</span>',
 	MESSAGE_FAILED_CHECKOUT: 'Tiền trong tài khoản không đủ. Có thể chuyển tối đa <span>{0}</span>',
 	MESSAGE_FAILED_ATM_NOT_FOUND: 'Không tìm thấy thẻ ATM',
+	MESSAGE_FAILED_SAVING_NOT_FOUND: 'Không tìm thấy sổ tiết kiệm',
 	
 	getDbConnection: function() {
 		var me = this;

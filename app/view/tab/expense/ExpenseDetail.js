@@ -189,6 +189,40 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 							});
 						}
 					});
+				} else if (m.data.source == 'saving') {
+					//update atm 1st
+					targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.frombank);
+					if (!targetModel) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						return -1;
+					}
+					targetModel.data.amount = (parseInt(targetModel.data.amount) + amount_change).toString();
+					targetModel.save();
+					//update atm history 2nd			
+					hisModel = new MyApp.model.SavingHistory();
+					//AppUtil.log('find record ' +  m.data.external_id);
+					hisModel.getProxy().findRecord('history_id', m.data.external_id, function(records) {	
+						//AppUtil.log('found records');					
+						//AppUtil.log(records);
+						if (records.length > 0) {
+							var foundModel = records[0];
+							//var moneycard = parseInt(foundModel.data.moneycard) - parseInt(foundModel.data.amount) + amount;
+							
+							//foundModel.data.moneycard = moneycard.toString();
+							foundModel.data.amount = amount.toString();
+							foundModel.data.time = me._selectedDate.getTime();
+							foundModel.data.dd = me._selectedDate.getDate();
+							foundModel.data.mm = me._selectedDate.getMonth();
+							foundModel.data.yy = me._selectedDate.getFullYear();
+							
+							foundModel.save(function() {
+								MyApp.app.fireEvent('saving_changed', foundModel.data.atm_id);
+							});
+						}
+					});
+				} else {
+					alert(type + ' does not support');
+					return 0;
 				}
 				//invert amount_change
 				amount_change = -amount_change;
@@ -242,6 +276,47 @@ Ext.define('MyApp.view.tab.expense.ExpenseDetail', {
 							});
 						}
 					});
+				} else if (m.data.source == 'saving') {
+					//update atm 1st
+					targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.frombank);
+					if (!targetModel) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
+						return -1;
+					}
+					var currentamount = parseInt(targetModel.data.amount);
+					var newamount = currentamount + amount_change;
+					if (newamount < 0) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+						return -1;
+					}
+					
+					targetModel.data.amount = newamount.toString();
+					targetModel.save();
+					//update atm history 2nd			
+					hisModel = new MyApp.model.SavingHistory();
+					//AppUtil.log('find record ' +  m.data.external_id);
+					hisModel.getProxy().findRecord('history_id', m.data.external_id, function(records) {	
+						//AppUtil.log('found records');					
+						AppUtil.log(records);
+						if (records.length > 0) {
+							var foundModel = records[0];
+							//var moneycard = parseInt(foundModel.data.moneycard) + parseInt(foundModel.data.amount) - amount;
+							
+							//foundModel.data.moneycard = moneycard.toString();
+							foundModel.data.amount = amount.toString();
+							foundModel.data.time = me._selectedDate.getTime();
+							foundModel.data.dd = me._selectedDate.getDate();
+							foundModel.data.mm = me._selectedDate.getMonth();
+							foundModel.data.yy = me._selectedDate.getFullYear();
+							
+							foundModel.save(function() {
+								MyApp.app.fireEvent('saving_changed', foundModel.data.atm_id);
+							});
+						}
+					});
+				} else {
+					alert(type + ' does not support');
+					return 0;
 				}
 				
 				
