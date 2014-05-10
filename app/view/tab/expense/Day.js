@@ -196,7 +196,7 @@ Ext.define('MyApp.view.tab.expense.Day', {
 				Ext.Array.each(records, function(item, index) {
 					if (item.data.type == 'chi')
 						sumChi += parseInt(item.data.amount);
-					else if (item.data.type == 'thu')
+					else if (item.data.type == 'thu' || item.data.type == 'linh_lai')
 						sumThu += parseInt(item.data.amount);
 					/*else if (item.data.type == 'rut')
 						sumRut += parseInt(item.data.amount);

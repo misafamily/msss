@@ -118,7 +118,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 					targetModel.data.amount = newamount.toString();
 					targetModel.save();
 					//update expense 2nd			
-					hisModel = new MyApp.model.Expense();
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 						if (records.length > 0) {
 							var foundModel = records[0];
@@ -160,7 +160,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 					targetModel.data.amount = newamount.toString();
 					targetModel.save();
 					//update expense 2nd			
-					hisModel = new MyApp.model.Expense();
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 						if (records.length > 0) {
 							var foundModel = records[0];
@@ -207,7 +207,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 					targetModel.data.amount = newamount.toString();
 					targetModel.save();
 					//update expense 2nd			
-					hisModel = new MyApp.model.Expense();
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 						if (records.length > 0) {
 							var foundModel = records[0];
@@ -322,7 +322,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];
@@ -350,7 +350,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];
@@ -383,7 +383,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];
@@ -419,7 +419,7 @@ Ext.define('MyApp.view.tab.atm.AtmExpenseDetail', {
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = new Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];

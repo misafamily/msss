@@ -101,24 +101,24 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 	
 				var targetModel;
 				var hisModel;
-				if (m.data.atm_id) { // is ATM
+				if (m.data.saving_id) { // is Saving
 					//update atm 1st
-					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 					if (!targetModel) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
 						return -1;
 					}
 					var currentamount = parseInt(targetModel.data.amount);
 					var newamount = currentamount - amount_change;
 					if (newamount < 0) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_SAVING, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
 						return -1;
 					}
 					
 					targetModel.data.amount = newamount.toString();
 					targetModel.save();
 					//update expense 2nd			
-					hisModel = new MyApp.model.Expense();
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 						if (records.length > 0) {
 							var foundModel = records[0];
@@ -137,30 +137,31 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 				}
 				
 				
-			} else if (type == 'chuyen_khoan' || type == 'nhan_luong') { //from atm history
+			} else if (type == 'linh_lai') { //from atm history
 
+				if (amount_change < 0) {
+					if (!AppUtil.canGetCash(Math.abs(amount_change))) {
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(-amount_change)));
+						return -1;
+					}
+				}
+				
+	
 				var targetModel;
 				var hisModel;
-				if (m.data.atm_id) { // is ATM
+				if (m.data.saving_id) { // is Saving
 					//update atm 1st
-					targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+					targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 					if (!targetModel) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
 						return -1;
 					}
-					var currentamount = parseInt(targetModel.data.amount);
-					var newamount = currentamount - amount_change;
-					if (type == 'nhan_luong') newamount = currentamount + amount_change;
-					
-					if (newamount < 0) {
-						MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
-						return -1;
-					}
-					
-					targetModel.data.amount = newamount.toString();
+					if (targetModel.data.last_paid_history_id == m.data.history_id)
+						targetModel.data.last_paid_time = me._selectedDate.getTime();
+					//targetModel.data.amount = newamount.toString();
 					targetModel.save();
 					//update expense 2nd			
-					hisModel = new MyApp.model.Expense();
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 						if (records.length > 0) {
 							var foundModel = records[0];
@@ -207,7 +208,7 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 					targetModel.data.amount = newamount.toString();
 					targetModel.save();
 					//update expense 2nd			
-					hisModel = new MyApp.model.Expense();
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {
 						if (records.length > 0) {
 							var foundModel = records[0];
@@ -246,12 +247,12 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 					}
 					
 					targetModel.data.amount = newamount.toString();
-					targetModel.data.time = me._selectedDate.getTime();
-					targetModel.data.created_date = 'Gởi ngày ' + me._selectedDate.shortDateFormat();
-					var interest_paid_index = parseInt(targetModel.data.interest_paid_index);
+					//targetModel.data.time = me._selectedDate.getTime();
+					//targetModel.data.created_date = 'Gởi ngày ' + me._selectedDate.shortDateFormat();
+					/*var interest_paid_index = parseInt(targetModel.data.interest_paid_index);
 					if (interest_paid_index < 1) {
-						targetModel.data.last_paid_time = targetModel.data.time;
-					}
+						targetModel.data.last_paid_history_id = '';
+					}*/
 					targetModel.save();
 						
 				}
@@ -272,7 +273,7 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			m.data.yy = me._selectedDate.getFullYear();
 			
 			m.save(function() {
-				if (type == 'rut_tien' || type == 'nap_tien') {
+				if (type == 'rut_tien' || type == 'nap_tien' || type == 'linh_lai') {
 					AppUtil.cashPlus(amount_change);				
 				}
 				MyApp.app.fireEvent('saving_changed', m.data.saving_id);
@@ -293,38 +294,64 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 		var m = me.getExpenseModel();
 		var amount = parseInt(m.data.amount);
 		var type = m.data.type;
-		if (type == 'nhan_luong') {
+		if (type == 'linh_lai') {
+			if (!AppUtil.canGetCash(amount)) {
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH, AppUtil.getCashFormat(), AppUtil.formatMoneyWithUnit(amount)));
+				return false;
+			}
 			var targetModel;
 			var hisModel;
 			//return money to ATM
-			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 			if (!targetModel) {
 				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
 				return false;
 			}
-			var currentamount = parseInt(targetModel.data.amount);
-			var newamount = currentamount - amount;
-			if (newamount < 0) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
-				return -1;
-			}
-			targetModel.data.amount = newamount.toString();
-			targetModel.save();
-			//remove expense history
-			hisModel = new MyApp.model.Expense();
-			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
-				if (records.length > 0) {
-					var foundModel = records[0];
-					foundModel.erase(function() {
-						MyApp.app.fireEvent('expense_changed', me._selectedDate);
-					});
+			//check for prev or next linh_lai
+			m.getProxy().findRecord('last_paid_history_id', m.data.history_id, function(record1s){
+				if (record1s.length > 0) {//ko xoa vi chua phai linh lai sau cung
+					MyApp.app.fireEvent('show_alert', AppUtil.TITLE_DELETE_DENY, AppUtil.MESSAGE_FAILED_SAVING_PAID_DELETE);
+					return false;
 				}
+				
+				//tim lan linh lai truoc do de cap nhat linh lai sau cung
+				m.getProxy().findRecord('history_id', m.data.last_paid_history_id, function(record2s){
+					if (record2s.length > 0) {
+						var prevRec = record2s[0];
+						
+						targetModel.data.last_paid_history_id = prevRec.data.history_id;
+						targetModel.data.last_paid_time = prevRec.data.time;
+						targetModel.data.interest_paid_index = (parseInt(targetModel.data.interest_paid_index) - 1).toString();
+
+					} else {
+						targetModel.data.last_paid_history_id = '';
+						targetModel.data.last_paid_time = targetModel.data.time;
+						targetModel.data.interest_paid_index = '0';
+					}
+					targetModel.save();
+						
+					//remove expense history
+					hisModel = Ext.ModelManager.getModel('MyApp.model.Expense'); 
+					hisModel.getProxy().findRecord('external_id', m.data.history_id, function(record3s) {	
+						if (record3s.length > 0) {
+							var foundModel = record3s[0];
+							foundModel.erase(function() {
+								MyApp.app.fireEvent('expense_changed', me._selectedDate);
+							});
+						}
+					});
+					
+					m.erase(function() {
+						MyApp.app.fireEvent('saving_changed', m.data.saving_id);
+						AppUtil.cashMinus(amount);
+						callback();
+					});
+					
+				});
 			});
 			
-			m.erase(function() {
-				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
-				callback();
-			});
+			
+			
 		} else if (type == 'chuyen_khoan') {
 			var targetModel;
 			var hisModel;
@@ -339,7 +366,7 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];
@@ -362,9 +389,9 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			var targetModel;
 			var hisModel;
 			//return money to ATM
-			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 			if (!targetModel) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
 				return false;
 			}
 			var currentamount = parseInt(targetModel.data.amount);
@@ -372,7 +399,7 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];
@@ -383,7 +410,7 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			});
 			
 			m.erase(function() {
-				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
+				MyApp.app.fireEvent('saving_changed', m.data.saving_id);
 				AppUtil.cashMinus(amount);
 				callback();
 			});
@@ -392,23 +419,23 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			var targetModel;
 			var hisModel;
 				//return money to ATM
-			targetModel = Ext.getStore('Atms').findRecord('atm_id', m.data.atm_id);
+			targetModel = Ext.getStore('Savings').findRecord('saving_id', m.data.saving_id);
 			if (!targetModel) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_ATM_NOT_FOUND);
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, AppUtil.MESSAGE_FAILED_SAVING_NOT_FOUND);
 				return false;
 			}
 			var currentamount = parseInt(targetModel.data.amount);
 			var newamount = currentamount - amount;
 			
 			if (newamount < 0) {
-				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_ATM, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
+				MyApp.app.fireEvent('show_alert', AppUtil.TITLE_ERROR, Ext.util.Format.format(AppUtil.MESSAGE_FAILED_EDIT_CASH_SAVING, AppUtil.formatMoneyWithUnit(currentamount), AppUtil.formatMoneyWithUnit(currentamount-newamount)));
 				return -1;
 			}
 				
 			targetModel.data.amount = newamount.toString();
 			targetModel.save();
 			//remove expense history
-			hisModel = new MyApp.model.Expense();
+			hisModel = Ext.ModelManager.getModel('MyApp.model.Expense');
 			hisModel.getProxy().findRecord('external_id', m.data.history_id, function(records) {	
 				if (records.length > 0) {
 					var foundModel = records[0];
@@ -419,7 +446,7 @@ Ext.define('MyApp.view.tab.atm.SavingExpenseDetail', {
 			});
 			
 			m.erase(function() {
-				MyApp.app.fireEvent('atm_changed', m.data.atm_id);
+				MyApp.app.fireEvent('saving_changed', m.data.saving_id);
 				AppUtil.cashPlus(amount);
 				callback();
 			});

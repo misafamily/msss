@@ -300,7 +300,7 @@ Ext.define('MyApp.controller.TabAtm', {
 								var view = this.getExpenseDetailView();
 								var me = this;
 								var title = '';
-								if (view.getExpenseModel().data.type == 'thu') {
+								if (view.getExpenseModel().data.type == 'thu' || view.getExpenseModel().data.type == 'linh_lai') {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_THU;
 								} else if (view.getExpenseModel().data.type == 'chi') {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_CHI;
@@ -328,7 +328,30 @@ Ext.define('MyApp.controller.TabAtm', {
 								} else if (view.getExpenseModel().data.type == 'chuyen_khoan') {
 									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_CHUYEN_KHOAN;
 								} else if (view.getExpenseModel().data.type == 'tao_moi') {
-									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_CHUYEN_KHOAN;
+									//title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_CHUYEN_KHOAN;
+									
+									this.getApplication().fireEvent('show_alert', AppUtil.TITLE_DELETE_DENY, AppUtil.MESSAGE_CAN_NOT_DELETE);
+									return;
+								
+								}
+								this.getApplication().fireEvent('show_confirm', title, function(){
+									view.erase(function() {
+										me.getThisTab().onBackButtonTap();
+									});
+									
+								});	
+							} else if (currentViewId.indexOf('tab_atm_savingexpensedetail') > -1) {
+								var view = this.getSavingExpenseDetailView();
+								var me = this;
+								var title = '';
+								if (view.getExpenseModel().data.type == 'rut_tien') {
+									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_RUT;
+								} else if (view.getExpenseModel().data.type == 'nap_tien') {
+									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_NAP;
+								} else if (view.getExpenseModel().data.type == 'linh_lai') {
+									title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_THU;
+								} else if (view.getExpenseModel().data.type == 'tao_moi') {
+									//title = AppUtil.CONFIRM_CASH_DETAIL_DELETE_ATM_CHUYEN_KHOAN;
 									
 									this.getApplication().fireEvent('show_alert', AppUtil.TITLE_DELETE_DENY, AppUtil.MESSAGE_CAN_NOT_DELETE);
 									return;
@@ -567,6 +590,17 @@ Ext.define('MyApp.controller.TabAtm', {
 				}				
 			},
 			'tab_atm_savingdetail list': {
+				itemtap: function(view, index, item, e) {
+				//disclose: function( view, record, target, index, e, eOpts ) {
+					var me = this;
+					var rec = view.getStore().getAt(index);
+					var cHisDetail = this.getSavingExpenseDetailView();				
+					cHisDetail.setExpenseModel(rec);
+					cHisDetail.resetView();
+					me.getThisTab().push(cHisDetail);
+				}			
+			},
+			'tab_atm_savinghistory list': {
 				itemtap: function(view, index, item, e) {
 				//disclose: function( view, record, target, index, e, eOpts ) {
 					var me = this;

@@ -5,7 +5,7 @@ Ext.define('MyApp.view.tab.atm.SavingHistory', {
     	 
     ],
     config: {
-    	emptyListOnHide: true,
+    	//emptyListOnHide: true,
     	savingModel: null,
     	title: 'Lịch sử giao dịch',
         layout:{
@@ -16,7 +16,7 @@ Ext.define('MyApp.view.tab.atm.SavingHistory', {
 			
            {
 				xclass:'MyApp.view.component.AppListPull',
-				cls: 'atm-atmhistory',
+				cls: 'atm-atmhistory atm-list3',
 				store: 'SavingHistories',  	
 		       	itemTpl: new Ext.XTemplate(
 		       				//'<div class="thumb">{dd}<br/>{monthname}</div>',
@@ -33,11 +33,11 @@ Ext.define('MyApp.view.tab.atm.SavingHistory', {
 							'<div class="amountinfo">',
 								'<div class="amounticon {type}"></div>',
 								'<div class="amount {type}">{amount:this.format}</div>',
-							'</div>',		
+							'</div>'/*,		
 							'<div class="moneycardinfo">',
 								'<div class="moneycardicon"></div>',
 								'<div class="moneycard">{moneycard:this.format}</div>',
-							'</div>'		
+							'</div>'	*/	
 							].join(''),
 							{
 								formatDateTime:function(time) {
@@ -47,7 +47,9 @@ Ext.define('MyApp.view.tab.atm.SavingHistory', {
 									return AppUtil.formatMoneyWithUnit(amount);
 								}	
 							}
-		       		)
+		       	),
+		       	onItemDisclosure: true,
+       			itemHeight: 112
 			}
            
 		]

@@ -270,7 +270,8 @@ Ext.define('MyApp.view.tab.atm.SavingDetail', {
 								}	
 							}
 		       	),
-		       	onItemDisclosure: true
+		       	onItemDisclosure: true,
+       			itemHeight: 112
 			}
 		]
     },

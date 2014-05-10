@@ -47,7 +47,8 @@ Ext.define('MyApp.view.tab.atm.AtmHistory', {
 								}	
 							}
 		       	),
-		       	onItemDisclosure: true
+		       	onItemDisclosure: true,
+       			itemHeight: 112
 			}
            
 		]

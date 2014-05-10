@@ -219,12 +219,14 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 		atmModel.data.interest_paid_index = paidIndex.toString();
 		atmModel.data.last_paid_time = now.getTime();
 		var hisId = 'history_' + Ext.Date.now();
+		var lastpaidid = atmModel.data.last_paid_history_id;
+		atmModel.data.last_paid_history_id = hisId;
 		atmModel.save(function(){
 			//minus cash
 			AppUtil.cashPlus(money);
 			
-			AppUtil.saveExpenseModel('thu', money, hisId, 'Lĩnh lãi', 'tien_mat', atmModel.data.saving_id, now, 
-								'ATM ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase(), 'saving' );
+			AppUtil.saveExpenseModel('linh_lai', money, hisId, 'Lĩnh lãi', 'tien_mat', atmModel.data.saving_id, now, 
+								'Sổ tiết kiệm ' +  atmModel.data.username.toUpperCase() + ', ngân hàng ' +  atmModel.data.bank.toUpperCase(), 'saving' );
 			//
 			var atmHis = Ext.create('MyApp.model.SavingHistory', {
 				saving_id: atmModel.data.saving_id,
@@ -234,7 +236,7 @@ Ext.define('MyApp.view.tab.atm.SavingTrade', {
 				amount: money,
 				moneycard:atmModel.data.amount,
 				time: now.getTime(),
-				last_paid_time: lastpaidtime,
+				last_paid_history_id: lastpaidid,
 				dd: now.getDate(),
 				mm: now.getMonth(),
 				yy: now.getFullYear()

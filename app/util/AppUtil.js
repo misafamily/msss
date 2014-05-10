@@ -75,8 +75,10 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_FAILED_EXPENSE: 'Tiền mặt không đủ để chi, hiện có <span>{0}</span>',
 	MESSAGE_FAILED_PUSHOUT: 'Tiền trong tài khoản không đủ. Có thể rút tối đa <span>{0}</span>',
 	MESSAGE_FAILED_CHECKOUT: 'Tiền trong tài khoản không đủ. Có thể chuyển tối đa <span>{0}</span>',
-	MESSAGE_FAILED_ATM_NOT_FOUND: 'Không tìm thấy thẻ ATM',
-	MESSAGE_FAILED_SAVING_NOT_FOUND: 'Không tìm thấy sổ tiết kiệm',
+	MESSAGE_FAILED_DELETE: 'Lỗi xóa không xác định do sự cố về dữ liệu',
+	MESSAGE_FAILED_ATM_NOT_FOUND: 'Thẻ ATM này đã bị đóng. Hãy khôi phục lại trước khi thao tác',
+	MESSAGE_FAILED_SAVING_NOT_FOUND: 'Sổ tiết kiệm này đã bị đóng. Hãy khôi phục lại trước khi thao tác',
+	MESSAGE_FAILED_SAVING_PAID_DELETE: 'Phải xóa những lần lĩnh lãi tiếp theo trước của sổ tiết kiệm này',
 	
 	getDbConnection: function() {
 		var me = this;

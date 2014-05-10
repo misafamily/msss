@@ -168,6 +168,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 			status: AppUtil.STATUS_IN_USE,
 			time: me._selectedDate.getTime(),
 			last_paid_time: me._selectedDate.getTime(),
+			last_paid_history_id: '',
 			last_info: '',
 			saving_id: atm_id
 		});		
@@ -176,7 +177,7 @@ Ext.define('MyApp.view.tab.atm.SavingAdd', {
 				//savo to AtmHistory		
 				var atmHis = Ext.create('MyApp.model.SavingHistory', {
 					saving_id: atm_id,
-					description: 'Tạo sổ mới',
+					description: 'Tạo sổ',
 					type: AppUtil.TYPE_ATM_TAO_MOI,
 					amount: amount,
 					moneycard:amount,
