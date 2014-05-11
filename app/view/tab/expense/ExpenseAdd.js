@@ -185,6 +185,7 @@ Ext.define('MyApp.view.tab.expense.ExpenseAdd', {
 		var model = Ext.create('MyApp.model.Expense', expenseData);
 		model.save(function(){
 			MyApp.app.fireEvent('chi_changed');
+			
 			callback(now);
 		});
 		

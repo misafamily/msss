@@ -153,13 +153,14 @@ Ext.define('MyApp.controller.TabExpense', {
 					var me = this;
 					if (me.getExpenseAddView().addExpense(
 						function(date) {
+							MyApp.app.fireEvent('expense_changed', date);
 							var activeBtn = me.getThisSegmentButtons().getPressedButtons()[0];
 							if (activeBtn.config.viewIndex == 0 && !me.getThisExpenseDay().getCurrentDate().sameDateWith(date)) {
 									me.getThisExpenseDay().showSelectedDate(date);
-							} else
+							} /*else
 								me.getThisExpenseDay().updateStoreData(date);
 							me.getThisExpenseWeek().updateStoreDataWithDate(date);
-							me.getThisExpenseMonth().updateStoreDataWithDate(date);
+							me.getThisExpenseMonth().updateStoreDataWithDate(date);*/
 						})
 					) {						
 						me.getThisTab().onBackButtonTap();	

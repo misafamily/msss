@@ -8,6 +8,14 @@
              "update": "delta"
         },
         {
+	    "path":"config.js",
+            "update": "delta"
+        },
+        {
+            "path": "libs/chart/Chart.js",
+             "update": "delta"
+        },
+        {
 	    "path":"app/util/DateUtil.js",
             "update": "delta"
         },
@@ -41,6 +49,10 @@
         },
 		{
             "path": "resources/css/atm.css",
+            "update": "delta"
+        },
+        {
+            "path": "resources/css/home.css",
             "update": "delta"
         }
     ],

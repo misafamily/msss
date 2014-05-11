@@ -80,6 +80,11 @@ Ext.define('MyApp.util.AppUtil',{
 	MESSAGE_FAILED_SAVING_NOT_FOUND: 'Sổ tiết kiệm này đã bị đóng. Hãy khôi phục lại trước khi thao tác',
 	MESSAGE_FAILED_SAVING_PAID_DELETE: 'Phải xóa những lần lĩnh lãi tiếp theo trước của sổ tiết kiệm này',
 	
+	constructor: function() {
+		var me = this;
+		me.getDbConnection();
+	},
+	
 	getDbConnection: function() {
 		var me = this;
 		if (!me.dbConnection) {
@@ -168,6 +173,29 @@ Ext.define('MyApp.util.AppUtil',{
 		return date.dateFormat();
 	},
 	
+	formatShortMoney: function(amount) {
+		amount = amount || 0;
+		amount = parseInt(amount);
+		if (amount > 1000000) {
+			amount = Math.round(amount/1000000);
+			
+			amount = amount.toString() + ' triệu';
+		}
+		else if (amount > 100000) {
+			amount = Math.round(amount/100000);
+			amount = amount.toString() + ' trăm ngàn';
+		} else if (amount > 10000) {
+			amount = Math.round(amount/10000);
+			amount = amount.toString() + ' chục ngàn';
+		} else if (amount > 1000) {
+			amount = Math.round(amount/1000);
+			amount = amount.toString() + ' ngàn';
+		} else {
+			return this.formatMoneyWithUnit(amount);
+		}
+		return amount;
+	},
+	
 	formatMoney: function(amount) {
 		amount = amount || 0;
 		return parseInt(amount).format(0, 3, '.');
@@ -189,26 +217,16 @@ Ext.define('MyApp.util.AppUtil',{
 		return this._lang;
 	},
 	
-	isOnline: function() {
-        /*
-        var states = {};
-        states[Connection.UNKNOWN]  = 'Unknown connection';
-        states[Connection.ETHERNET] = 'Ethernet connection';
-        states[Connection.WIFI]     = 'WiFi connection';
-        states[Connection.CELL_2G]  = 'Cell 2G connection';
-        states[Connection.CELL_3G]  = 'Cell 3G connection';
-        states[Connection.CELL_4G]  = 'Cell 4G connection';
-        states[Connection.CELL]     = 'Cell generic connection';
-        states[Connection.NONE]     = 'No network connection';
-		*/
+	/*isOnline: function() { //not work
 		if(navigator.connection != undefined){
+			
 			var networkState = navigator.connection.type;
 			if(networkState == "none"){
 	        	return false;	
 	        }
-      	}
-        return true;
-   },
+      } else if (navigator.onLine != undefined) return navigator.onLine;
+        return false;
+   },*/
    runningDevice:function(){
    		//alert('Ext.os.deviceType: ' + Ext.os.deviceType);
 	   if (Ext.os.deviceType == "Desktop") {

@@ -1,0 +1,29 @@
+#home_tong {
+	height: 100%;
+	width: 100%;
+}
+
+#home_tongthu {
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 1;
+	background: #4f834f;
+	height: 30px;
+	width: 100%;
+}
+
+#home_tongchi {
+	position: absolute;
+	top:0;
+	left:0;
+	z-index: 2;
+	background: #cd4447;
+	height: 30px;
+	width: 10%;
+}
+.container-with-bottom-bar {
+	background-image: url('../images/button_bg.png');
+	background-repeat: repeat-x;
+	background-position-y: 44px;
+}

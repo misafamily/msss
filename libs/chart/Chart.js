@@ -147,8 +147,33 @@ window.Chart = function(context){
 	//Variables global to the chart
 	var width = context.canvas.width;
 	var height = context.canvas.height;
-
-
+	var heightBottom = 38;
+	var todayCircleRadius = 20;
+	
+	var dashedLine = function(ctx, x1, y1, x2, y2, dashLen) {
+	    if (dashLen == undefined) dashLen = 2;
+	    
+	    //this.beginPath();
+	    ctx.moveTo(x1, y1);
+	    
+	    var dX = x2 - x1;
+	    var dY = y2 - y1;
+	    var dashes = Math.floor(Math.sqrt(dX * dX + dY * dY) / dashLen);
+	    var dashX = dX / dashes;
+	    var dashY = dY / dashes;
+	    
+	    var q = 0;
+	    while (q++ < dashes) {
+	     x1 += dashX;
+	     y1 += dashY;
+	     ctx[q % 2 == 0 ? 'moveTo' : 'lineTo'](x1, y1);
+	    }
+	    ctx[q % 2 == 0 ? 'moveTo' : 'lineTo'](x2, y2);
+	    
+	    //this.stroke();
+	    //this.closePath();
+	};
+	
 	//High pixel density displays - multiply the size of the canvas height/width by the device pixel ratio, then scale.
 	if (window.devicePixelRatio) {
 		context.canvas.style.width = width + "px";
@@ -862,59 +887,129 @@ window.Chart = function(context){
 			ctx.lineWidth = config.scaleLineWidth;
 			ctx.strokeStyle = config.scaleLineColor;
 			ctx.beginPath();
-			ctx.moveTo(width-widestXLabel/2+5,xAxisPosY);
-			ctx.lineTo(width-(widestXLabel/2)-xAxisLength-5,xAxisPosY);
+			//ctx.moveTo(width-widestXLabel/2+5,xAxisPosY);
+			//ctx.lineTo(width-(widestXLabel/2)-xAxisLength-5,xAxisPosY);
+			ctx.moveTo(width-widestXLabel/2-5,xAxisPosY);
+			ctx.lineTo(width-(widestXLabel/2)-xAxisLength-0,xAxisPosY);
 			ctx.stroke();
 			
 			
-			if (rotateLabels > 0){
+			/*if (rotateLabels > 0){
 				ctx.save();
 				ctx.textAlign = "right";
 			}
 			else{
 				ctx.textAlign = "center";
-			}
+			}*/
+			rotateLabels = 0;
+			ctx.textAlign = "center";
+			
+			var now = new Date();
+			var currentDate = now.getDate() - 1;
+			
 			ctx.fillStyle = config.scaleFontColor;
+			
+			ctx.font = "16px ROBOTO-LIGHT";
+			ctx.fillText('0', yAxisPosX-1000, xAxisPosY + config.scaleFontSize+3 + 23 +5);
+			ctx.restore();
 			for (var i=0; i<data.labels.length; i++){
 				ctx.save();
-				if (rotateLabels > 0){
-					ctx.translate(yAxisPosX + i*valueHop,xAxisPosY + config.scaleFontSize);
-					ctx.rotate(-(rotateLabels * (Math.PI/180)));
-					ctx.fillText(data.labels[i], 0,0);
-					ctx.restore();
+				ctx.font = config.scaleFontStyle + " " + config.scaleFontSize+"px " + config.scaleFontFamily;
+				if ((i == 0) || (i == currentDate) || ((i+1) % 5 == 0 && i < 27) || (i == data.labels.length - 1)) {
+					if (rotateLabels > 0){
+						/*ctx.translate(yAxisPosX + i*valueHop,xAxisPosY + config.scaleFontSize);
+						ctx.rotate(-(rotateLabels * (Math.PI/180)));
+						ctx.fillText(data.labels[i], 0,0);
+						ctx.restore();*/
+					}
+					
+					else{
+						var posx = yAxisPosX + i*valueHop;
+						var posy = xAxisPosY + config.scaleFontSize+3 + 23;
+						//AppUtil.log(posy);
+						var sf = ctx.font;
+						if (i == currentDate) {
+							//draw vertical line
+							
+							ctx.beginPath();
+							dashedLine(ctx, posx, 0, posx, height-15, 5);
+							
+							//ctx.lineWidth = 1;
+							ctx.strokeStyle = 'rgba(0,0,0,1)';
+							ctx.stroke();
+							ctx.closePath();
+						
+							//draw circle around today date
+							/*ctx.beginPath();
+							ctx.arc(posx, posy, todayCircleRadius, (Math.PI/180)*0, (Math.PI/180)*360, false);
+							ctx.fillStyle = 'rgba(2,98,77,1)';
+							ctx.fill();
+							ctx.closePath();*/
+							//load pig png
+					        ctx.drawImage(AppConfig.pigImage, posx-22, posy-20);
+							//show today date
+							
+							ctx.fillStyle = "white"; // switch to black for text fill
+							ctx.font = "18px ROBOTO-LIGHT";
+							ctx.fillText(data.labels[i], posx, posy + 4);
+	
+						} else {
+							//if (i > 0) {
+								ctx.restore();
+								ctx.font = "16px ROBOTO-LIGHT";
+								ctx.fillText(data.labels[i], posx, posy+5);
+							//}
+							
+							
+						}
+						ctx.restore();	
+						ctx.font = sf;
+					}
+						
+					//ctx.font = config.scaleFontStyle + " " + config.scaleFontSize+"px " + config.scaleFontFamily;
+							
+					ctx.beginPath();
+					ctx.moveTo(yAxisPosX + i * valueHop, xAxisPosY+3);
+					
+					//Check i isnt 0, so we dont go over the Y axis twice.
+					if(config.scaleShowGridLines && i>0){
+						ctx.lineWidth = config.scaleGridLineWidth;
+						ctx.strokeStyle = config.scaleGridLineColor;					
+						ctx.lineTo(yAxisPosX + i * valueHop, 5);
+					}
+					else{
+						ctx.lineTo(yAxisPosX + i * valueHop, xAxisPosY-0);//3				
+					}
+					ctx.stroke();
+					
 				}
 				
-				else{
-					ctx.fillText(data.labels[i], yAxisPosX + i*valueHop,xAxisPosY + config.scaleFontSize+3);					
-				}
-
-				ctx.beginPath();
-				ctx.moveTo(yAxisPosX + i * valueHop, xAxisPosY+3);
-				
-				//Check i isnt 0, so we dont go over the Y axis twice.
-				if(config.scaleShowGridLines && i>0){
-					ctx.lineWidth = config.scaleGridLineWidth;
-					ctx.strokeStyle = config.scaleGridLineColor;					
-					ctx.lineTo(yAxisPosX + i * valueHop, 5);
-				}
-				else{
-					ctx.lineTo(yAxisPosX + i * valueHop, xAxisPosY+3);				
-				}
-				ctx.stroke();
 			}
 			
 			//Y axis
-			ctx.lineWidth = config.scaleLineWidth;
+			/*ctx.lineWidth = config.scaleLineWidth;
 			ctx.strokeStyle = config.scaleLineColor;
 			ctx.beginPath();
 			ctx.moveTo(yAxisPosX,xAxisPosY+5);
 			ctx.lineTo(yAxisPosX,5);
-			ctx.stroke();
+			ctx.stroke();*/
 			
 			ctx.textAlign = "right";
 			ctx.textBaseline = "middle";
+			
+			ctx.fillText('0 đ',yAxisPosX-8,xAxisPosY);
+			
 			for (var j=0; j<calculatedScale.steps; j++){
-				ctx.beginPath();
+				/*if (j == calculatedScale.steps - 1) { //Gioi han
+					ctx.beginPath();
+					dashedLine(ctx, yAxisPosX-3,xAxisPosY - ((j+1) * scaleHop), 
+								yAxisPosX + xAxisLength + 5,xAxisPosY - ((j+1) * scaleHop));
+							
+					ctx.lineWidth = 1;
+					ctx.strokeStyle = 'rgba(173,34,40,1)';
+					ctx.stroke();	
+				}*/
+				/*ctx.beginPath();
 				ctx.moveTo(yAxisPosX-3,xAxisPosY - ((j+1) * scaleHop));
 				if (config.scaleShowGridLines){
 					ctx.lineWidth = config.scaleGridLineWidth;
@@ -925,7 +1020,7 @@ window.Chart = function(context){
 					ctx.lineTo(yAxisPosX-0.5,xAxisPosY - ((j+1) * scaleHop));
 				}
 				
-				ctx.stroke();
+				ctx.stroke();*/
 				
 				if (config.scaleShowLabels){
 					ctx.fillText(calculatedScale.labels[j],yAxisPosX-8,xAxisPosY - ((j+1) * scaleHop));
@@ -953,7 +1048,7 @@ window.Chart = function(context){
 			xAxisPosY = scaleHeight + config.scaleFontSize/2;				
 		};	
 		function calculateDrawingSizes(){
-			maxSize = height;
+			maxSize = height - heightBottom;
 
 			//Need to check the X axis first - measure the length of each text metric, and figure out if we need to rotate by 45 degrees.
 			ctx.font = config.scaleFontStyle + " " + config.scaleFontSize+"px " + config.scaleFontFamily;
@@ -1006,7 +1101,7 @@ window.Chart = function(context){
 			
 			return {
 				maxValue : upperValue,
-				minValue : lowerValue,
+				minValue : 0,//lowerValue,
 				maxSteps : maxSteps,
 				minSteps : minSteps
 			};

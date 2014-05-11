@@ -195,6 +195,15 @@ body {
   height: 28px;
 }
 
+.button-home-add {
+	background-image: url('../images/home_add.png');
+  background-size: cover;
+  width: 77px;
+  height: 47px;
+  border-radius: 0px;
+}
+
+
 .button-submit {
   background-color:#f27935;
   color: #FFFFFF;
@@ -209,6 +218,7 @@ body {
    height: 30px;
    background-color: #666057;/*0099CC;*/
 }
+
 
 .button-cancel {
  background-color:#666057;/*ebebeb*/
