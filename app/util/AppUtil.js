@@ -1,5 +1,8 @@
 Ext.define('MyApp.util.AppUtil',{
 	alternateClassName: 'AppUtil',
+	requires:[
+		'MyApp.model.SavedVar'
+	],
 	singleton: true,
 	dbConnection: null,
 	_lang: 'en',
@@ -84,6 +87,46 @@ Ext.define('MyApp.util.AppUtil',{
 		var me = this;
 		me.getDbConnection();
 	},
+	
+	initLocalStorage: function() {
+    	//this.log('initLocalStorage');
+    	var me = this;
+    	if (!me.localStore) {
+    		me.localStore = Ext.create('Ext.data.Store', {model: 'MyApp.model.SavedVar'});
+    	}
+    	
+    	me.localStore.load(function(records) {
+    		/*me.log('Local Vars: ');
+    		me.log(records);
+    		
+    		me.log(me.getLocalVar('hello'));*/
+    		//me.saveLocalVar('autologin', 'true');
+        	//me.saveLocalVar('autosync', 'true');
+    	});
+    	
+    	
+    },
+    
+    getLocalVar: function(name) {
+    	var me = this;
+    	var m = me.localStore.findRecord('name', name);
+    	if (m) return m.data.value;
+    	return null;
+    },
+    
+    saveLocalVar: function(name, value) {
+    	var me = this;
+    	var m = me.localStore.findRecord('name', name);
+    	if (m) {
+    		m.data.value = value;
+    		m.save();
+    	} else {
+    		m = new MyApp.model.SavedVar({name: name, value: value});
+    		me.localStore.add(m);
+    		
+    		m.save();
+    	}
+    },
 	
 	getDbConnection: function() {
 		var me = this;
