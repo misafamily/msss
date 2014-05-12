@@ -103,7 +103,7 @@ Ext.define('MyApp.view.tab.home.HomeChart', {
 			
 			Ext.Array.each(records, function(item, index) {
 				if (item.data.dd <= todayDate) {
-					if (item.data.type == 'thu' || item.data.type == 'linh_lai') {
+					if (item.data.type == 'thu' || item.data.type == 'linh_lai' || item.data.type == 'tien_du') {
 						incomes[item.data.dd-1] += parseInt(item.data.amount);
 					} else if (item.data.type == 'chi') {
 						expenses[item.data.dd-1] += parseInt(item.data.amount);

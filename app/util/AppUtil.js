@@ -86,6 +86,7 @@ Ext.define('MyApp.util.AppUtil',{
 	constructor: function() {
 		var me = this;
 		me.getDbConnection();
+		me.initLocalStorage();
 	},
 	
 	initLocalStorage: function() {
@@ -102,9 +103,17 @@ Ext.define('MyApp.util.AppUtil',{
     		me.log(me.getLocalVar('hello'));*/
     		//me.saveLocalVar('autologin', 'true');
         	//me.saveLocalVar('autosync', 'true');
+        	me.initSettings();
     	});
     	
     	
+    },
+    
+    initSettings: function() {
+    	var me = this;
+    	if (!me.getLocalVar('auto_add_tiendu_to_nextmonth')) {
+    		me.saveLocalVar('auto_add_tiendu_to_nextmonth', 'true');
+    	}
     },
     
     getLocalVar: function(name) {
@@ -141,6 +150,25 @@ Ext.define('MyApp.util.AppUtil',{
 		return me.dbConnection;
 	},
 	
+	checkAutoDataForMonth: function() {
+		var me = this;
+		var now = new Date();
+		now.setDate(1);
+		var nowDate =now.format('yyyymmdd');
+		var prevMonth = new Date();
+		prevMonth.setMonth(now.getMonth() - 1);
+		var prevMonthDate = 'Tiền dư ' + prevMonth.getMonthName() + ', ' + prevMonth.getFullYear();
+		if (!me.getLocalVar(nowDate)) {
+			me.saveLocalVar(nowDate, me.CASH.toString());
+			
+			var autoAddTienDu = (me.getLocalVar('auto_add_tiendu_to_nextmonth') == 'true');
+			if (autoAddTienDu) {
+				me.saveExpenseModel('tien_du', me.CASH, '', prevMonthDate, 'tien_mat', 'Ví tiền', now, prevMonthDate);
+			}
+		}
+		
+	},
+
 	saveExpenseModel: function(expensetype, amount, externalid, buyingwhat, buyingtype, frombank, tradedate, note, source ) {
 		var now = tradedate || new Date();
 		note = note || '';

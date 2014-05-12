@@ -46,7 +46,8 @@ Ext.define('MyApp.view.tab.Home', {
 								style: {
 									'background-color': '#fff'
 								},
-								flex:1
+								flex:1,
+								minHeight: 220
 							},{
 								xtype: 'container',
 								style: {

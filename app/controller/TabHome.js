@@ -8,49 +8,33 @@ Ext.define('MyApp.controller.TabHome', {
         },//end refs
         control: {
 			thisTab: {
-				//initialize: 'onTabInit'
+				initialize: 'onTabInit'
 			}
 		}
     },
 	
 	onTabInit: function() {		
-		this._today = new Date();		
-		//PatientDiary.app.on('user_logged', this.onUserLogged, this);
-		//PatientDiary.app.on('user_logout', this.onUserLogout, this);
 		var me = this;
-		me._interval = setInterval(function(){
-			me.loop();
-		}, 4*1000);//automatic refresh each 60s
+		me._today = new Date();		
+		var tomorrow = me._today.tomorrow();
+		Ext.Date.clearTime(tomorrow);
+		var timeToTomorrow = Ext.Date.getElapsed(me._today, tomorrow) + 1000;
+		//console.log(timeToTomorrow/(60*60*1000));
+		Ext.defer(function(){
+			me.newDayComes();
+		},timeToTomorrow);
+		
+		me.checkAutoDataForMonth();
 	},
 	
-	onUserLogged: function() {
-		var me = this;
-		//me.checkNextAppointment();		
-		me._interval = setInterval(function(){
-			me.loop();
-		}, 4*1000);//automatic refresh each 60s
-	},
-	
-	onUserLogout: function() {
-		clearInterval(this._interval);
-	},
-	
-	loop: function() {
-		var me = this;
-		//me.checkNextAppointment();
-		//me.checkReminder();
-		me.checkDayPassed();
-	},
-	
-	checkDayPassed: function() {
-		var me = this;
+	checkAutoDataForMonth: function() {
 		var now = new Date();
-		if (now.getDate() != me._today.getDate() ||
-			now.getMonth() != me._today.getMonth() ||
-			now.getFullYear() != me._today.getFullYear()) {
-				me._today = new Date();
-				MyApp.app.fireEvent('day_changed');
-				//console.log('DAY CHANGED =====');
-			}
+		AppUtil.checkAutoDataForMonth();
+	},
+	
+	newDayComes: function() {
+		AppUtil.log('newDayComes');
+		MyApp.app.fireEvent('day_changed');
+		me.checkNewMonthComes();
 	}
 });

@@ -41,11 +41,11 @@ Ext.define('MyApp.util.offline.Data',{
   				//console.log(queryStr);
   				break;
   			case 'Cashs':
-  				queryStr = 'SELECT * FROM expense WHERE buyingtype="tien_mat" ORDER BY id DESC'; //WHERE buyingtype="tien_mat"
+  				queryStr = 'SELECT * FROM expense WHERE buyingtype="tien_mat" AND type != "tien_du" ORDER BY id DESC'; //WHERE buyingtype="tien_mat"
   				//console.log(queryStr);
   				break;
   			case 'Cashs_Recent':
-  				queryStr = 'SELECT * FROM expense WHERE buyingtype="tien_mat" ORDER BY id DESC LIMIT 3';//WHERE buyingtype="tien_mat"
+  				queryStr = 'SELECT * FROM expense WHERE buyingtype="tien_mat" AND type != "tien_du" ORDER BY id DESC LIMIT 3';//WHERE buyingtype="tien_mat"
   				//console.log(queryStr);
   				break;
   			case 'Expenses_Day':
