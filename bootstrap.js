@@ -5,17 +5,17 @@
  * metadata-driven class system features 
  */
 Ext.Loader.addClassPathMappings({
-  "Ext": "../../../src",
-  "Ext.device.Purchases.Product": "../../../src/device/purchases/Sencha.js",
-  "Ext.device.filesystem.DirectoryEntry": "../../../src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.Entry": "../../../src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileEntry": "../../../src/device/filesystem/HTML5.js",
-  "Ext.device.filesystem.FileSystem": "../../../src/device/filesystem/HTML5.js",
-  "Ext.device.purchases.Purchase": "../../../src/device/purchases/Sencha.js",
-  "Ext.device.sqlite.Database": "../../../src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSet": "../../../src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLResultSetRowList": "../../../src/device/sqlite/Sencha.js",
-  "Ext.device.sqlite.SQLTransaction": "../../../src/device/sqlite/Sencha.js",
+  "Ext": "../../src",
+  "Ext.device.Purchases.Product": "../../src/device/purchases/Sencha.js",
+  "Ext.device.filesystem.DirectoryEntry": "../../src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.Entry": "../../src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileEntry": "../../src/device/filesystem/HTML5.js",
+  "Ext.device.filesystem.FileSystem": "../../src/device/filesystem/HTML5.js",
+  "Ext.device.purchases.Purchase": "../../src/device/purchases/Sencha.js",
+  "Ext.device.sqlite.Database": "../../src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSet": "../../src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLResultSetRowList": "../../src/device/sqlite/Sencha.js",
+  "Ext.device.sqlite.SQLTransaction": "../../src/device/sqlite/Sencha.js",
   "MyApp": "app"
 });
 Ext.ClassManager.addNameAlternateMappings({
@@ -647,6 +647,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.model.Expense": [],
   "MyApp.model.Insurance": [],
   "MyApp.model.InsuranceHistory": [],
+  "MyApp.model.SavedVar": [],
   "MyApp.model.Saving": [],
   "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
@@ -671,11 +672,13 @@ Ext.ClassManager.addNameAlternateMappings({
   ],
   "MyApp.util.offline.Connection": [],
   "MyApp.util.offline.Data": [],
+  "MyApp.util.offline.PagingLocalStorageProxy": [
+    "Ext.data.proxy.PagingLocalStorage"
+  ],
   "MyApp.util.offline.Proxy": [
     "Ext.data.SqliteStorageProxy"
   ],
   "MyApp.view.App": [],
-  "MyApp.view.AppMain": [],
   "MyApp.view.AppMenu": [],
   "MyApp.view.AppTab": [],
   "MyApp.view.component.AppContainer": [],
@@ -691,6 +694,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.tab.atm.AtmAdd": [],
   "MyApp.view.tab.atm.AtmDetail": [],
   "MyApp.view.tab.atm.AtmEdit": [],
+  "MyApp.view.tab.atm.AtmExpenseDetail": [],
   "MyApp.view.tab.atm.AtmHistory": [],
   "MyApp.view.tab.atm.AtmList": [],
   "MyApp.view.tab.atm.AtmTrade": [],
@@ -710,6 +714,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.tab.atm.SavingAdd": [],
   "MyApp.view.tab.atm.SavingDetail": [],
   "MyApp.view.tab.atm.SavingEdit": [],
+  "MyApp.view.tab.atm.SavingExpenseDetail": [],
   "MyApp.view.tab.atm.SavingHistory": [],
   "MyApp.view.tab.atm.SavingList": [],
   "MyApp.view.tab.atm.SavingTrade": [],
@@ -718,6 +723,7 @@ Ext.ClassManager.addNameAlternateMappings({
   "MyApp.view.tab.expense.ExpenseDetail": [],
   "MyApp.view.tab.expense.Month": [],
   "MyApp.view.tab.expense.Week": [],
+  "MyApp.view.tab.home.HomeChart": [],
   "MyApp.view.tab.popup.PopupAlert": [],
   "MyApp.view.tab.popup.PopupConfirm": [],
   "MyApp.view.tab.popup.PopupMessage": [],
@@ -1449,6 +1455,7 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.model.Expense": [],
   "MyApp.model.Insurance": [],
   "MyApp.model.InsuranceHistory": [],
+  "MyApp.model.SavedVar": [],
   "MyApp.model.Saving": [],
   "MyApp.model.SavingHistory": [],
   "MyApp.model.System": [],
@@ -1473,14 +1480,14 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.util.offline.Data": [
     "data"
   ],
+  "MyApp.util.offline.PagingLocalStorageProxy": [
+    "proxy.localstoragepaging"
+  ],
   "MyApp.util.offline.Proxy": [
     "proxy.sqlitestorage"
   ],
   "MyApp.view.App": [
     "widget.app"
-  ],
-  "MyApp.view.AppMain": [
-    "widget.appmain"
   ],
   "MyApp.view.AppMenu": [
     "widget.appmenu"
@@ -1520,6 +1527,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.tab.atm.AtmEdit": [
     "widget.tab_atm_atmedit"
+  ],
+  "MyApp.view.tab.atm.AtmExpenseDetail": [
+    "widget.tab_atm_atmexpensedetail"
   ],
   "MyApp.view.tab.atm.AtmHistory": [
     "widget.tab_atm_atmhistory"
@@ -1578,6 +1588,9 @@ Ext.ClassManager.addNameAliasMappings({
   "MyApp.view.tab.atm.SavingEdit": [
     "widget.tab_atm_savingedit"
   ],
+  "MyApp.view.tab.atm.SavingExpenseDetail": [
+    "widget.tab_atm_savingexpensedetail"
+  ],
   "MyApp.view.tab.atm.SavingHistory": [
     "widget.tab_atm_savinghistory"
   ],
@@ -1601,6 +1614,9 @@ Ext.ClassManager.addNameAliasMappings({
   ],
   "MyApp.view.tab.expense.Week": [
     "widget.tab_expense_week"
+  ],
+  "MyApp.view.tab.home.HomeChart": [
+    "widget.tab_home_homechart"
   ],
   "MyApp.view.tab.popup.PopupAlert": [
     "widget.tab_popup_popupalert"

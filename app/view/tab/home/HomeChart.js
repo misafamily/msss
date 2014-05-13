@@ -58,13 +58,18 @@ Ext.define('MyApp.view.tab.home.HomeChart', {
 			},200);
      	}, 200);
      	
-		
+		MyApp.app.on('day_changed', me.onDayChanged, me);
 		//PatientDiary.app.on('update_progresschart', this.showChart, this);
     },
-	showChart: function(recorddata) {
+    
+    onDayChanged: function() {
+    	var me = this;
+    	me.showChart();
+    },
+	showChart: function() {
 		AppUtil.log('showChart');
 		var me = this;		
-		if (recorddata) me.setRecordData(recorddata);
+		//if (recorddata) me.setRecordData(recorddata);
 		setTimeout(function(){
 			me.generateDataForCurrentMonth();
 		},100);
@@ -121,58 +126,58 @@ Ext.define('MyApp.view.tab.home.HomeChart', {
 			MyApp.app.fireEvent('thuchi_changed', thuTotal, chiTotal);
 			var max = thuTotal > chiTotal ? thuTotal : chiTotal;
 			//AppUtil.log(max);
-			if (max < 5000000) {
+			if (max <= 5000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 1000000;
-			} else if (max < 10000000) {
+			} else if (max <= 10000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 2000000;
-			} else if (max < 15000000) {
+			} else if (max <= 15000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 3000000;
-			} else if (max < 20000000) {
+			} else if (max <= 20000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 4000000;
-			} else if (max < 25000000) {
+			} else if (max <= 25000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 5000000;
-			} else if (max < 30000000) {
+			} else if (max <= 30000000) {
 				me._options.scaleSteps = 6;
 				me._options.scaleStepWidth = 5000000;
-			} else if (max < 35000000) {
+			} else if (max <= 35000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 7000000;
-			} else if (max < 40000000) {
+			} else if (max <= 40000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 8000000;
-			} else if (max < 45000000) {
+			} else if (max <= 45000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 9000000;
-			} else if (max < 50000000) {
+			} else if (max <= 50000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 10000000;
-			} else if (max < 55000000) {
+			} else if (max <= 55000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 11000000;
-			} else if (max < 60000000) {
+			} else if (max <= 60000000) {
 				me._options.scaleSteps = 6;
 				me._options.scaleStepWidth = 10000000;
-			} else if (max < 65000000) {
+			} else if (max <= 65000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 13000000;
-			} else if (max < 70000000) {
+			} else if (max <= 70000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 15000000;
-			} else if (max < 80000000) {
+			} else if (max <= 80000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 16000000;
-			} else if (max < 100000000) {
+			} else if (max <= 100000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth = 20000000;
-			} else if (max < 15000000) {
+			} else if (max <= 15000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth =30000000;
-			} else if (max < 200000000) {
+			} else if (max <= 200000000) {
 				me._options.scaleSteps = 5;
 				me._options.scaleStepWidth =40000000;
 			}  else me._options.scaleOverride = false;

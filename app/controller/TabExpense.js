@@ -84,6 +84,7 @@ Ext.define('MyApp.controller.TabExpense', {
 					var me = this;
 					var dAdd = me.getExpenseDetailView();
 					dAdd.setExpenseModel(view.getStore().getAt(index));
+					dAdd.resetView();
 					me.getThisTab().push(dAdd);
 				}
 			},

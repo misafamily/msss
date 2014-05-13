@@ -37,12 +37,7 @@ Ext.define('MyApp.view.tab.atm.CashAdd', {
                         //label: 'Ngân hàng ',
                         cls:'savingadd-period',
      
-	                    options: [			
-	                    	{text: 'Lương',  value: 'nhan_luong'},									
-							{text: 'Bảo hiểm',  value: 'bao_hiem'},
-							{text: 'Cho thuê nhà, mặt bằng',  value: 'cho_thue_nha'},
-	                    	{text: 'Khác',  value: 'khac'}
-						]
+	                    options: AppConfig.incomeType
                     },
                      {
                         xtype: 'numberfield',

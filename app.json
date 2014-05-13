@@ -3,12 +3,16 @@
     "indexHtmlPath": "index.html",
     "url": null,
     "js": [
+		{
+			"path": "cordova.js",
+			"remote": true
+		},
         {
             "path": "libs/sencha-touch-all.js",
              "update": "delta"
         },
         {
-	    "path":"config.js",
+	    	"path":"config.js",
             "update": "delta"
         },
         {
