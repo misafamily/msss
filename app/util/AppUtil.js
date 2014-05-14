@@ -1,6 +1,6 @@
 Ext.define('MyApp.util.AppUtil', {
 	alternateClassName : 'AppUtil',
-	requires : ['MyApp.model.SavedVar'],
+	requires : ['MyApp.model.SavedVar','MyApp.util.AchievementManager'],
 	singleton : true,
 	dbConnection : null,
 	_lang : 'en',
@@ -85,6 +85,16 @@ Ext.define('MyApp.util.AppUtil', {
 		var me = this;
 		me.getDbConnection();
 		me.initLocalStorage();
+		me.initAchievementManager();
+	},
+		
+	initAchievementManager: function() {
+		var me = this;
+		if (!me.achievementManager) {			
+	    	me.achievementManager = Ext.create('MyApp.util.AchievementManager');	    	
+		}
+		
+		//return me.achievementManager;
 	},
 
 	initLocalStorage : function() {
@@ -201,6 +211,8 @@ Ext.define('MyApp.util.AppUtil', {
 			MyApp.app.fireEvent('expense_changed', now);
 		});
 	},
+	
+	
 
 	saveCashModel : function() {
 		var me = this;
